@@ -12,6 +12,7 @@ Some text.
 .. toctree::
     :hidden:
 
+    features/index
     objects/index
     persistence/index
     matchings

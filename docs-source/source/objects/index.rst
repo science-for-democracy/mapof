@@ -5,4 +5,5 @@ Objects
     :maxdepth: 2
 
     Experiment
+    Family
     Instance

@@ -4,6 +4,12 @@ import numpy as np
 
 
 def generate_mallows_votes(num_voters, num_candidates, phi=0.5, weight=0, **kwargs):
+    """
+
+    Generates num_voters votes from Mallows culture_id
+        with num_candidates candidates and dispersion parameter phi
+
+    """
     if phi is None:
         logging.warning('phi is not defined')
     insertion_probabilites_list = []

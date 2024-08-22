@@ -20,7 +20,7 @@ COLORS = []
 
 
 class Experiment:
-    """ Experiment object. """
+    """ Experiment object """
     __metaclass__ = ABCMeta
     """Abstract set of instances."""
 
