@@ -1,8 +1,8 @@
 import csv
 import os
 
-from mapel.core.glossary import *
-from mapel.core.utils import make_folder_if_do_not_exist
+from mapof.core.glossary import *
+from mapof.core.utils import make_folder_if_do_not_exist
 
 
 def export_feature_to_file(experiment,

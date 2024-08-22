@@ -10,11 +10,11 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from scipy.stats import stats
 
-import mapel.core.embedding.embed as embed
-import mapel.core.persistence.experiment_exports as exports
-import mapel.core.persistence.experiment_imports as imports
-import mapel.core.printing as pr
-from mapel.core.objects.Family import Family
+import mapof.core.embedding.embed as embed
+import mapof.core.persistence.experiment_exports as exports
+import mapof.core.persistence.experiment_imports as imports
+import mapof.core.printing as pr
+from mapof.core.objects.Family import Family
 
 COLORS = []
 

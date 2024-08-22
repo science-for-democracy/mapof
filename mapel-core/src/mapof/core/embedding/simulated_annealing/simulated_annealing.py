@@ -4,8 +4,8 @@ from random import random
 
 import numpy as np
 
-from mapel.core.embedding.initial_positions import initial_place_points
-from mapel.core.embedding.simulated_annealing.simulated_annealing_energy import get_total_energy
+from mapof.core.embedding.initial_positions import initial_place_points
+from mapof.core.embedding.simulated_annealing.simulated_annealing_energy import get_total_energy
 
 
 class SimulatedAnnealing:

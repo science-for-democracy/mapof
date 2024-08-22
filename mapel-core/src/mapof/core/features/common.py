@@ -2,7 +2,7 @@ from typing import List, Dict
 
 import numpy as np
 
-from mapel.core.objects.Experiment import Experiment
+from mapof.core.objects.Experiment import Experiment
 
 
 def extract_selected_distances(experiment: Experiment, election_ids: List[str]):

@@ -11,8 +11,8 @@ try:
 except ImportError:
     tikzplotlib = None
 
-from mapel.core.glossary import *
-import mapel.core.persistence.experiment_imports as imports
+from mapof.core.glossary import *
+import mapof.core.persistence.experiment_imports as imports
 
 
 def _get_main_mask(mask):

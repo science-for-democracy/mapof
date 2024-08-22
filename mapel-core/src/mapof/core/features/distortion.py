@@ -7,10 +7,10 @@ from typing import List
 
 import numpy as np
 
-from mapel.core.features.common import extract_selected_coordinates_from_experiment, \
+from mapof.core.features.common import extract_selected_coordinates_from_experiment, \
     extract_selected_distances, \
     extract_calculated_distances, MockExperiment
-from mapel.core.objects.Experiment import Experiment
+from mapof.core.objects.Experiment import Experiment
 
 
 def _close_zero(number, e=1e-6):
