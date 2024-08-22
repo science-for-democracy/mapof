@@ -2,10 +2,10 @@ import time
 
 import numpy as np
 
-from mapof.core.embedding.initial_positions import initial_place_on_circumference, initial_place_inside_square, \
+from src.mapof.core.embedding.initial_positions import initial_place_on_circumference, initial_place_inside_square, \
     initial_place_points
-from mapof.core.embedding.kamada_kawai.energy_functions import _close_zero, get_total_energy, get_total_energy_dxy
-from mapof.core.embedding.kamada_kawai.optimization_algorithms import optimize_bb, _get_delta_energy, _optimize_newton, \
+from src.mapof.core.embedding.kamada_kawai.energy_functions import _close_zero, get_total_energy, get_total_energy_dxy
+from src.mapof.core.embedding.kamada_kawai.optimization_algorithms import optimize_bb, _get_delta_energy, _optimize_newton, \
     adam, _get_pos_k_l_x_y_for_i
 
 

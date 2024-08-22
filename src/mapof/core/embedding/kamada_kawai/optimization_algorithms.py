@@ -2,7 +2,7 @@ import collections
 
 import numpy as np
 
-from mapof.core.embedding.kamada_kawai.energy_functions import get_energy_dx, get_energy_dy, get_energy_dx_dx, \
+from src.mapof.core.embedding.kamada_kawai.energy_functions import get_energy_dx, get_energy_dy, get_energy_dx_dx, \
     get_energy_dx_dy, get_energy_dy_dx, get_energy_dy_dy
 
 

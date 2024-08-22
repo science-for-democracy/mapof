@@ -20,9 +20,8 @@ COLORS = []
 
 
 class Experiment:
-    """ Experiment object """
-    __metaclass__ = ABCMeta
     """Abstract set of instances."""
+    __metaclass__ = ABCMeta
 
     def __init__(self,
                  experiment_id: str = None,

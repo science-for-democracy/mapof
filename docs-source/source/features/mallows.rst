@@ -1,6 +1,6 @@
 Mallows
 =======
 
-.. automodule:: src.mapof.core.mallows
+.. automodule:: src.mapof.core.features.mallows
     :members:
 

@@ -1,6 +1,6 @@
 Stability
 =========
 
-.. automodule:: src.mapof.core.stability
+.. automodule:: src.mapof.core.features.stability
     :members:
 

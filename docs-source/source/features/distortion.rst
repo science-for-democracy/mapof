@@ -1,6 +1,6 @@
 Distortion
 ==========
 
-.. automodule:: src.mapof.core.distortion
+.. automodule:: src.mapof.core.features.distortion
     :members:
 

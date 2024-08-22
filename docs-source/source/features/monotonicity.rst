@@ -1,6 +1,6 @@
 Montonicity
 ===========
 
-.. automodule:: src.mapof.core.monotonicity
+.. automodule:: src.mapof.core.features.monotonicity
     :members:
 

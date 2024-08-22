@@ -3,10 +3,10 @@ import logging
 import networkx as nx
 import numpy as np
 
-import mapof.core.persistence.experiment_exports as exports
-import mapof.core.printing as pr
-from mapof.core.embedding.kamada_kawai.kamada_kawai import KamadaKawai
-from mapof.core.embedding.simulated_annealing.simulated_annealing import SimulatedAnnealing
+import src.mapof.core.persistence.experiment_exports as exports
+import src.mapof.core.printing as pr
+from src.mapof.core.embedding.kamada_kawai.kamada_kawai import KamadaKawai
+from src.mapof.core.embedding.simulated_annealing.simulated_annealing import SimulatedAnnealing
 
 try:
     from sklearn.manifold import MDS
