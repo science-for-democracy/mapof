@@ -1,6 +1,6 @@
 Experiment Exports
 ==================
 
-.. automodule:: core.persistence.experiment_exports
+.. automodule:: src.mapof.core.persistence.experiment_exports
     :members:
 

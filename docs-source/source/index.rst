@@ -17,4 +17,5 @@ Some text.
     matchings
     inner_distances
     printing
+    utils
 

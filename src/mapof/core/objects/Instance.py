@@ -1,6 +1,7 @@
 
 
 class Instance:
+    """ Instance object """
 
     def __init__(self,
                  experiment_id: str,

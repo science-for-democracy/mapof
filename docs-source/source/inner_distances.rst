@@ -1,6 +1,6 @@
 Inner Distances
 ===============
 
-.. automodule:: core.inner_distances
+.. automodule:: src.mapof.core.inner_distances
     :members:
 
