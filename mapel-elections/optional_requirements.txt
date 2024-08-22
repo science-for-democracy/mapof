@@ -1,3 +1,0 @@
-abcvoting~=2.0.0b0
-pulp~=2.5.1
-permanent

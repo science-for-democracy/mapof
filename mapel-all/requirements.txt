@@ -1,4 +1,0 @@
-mapel-core==2.1.12
-mapel-elections==2.1.12
-mapel-roommates==2.1.12
-mapel-marriages==2.1.12
