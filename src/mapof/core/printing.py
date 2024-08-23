@@ -78,7 +78,7 @@ def print_map_2d(
         mask: str = None
 ):
     """
-    Print map of instances on a 2d plane.
+    Prints map of instances on a 2d plane.
 
     Parameters
     ----------

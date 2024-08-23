@@ -216,7 +216,7 @@ def add_coordinates_to_experiment(experiment,
                                   dim: int = 2,
                                   file_name: str = None) -> dict:
     """
-    Import from a file precomputed coordinates of all the points,
+    Imports from a file precomputed coordinates of all the points,
     where each point refer to one instance
 
     Parameters

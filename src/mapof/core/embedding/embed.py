@@ -43,6 +43,7 @@ def embed(experiment_id,
           right=None,
           down=None,
           **kwargs) -> None:
+    """ Embeds the distances of an experiment using a given embedding method. """
 
     if attraction_factor is None:
         attraction_factor = 1

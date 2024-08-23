@@ -11,7 +11,7 @@ def solve_matching_vectors(cost_table) -> (float, list):
     Parameters
     ----------
         cost_table
-           Cost table.
+            Cost table.
     Returns
     -------
         (float, list)
@@ -35,7 +35,7 @@ def solve_matching_matrices(
     Parameters
     ----------
         matrix_1
-           First square matrix.
+            First square matrix.
         matrix_2
             Second square matrix.
         length

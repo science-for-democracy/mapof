@@ -1,17 +1,14 @@
-.. mapof documentation master file, created by
-   sphinx-quickstart on Thu Aug 22 19:35:20 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Mapof
+=====
 
-mapof documentation
-===================
-
-Some text.
+Mapof is the core package.
 
 
 .. toctree::
     :hidden:
 
+    Mapof <self>
+    embedding/index
     features/index
     objects/index
     persistence/index

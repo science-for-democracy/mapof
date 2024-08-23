@@ -84,6 +84,7 @@ class Experiment:
             self.coordinates = {}
 
     def import_instances(self, instances):
+        """ Imports instances to the experiment. """
         if isinstance(instances, dict):
             self.instances = instances
         elif self.is_imported and self.experiment_id is not None:
@@ -97,6 +98,7 @@ class Experiment:
             self.instances = {}
 
     def import_distances(self, distances):
+        """ Imports distances to the experiment. """
         if isinstance(distances, dict):
             self.distances = distances
         elif self.is_imported and self.experiment_id is not None:
@@ -106,6 +108,7 @@ class Experiment:
             self.distances = {}
 
     def import_coordinates(self, coordinates, coordinates_names, dim=None):
+        """ Imports coordinates to the experiment. """
         if dim is None:
             dim = self.dim
 
@@ -128,6 +131,7 @@ class Experiment:
             self.coordinates = {}
 
     def reset_cultures(self):
+
         self.families = {}
         self.num_families = 0
         self.instances = {}
@@ -166,24 +170,31 @@ class Experiment:
         pass
 
     def embed_2d(self, **kwargs) -> None:
+        """ Embeds the instances in 2D. """
         embed.embed(self, dim=2, **kwargs)
 
     def embed_3d(self, **kwargs) -> None:
+        """ Embeds the instances in 3D. """
         embed.embed(self, dim=3, **kwargs)
 
     def print_map_1d(self, **kwargs) -> None:
+        """ Prints the map of the instances in 1D."""
         pr.print_map_1d(self, **kwargs)
 
     def print_map_2d(self, **kwargs) -> None:
+        """ Prints the map of the instances in 2D. """
         pr.print_map_2d(self, **kwargs)
 
     def print_map_2d_colored_by_feature(self, **kwargs) -> None:
+        """ Prints the map of the instances in 2D colored by feature. """
         pr.print_map_2d_colored_by_feature(self, **kwargs)
 
     def print_map_2d_colored_by_features(self, **kwargs) -> None:
+        """ Prints the map of the instances in 2D colored by features."""
         pr.print_map_2d_colored_by_features(self, **kwargs)
 
     def print_map_3d(self, **kwargs) -> None:
+        """ Prints the map of the instances in 3D. """
         pr.print_map_3d(self, **kwargs)
 
     def print_map(self, dim: int = 2, **kwargs) -> None:
@@ -198,7 +209,7 @@ class Experiment:
         pr.print_matrix(experiment=self, **kwargs)
 
     def compute_coordinates_by_families(self, dim=2) -> None:
-        """ Group all points by their families """
+        """ Groups all points by their families """
 
         coordinates_by_families = {}
 
@@ -255,7 +266,7 @@ class Experiment:
         self.coordinates_by_families = coordinates_by_families
 
     def get_distance(self, i, j):
-        """ Compute Euclidean distance in two-dimensional space"""
+        """ Computes Euclidean distance in two-dimensional space"""
 
         distance = 0.
         for d in range(2):
@@ -264,7 +275,7 @@ class Experiment:
         return math.sqrt(distance)
 
     def rotate(self, angle) -> None:
-        """ Rotate all the points by a given angle """
+        """ Rotates all the points by a given angle """
 
         for instance_id in self.instances:
             self.coordinates[instance_id][0], self.coordinates[instance_id][1] = \
@@ -274,7 +285,7 @@ class Experiment:
         self.compute_coordinates_by_families()
 
     def reverse(self, axis=0) -> None:
-        """ Reverse all the points"""
+        """ Reverses all the points"""
 
         if axis == 0:
             for instance_id in self.instances:
@@ -363,6 +374,19 @@ class Experiment:
             label_size=20,
             ticks_size=10
     ):
+        """
+        Prints correlation between two distances.
+
+        Parameters
+        ----------
+            distance_id_1 : str
+                Name of the first distance.
+            distance_id_2 : str
+                Name of the second distance.
+            title : str
+                Title of the plot.
+        """
+
         if distance_id_1 is None:
             logging.warning('distance_id_1 is not defined')
         if distance_id_2 is None:
