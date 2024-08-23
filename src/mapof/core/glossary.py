@@ -2,11 +2,15 @@ MAIN_LOCAL_FEATUERS = []
 
 MAIN_GLOBAL_FEATUERS = ['distortion', 'monotonicity']
 
-ELECTION_GLOBAL_FEATURES = {'clustering',
-                            'clustering_kmeans',
-                            'distortion_from_all',
-                            'id_vs_un',
-                            'an_vs_st', }
+EMBEDDING_RELATED_FEATURE = ['monotonicity_triplets', 'distortion_from_all']
+
+ELECTION_GLOBAL_FEATURES = {
+    'clustering',
+    'clustering_kmeans',
+    'distortion_from_all',
+    'id_vs_un',
+    'an_vs_st'
+}
 
 RULE_NAME_MATRIX = {
     "av": "AV",
@@ -125,61 +129,25 @@ NICE_NAME = {
 }
 
 SHORT_NICE_NAME = {
-'Impartial Culture': 'IC',
-'SP by Conitzer': 'SP (Con.)',
-'SP by Walsh': 'SP (Wal.)',
-'SPOC': 'SPOC',
-'Single-Crossing': 'SC',
-'Interval': 'Interval',
-'Disc': 'Disc',
-'Cube': 'Cube',
-'Circle': 'Circle',
-'Urn (gamma)': 'Urn',
-'Norm-Mallows (uniform)': 'N-Mallows',
-'GS Balanced': 'GS (Bal.)',
-'GS Caterpillar': 'GS (Cat.)',
-'ID': 'ID',
-'AN': 'AN',
-'ST': 'ST',
-'UN': 'UN',
-'1D Uniform': '1D',
-'2D Uniform': '2D',
-'3D Uniform': '3D',
-'2D Sphere': 'Circle',
+    'Impartial Culture': 'IC',
+    'SP by Conitzer': 'SP (Con.)',
+    'SP by Walsh': 'SP (Wal.)',
+    'SPOC': 'SPOC',
+    'Single-Crossing': 'SC',
+    'Interval': 'Interval',
+    'Disc': 'Disc',
+    'Cube': 'Cube',
+    'Circle': 'Circle',
+    'Urn (gamma)': 'Urn',
+    'Norm-Mallows (uniform)': 'N-Mallows',
+    'GS Balanced': 'GS (Bal.)',
+    'GS Caterpillar': 'GS (Cat.)',
+    'ID': 'ID',
+    'AN': 'AN',
+    'ST': 'ST',
+    'UN': 'UN',
+    '1D Uniform': '1D',
+    '2D Uniform': '2D',
+    '3D Uniform': '3D',
+    '2D Sphere': 'Circle',
 }
-
-LIST_OF_PREFLIB_MODELS = {'sushi', 'irish', 'glasgow', 'skate', 'formula',
-                          'tshirt', 'cities_survey', 'aspen', 'ers',
-                          'marble', 'cycling_tdf', 'cycling_gdi',
-                          'ice_races', 'grenoble', 'speed_skating',
-                          'irish_bis', 'speed_skating_bis', 'skate_bis'}
-
-LIST_OF_FAKE_MODELS = {'identity', 'uniformity', 'antagonism',
-                       'stratification', 'mallows_matrix_path',
-                       'unid', 'anid', 'stid', 'anun', 'stun', 'stan',
-                       'crate', 'walsh_matrix', 'conitzer_matrix',
-                       'single-crossing_matrix', 'gs_caterpillar_matrix',
-                       'norm-mallows_matrix', 'sushi_matrix',
-                       'walsh_path', 'conitzer_path', 'from_approval'}
-
-PATHS = {'unid', 'stan', 'anid', 'stid', 'anun', 'stun',
-         'mallows_matrix_path', 'walsh_path', 'conitzer_path', }
-
-APPROVAL_MODELS = {'impartial_culture', 'ic', 'resampling', 'id',
-                   'empty', 'full', 'truncated_urn',
-                   'urn', 'euclidean', 'noise',
-                   'zeros', 'ones',
-                   'id_0.5', 'ic_0.5',
-                   'half_1', 'half_2', 'disjoint_resampling',
-                   'simplex_resampling',
-                   'vcr', 'truncated_mallows', 'moving_resampling',
-                   'jaccard', 'skeleton', 'anti_pjr',
-                   'partylist'}
-
-APPROVAL_FAKE_MODELS = {'approval_half_1', 'approval_half_2', 'approval_skeleton'}
-
-
-NOT_ABCVOTING_RULES = {'borda_c4',
-                       'random'}
-
-EMBEDDING_RELATED_FEATURE = ['monotonicity_triplets', 'distortion_from_all']
