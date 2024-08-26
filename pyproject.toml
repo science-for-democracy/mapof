@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools>=65", "wheel", "pybind11>=2.6.1"]
+requires = ["setuptools>=65", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "mapof"
-version = "0.0.1"
+version = "0.0.2alpha0"
 authors = [
  {name = "Stanislaw Szufa", email = "s.szufa@gmail.com"},
  {name = "Niclas Boehmer", email = "niclas.boehmer@tu-berlin.de"},
