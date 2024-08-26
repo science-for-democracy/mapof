@@ -1,5 +1,3 @@
-
-
 class Instance:
     """ Instance object """
 

@@ -6,9 +6,9 @@ from typing import List
 
 import numpy as np
 
-from src.mapof.core.features.common import extract_selected_distances, \
+from mapof.core.features.common import extract_selected_distances, \
     extract_selected_coordinates_from_experiment, MockExperiment
-from src.mapof.core.objects.Experiment import Experiment
+from mapof.core.objects.Experiment import Experiment
 
 
 def _remove_diagonal(A):

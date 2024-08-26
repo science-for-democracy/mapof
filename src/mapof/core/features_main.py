@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from src.mapof.core.features.distortion import calculate_distortion, calculate_distortion_naive
-from src.mapof.core.features.monotonicity import calculate_monotonicity, calculate_monotonicity_naive
+from mapof.core.features.distortion import calculate_distortion, calculate_distortion_naive
+from mapof.core.features.monotonicity import calculate_monotonicity, calculate_monotonicity_naive
 
 
 def get_main_local_feature(feature_id):

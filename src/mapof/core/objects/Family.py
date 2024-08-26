@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-
-
 class Family:
     """ Family of elections: a set of instances from the same culture """
 
