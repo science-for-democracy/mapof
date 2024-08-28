@@ -1,6 +1,6 @@
 Experiment Imports
 ==================
 
-.. automodule:: src.mapof.core.persistence.experiment_imports
+.. automodule:: mapof.core.persistence.experiment_imports
     :members:
 

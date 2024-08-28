@@ -1,6 +1,6 @@
 Experiment Object
 =================
 
-.. automodule:: src.mapof.core.objects.Experiment
+.. automodule:: mapof.core.objects.Experiment
     :members:
 

@@ -9,7 +9,7 @@
 import os
 import sys
 # sys.path.insert(0, os.path.abspath(os.path.join("..","..","src","mapof")))
-sys.path.insert(0, os.path.abspath(os.path.join("..", "..")))
+sys.path.insert(0, os.path.abspath(os.path.join("..", "..", "src")))
 
 project = 'mapof'
 copyright = '2024, Stanisław Szufa and Andrzej Kaczmarczyk'

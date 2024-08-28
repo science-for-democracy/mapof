@@ -1,6 +1,6 @@
 Utils
 =====
 
-.. automodule:: src.mapof.core.utils
+.. automodule:: mapof.core.utils
     :members:
 

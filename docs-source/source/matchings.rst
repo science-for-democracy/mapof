@@ -1,6 +1,6 @@
 Matchings
 =========
 
-.. automodule:: src.mapof.core.matchings
+.. automodule:: mapof.core.matchings
     :members:
 

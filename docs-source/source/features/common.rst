@@ -1,6 +1,6 @@
 Common
 ======
 
-.. automodule:: src.mapof.core.features.common
+.. automodule:: mapof.core.features.common
     :members:
 

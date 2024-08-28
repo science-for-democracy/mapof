@@ -1,6 +1,6 @@
 Instance Object
 ===============
 
-.. automodule:: src.mapof.core.objects.Instance
+.. automodule:: mapof.core.objects.Instance
     :members:
 

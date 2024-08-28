@@ -1,6 +1,6 @@
 Embed
 =====
 
-.. automodule:: src.mapof.core.embedding.embed
+.. automodule:: mapof.core.embedding.embed
     :members:
 

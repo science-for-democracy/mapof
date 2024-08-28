@@ -1,6 +1,6 @@
 Printing
 ========
 
-.. automodule:: src.mapof.core.printing
+.. automodule:: mapof.core.printing
     :members:
 
