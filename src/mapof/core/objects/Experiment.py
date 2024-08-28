@@ -18,7 +18,8 @@ from mapof.core.objects.Family import Family
 
 COLORS = []
 
-
+#TODO: this is python 2.7's way of doing ABC metaclasses
+#update this as the first patch to this mapof
 class Experiment:
     """Abstract set of instances."""
     __metaclass__ = ABCMeta

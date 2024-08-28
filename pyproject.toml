@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mapof"
-version = "0.0.2alpha2"
+version = "0.0.2alpha3"
 authors = [
  {name = "Stanislaw Szufa", email = "s.szufa@gmail.com"},
  {name = "Niclas Boehmer", email = "niclas.boehmer@tu-berlin.de"},
@@ -18,7 +18,7 @@ classifiers=[
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent"
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = {file = "LICENSE.txt"}
 readme = "README.md"
 dynamic = ["dependencies"]
