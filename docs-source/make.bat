@@ -4,11 +4,13 @@ pushd %~dp0
 
 REM Command file for Sphinx documentation
 
-if "%SPHINXBUILD%" == "" (
-	set SPHINXBUILD=sphinx-build
-)
-set SOURCEDIR=.
-set BUILDDIR=_build
+REM You can set these variables from the command line, and also
+REM from the environment for the first two.
+SET SPHINXOPTS=
+SET SPHINXBUILD=sphinx-build
+SET SOURCEDIR=source
+SET LOCALBUILDDIR=build
+SET GITHUBBUILDDIR=..\docs
 
 %SPHINXBUILD% >NUL 2>NUL
 if errorlevel 9009 (
@@ -24,12 +26,38 @@ if errorlevel 9009 (
 )
 
 if "%1" == "" goto help
-
-%SPHINXBUILD% -M %1 %SOURCEDIR% %BUILDDIR% %SPHINXOPTS% %O%
-goto end
+if "%1" == "help" goto help
+if "%1" == "github" goto github
+if "%1" == "githubclean" goto githubclean
+if "%1" == "html" goto html
+goto all
 
 :help
-%SPHINXBUILD% -M help %SOURCEDIR% %BUILDDIR% %SPHINXOPTS% %O%
+    %SPHINXBUILD% -M help "%SOURCEDIR%" "%LOCALBUILDDIR%" %SPHINXOPTS% %O%
+    goto end
+
+:github
+    %SPHINXBUILD% -M doctest "%SOURCEDIR%" "%LOCALBUILDDIR%" %SPHINXOPTS% %O%
+    echo. > "%GITHUBBUILDDIR%\.nojekyll"
+    %SPHINXBUILD% -b html "%SOURCEDIR%" "%GITHUBBUILDDIR%" %SPHINXOPTS% %O%
+    goto end
+
+:githubclean
+    %SPHINXBUILD% -M clean "%SOURCEDIR%" "%GITHUBBUILDDIR%" %SPHINXOPTS% %O%
+    goto end
+
+:html
+    %SPHINXBUILD% -M doctest "%SOURCEDIR%" "%LOCALBUILDDIR%" %SPHINXOPTS% %O%
+    %SPHINXBUILD% -b html "%SOURCEDIR%" "%LOCALBUILDDIR%" %SPHINXOPTS% %O%
+    goto end
+
+REM Catch-all target: route all unknown targets to Sphinx using the new
+REM "make mode" option.  %O% is meant as a shortcut for %SPHINXOPTS%.
+:all
+    %SPHINXBUILD% -M %1 "%SOURCEDIR%" "%LOCALBUILDDIR%" %SPHINXOPTS% %O%
+    goto end
 
 :end
+
 popd
+
