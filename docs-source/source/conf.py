@@ -56,3 +56,11 @@ doctest_path = [".."]
 
 html_theme = 'sphinx_book_theme'
 # html_static_path = ['_static']
+
+
+html_title = "Map of Objects"
+html_theme_options = {
+    "repository_url": "https://github.com/science-for-democracy/mapof",
+    "use_repository_button": True,
+    "navigation_with_keys": True,
+}
