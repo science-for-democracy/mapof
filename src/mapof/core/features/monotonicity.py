@@ -35,12 +35,6 @@ def calculate_monotonicity(experiment: Experiment, election_ids: List[str] = Non
     desired_triangles_diff, desired_mask, _ = _get_triangles_differences(desired_distances, good_distances_mask)
     mul = calculated_triangles_diff * desired_triangles_diff
 
-    # print(calculated_triangles_diff)
-    # print(desired_triangles_diff)
-    # print(mul)
-    # print(np.abs(calculated_triangles_diff))
-
-
     good_triangles = mul > 0
     good_triangles |= (mul < 0) & (np.abs(calculated_triangles_diff) <= error_tolerance * coor_min)
 
@@ -55,13 +49,9 @@ def _get_triangles_differences(distances, good_distances_mask):
     n = distances.shape[0]
     coordinates_delta = _remove_diagonal(distances)
 
-    # print(coordinates_delta)
-
     coor_min = np.minimum(coordinates_delta[:, :, np.newaxis], coordinates_delta[:, np.newaxis, :])
 
     coordinates_delta = coordinates_delta[:, :, np.newaxis] - coordinates_delta[:, np.newaxis, :]
-
-    # print(coordinates_delta[:, :, np.newaxis])
 
     iu1 = np.triu_indices(n - 1, k=1)
     fill = np.zeros(shape=(n - 1, n - 1), dtype=bool)
@@ -105,7 +95,6 @@ def calculate_monotonicity_naive(experiment: Experiment, election_ids: List[str]
                     all_distances[i] += 1
                     if is_good:
                         good_distances[i] += 1
-        # print(good_distances[i] / all_distances[i])
     return {
         election: good_distances[i] / all_distances[i] for i, election in enumerate(election_ids)
     }
