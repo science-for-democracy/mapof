@@ -5,10 +5,12 @@ from mapof.core.glossary import *
 from mapof.core.utils import make_folder_if_do_not_exist
 
 
-def export_feature_to_file(experiment,
-                           feature_id,
-                           feature_dict,
-                           saveas):
+def export_feature_to_file(
+        experiment,
+        feature_id,
+        feature_dict,
+        saveas
+) -> None:
     """
     Exports feature to .csv file.
 
@@ -22,6 +24,10 @@ def export_feature_to_file(experiment,
             Dictionary with feature values.
         saveas : str
             Name of the file to save the feature to.
+
+    Returns
+    -------
+        None
     """
 
     path_to_folder = os.path.join(os.getcwd(), "experiments", experiment.experiment_id, "features")
@@ -44,9 +50,11 @@ def export_feature_to_file(experiment,
             writer.writerow(row)
 
 
-def export_normalized_feature_to_file(experiment,
-                                      feature_dict=None,
-                                      saveas=None):
+def export_normalized_feature_to_file(
+        experiment,
+        feature_dict: dict = None,
+        saveas: str = None
+) -> None:
     """
     Exports normalized feature to .csv file.
 
@@ -58,6 +66,10 @@ def export_normalized_feature_to_file(experiment,
             Dictionary with feature values.
         saveas : str
             Name of the file to save the feature to.
+
+    Returns
+    -------
+        None
     """
 
     path_to_file = os.path.join(os.getcwd(), "experiments", experiment.experiment_id, "features",
@@ -75,11 +87,13 @@ def export_normalized_feature_to_file(experiment,
 
 
 # Embeddings
-def export_embedding_to_file(experiment,
-                             embedding_id: str,
-                             saveas: str,
-                             dim: int,
-                             my_pos):
+def export_embedding_to_file(
+        experiment,
+        embedding_id: str,
+        saveas: str,
+        dim: int,
+        my_pos
+) -> None:
     """
     Exports coordinates of all instances to a .csv file.
 
@@ -95,6 +109,10 @@ def export_embedding_to_file(experiment,
             Dimension of the embedding.
         my_pos:
             list of coordinates
+
+    Returns
+    -------
+        None
     """
 
     if saveas is None:
@@ -132,12 +150,13 @@ def export_embedding_to_file(experiment,
 
 
 # Distances
-def export_distances_to_file(experiment,
-                             distance_id,
-                             distances,
-                             times,
-                             self_distances=False,
-                             ids=None):
+def export_distances_to_file(
+        experiment,
+        distance_id: str,
+        distances: dict,
+        times: dict,
+        ids=None
+) -> None:
     """
     Exports distances between each pair of instances to a .csv file.
 
@@ -151,10 +170,12 @@ def export_distances_to_file(experiment,
             Dictionary with distances between each pair of instances
         times : dict
             Dictionary with time of calculation of each distance.
-        self_distances : bool
-            Flag indicating whether to export self-distances.
         ids:
             List of the Ids.
+
+    Returns
+    -------
+        None
     """
 
     path_to_folder = os.path.join(os.getcwd(), "experiments", experiment.experiment_id, "distances")
@@ -178,7 +199,7 @@ def export_distances_multiple_processes(
         distances,
         times,
         process_id
-):
+) -> None:
     """
     Exports distances between each pair of instances to a .csv file.
 
@@ -193,7 +214,11 @@ def export_distances_multiple_processes(
         times : dict
             Dictionary with time of calculation of each distance.
         process_id : bool
-            Id of the process.
+            ID of the process.
+
+    Returns
+    -------
+        None
     """
 
     file_name = f'{experiment.distance_id}_p{process_id}.csv'

@@ -65,7 +65,7 @@ def import_distances_from_file(experiment, distance_id) -> dict:
 def add_distances_to_experiment(experiment) -> (dict, dict, dict, dict):
     """
     Imports precomputed distances between each pair of instances
-    from a file while preparing an experiment
+    from a file while preparing an experiment.
 
     Parameters
     ----------
@@ -164,16 +164,17 @@ def add_distances_to_experiment(experiment) -> (dict, dict, dict, dict):
         return distances, times, stds, mappings
 
     except FileNotFoundError:
-        return None, None, None, None
+        return dict(), dict(), dict(), dict()
 
 
-def get_values_from_csv_file(experiment,
-                             feature_id,
-                             feature_long_id=None,
-                             upper_limit=np.infty,
-                             lower_limit=-np.infty,
-                             column_id='value') -> dict:
-
+def get_values_from_csv_file(
+        experiment,
+        feature_id,
+        feature_long_id=None,
+        upper_limit=np.infty,
+        lower_limit=-np.infty,
+        column_id='value'
+) -> dict:
     """
     Imports values for a feature_id from a .csv file
 
@@ -181,6 +182,8 @@ def get_values_from_csv_file(experiment,
     ----------
         experiment : Experiment
             Experiment object.
+        feature_id : str
+            Name of the feature.
 
     Returns
     -------
@@ -212,9 +215,11 @@ def get_values_from_csv_file(experiment,
     return values
 
 
-def add_coordinates_to_experiment(experiment,
-                                  dim: int = 2,
-                                  file_name: str = None) -> dict:
+def add_coordinates_to_experiment(
+        experiment,
+        dim: int = 2,
+        file_name: str = None
+) -> dict:
     """
     Imports from a file precomputed coordinates of all the points,
     where each point refer to one instance
