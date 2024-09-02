@@ -4,7 +4,7 @@ import itertools
 import logging
 import math
 import os
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 
 import matplotlib.pyplot as plt
 from PIL import Image
@@ -16,13 +16,9 @@ import mapof.core.persistence.experiment_imports as imports
 import mapof.core.printing as pr
 from mapof.core.objects.Family import Family
 
-COLORS = []
 
-#TODO: this is python 2.7's way of doing ABC metaclasses
-#update this as the first patch to this mapof
-class Experiment:
+class Experiment(ABC):
     """Abstract set of instances."""
-    __metaclass__ = ABCMeta
 
     def __init__(self,
                  experiment_id: str = None,
@@ -222,13 +218,13 @@ class Experiment:
                 model = ele.culture_id
                 family_id = model
                 label = instance_id
-                color = COLORS[int(i % len(COLORS))]
                 alpha = 1.
 
                 self.families[instance_id] = Family(
-                    culture_id=model, family_id=family_id,
-                    label=label, alpha=alpha,
-                    color=color)
+                    culture_id=model,
+                    family_id=family_id,
+                    label=label,
+                    alpha=alpha)
 
             for family_id in self.families:
 
@@ -374,7 +370,7 @@ class Experiment:
             title_size=24,
             label_size=20,
             ticks_size=10
-    ):
+    ) -> None:
         """
         Prints correlation between two distances.
 
@@ -386,6 +382,10 @@ class Experiment:
                 Name of the second distance.
             title : str
                 Title of the plot.
+
+        Returns
+        -------
+            None
         """
 
         if distance_id_1 is None:

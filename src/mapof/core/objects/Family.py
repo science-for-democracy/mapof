@@ -1,5 +1,8 @@
-class Family:
-    """ Family of elections: a set of instances from the same culture """
+from abc import ABC, abstractmethod
+
+
+class Family(ABC):
+    """ Abstract family of instances: a set of instances from the same culture """
 
     def __init__(self,
                  culture_id: str = None,

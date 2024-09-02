@@ -1,5 +1,8 @@
-class Instance:
-    """ Instance object """
+from abc import ABC, abstractmethod
+
+
+class Instance(ABC):
+    """ Abstract instance object """
 
     def __init__(self,
                  experiment_id: str,
