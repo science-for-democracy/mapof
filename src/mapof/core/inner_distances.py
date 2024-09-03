@@ -4,13 +4,26 @@ import numpy as np
 import itertools
 
 
-def map_str_to_func(name):
+def map_str_to_func(name: str) -> callable:
+    """
+    Maps a string to a function.
+
+    Parameters
+    ----------
+        name : str
+            Name of the distance.
+
+    Returns
+    -------
+        callable
+
+    """
     return {'l1': l1,
             'l2': l2,
             'chebyshev': chebyshev,
             'hellinger': hellinger,
             'emd': emd,
-            'emdinf': emd_infty,
+            'emdinf': emdinf,
             'discrete': discrete,
             'wl1': wl1,
             }.get(name)
@@ -66,9 +79,9 @@ def l1(vector_1: np.ndarray, vector_2: np.ndarray) -> float:
 
     Parameters
     ----------
-        vector_1
+        vector_1 : np.ndarray
             First vector.
-        vector_2
+        vector_2 : np.ndarray
             Second vector.
     Returns
     -------
@@ -84,9 +97,9 @@ def l2(vector_1: np.ndarray, vector_2: np.ndarray) -> float:
 
     Parameters
     ----------
-        vector_1
+        vector_1 : np.ndarray
             First vector.
-        vector_2
+        vector_2 : np.ndarray
             Second vector.
     Returns
     -------
@@ -96,15 +109,15 @@ def l2(vector_1: np.ndarray, vector_2: np.ndarray) -> float:
     return np.linalg.norm(vector_1 - vector_2, ord=2)
 
 
-def chebyshev(vector_1, vector_2) -> float:
+def chebyshev(vector_1: list, vector_2: list) -> float:
     """
     Computes the Chebyshev distance.
 
     Parameters
     ----------
-        vector_1
+        vector_1 : list
             First vector.
-        vector_2
+        vector_2 : list
             Second vector.
     Returns
     -------
@@ -114,15 +127,15 @@ def chebyshev(vector_1, vector_2) -> float:
     return max([abs(vector_1[i] - vector_2[i]) for i in range(len(vector_1))])
 
 
-def hellinger(vector_1, vector_2) -> float:
+def hellinger(vector_1: list, vector_2: list) -> float:
     """
     Computes the Hellinger distance.
 
     Parameters
     ----------
-        vector_1
+        vector_1 : list
             First vector.
-        vector_2
+        vector_2 : list
             Second vector.
     Returns
     -------
@@ -137,20 +150,34 @@ def hellinger(vector_1, vector_2) -> float:
                      * product)
 
 
-def stretch(xx, mult):
-    return [x for _ in range(mult) for x in xx]
+def _stretch(vector, mult):
+    return [x for _ in range(mult) for x in vector]
 
 
-def emd_infty(xx, yy):
-    if len(xx) != len(yy):
-        xx = stretch(xx, math.lcm(len(xx), len(yy)))
-        yy = stretch(yy, math.lcm(len(xx), len(yy)))
+def emdinf(vector_1: list, vector_2: list) -> float:
+    """
+    Computes the EMD-infinity distance.
 
-    m = len(xx)
+    Parameters
+    ----------
+        vector_1 : list
+            First vector.
+        vector_2 : list
+            Second vector.
+    Returns
+    -------
+        float
+            EMD-infinity distance.
+    """
+    if len(vector_1) != len(vector_2):
+        vector_1 = _stretch(vector_1, math.lcm(len(vector_1), len(vector_2)))
+        vector_2 = _stretch(vector_2, math.lcm(len(vector_1), len(vector_2)))
+
+    m = len(vector_1)
     cum_x = 0
     cum_y = 0
     res = 0
-    for x, y in zip(xx, yy):
+    for x, y in zip(vector_1, vector_2):
         cum_x_ = cum_x
         cum_y_ = cum_y
         cum_x += x
@@ -168,15 +195,15 @@ def emd_infty(xx, yy):
     return res
 
 
-def emd(vector_1, vector_2) -> float:
+def emd(vector_1: list, vector_2: list) -> float:
     """
     Computes the EMD distance.
 
     Parameters
     ----------
-        vector_1
+        vector_1 : list
             First vector.
-        vector_2
+        vector_2 : list
             Second vector.
     Returns
     -------
@@ -194,13 +221,13 @@ def emd(vector_1, vector_2) -> float:
 
 def hamming(set_1: set, set_2: set) -> int:
     """
-    Computes the Hamming distance.
+    Computes the Hamming distance between two sets.
 
     Parameters
     ----------
-        vector_1
+        set_1 : set
             First vector.
-        vector_2
+        set_2 : set
             Second vector.
     Returns
     -------
@@ -210,9 +237,18 @@ def hamming(set_1: set, set_2: set) -> int:
     return len(set_1.symmetric_difference(set_2))
 
 
-# TMP
 def vote_to_pote(vote: list) -> list:
-    """ Return: Positional vote """
+    """ Converts vote to pote (i.e. positional vote)
+
+    Parameters
+    ----------
+        vote : list
+            Ordinal vote.
+    Returns
+    -------
+        list
+            Potes (i.e. positional votes).
+    """
     return [vote.index(i) for i in range(len(vote)+1) if i in vote]
 
 

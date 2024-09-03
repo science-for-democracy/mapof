@@ -1,11 +1,9 @@
-from typing import List, Dict
-
 import numpy as np
 
 from mapof.core.objects.Experiment import Experiment
 
 
-def extract_selected_distances(experiment: Experiment, election_ids: List[str]):
+def extract_selected_distances(experiment: Experiment, election_ids: list[str]):
     n = len(election_ids)
 
     distances = np.zeros(shape=(n, n))
@@ -18,11 +16,11 @@ def extract_selected_distances(experiment: Experiment, election_ids: List[str]):
     return distances
 
 
-def extract_selected_coordinates(coordinates: Dict, election_ids: List[str]):
+def extract_selected_coordinates(coordinates: list, election_ids: list[str]):
     return np.array([coordinates[election_id] for election_id in election_ids])
 
 
-def extract_selected_coordinates_from_experiment(experiment: Experiment, election_ids: List[str]):
+def extract_selected_coordinates_from_experiment(experiment: Experiment, election_ids: list[str]):
     return extract_selected_coordinates(experiment.coordinates, election_ids)
 
 

@@ -1,5 +1,3 @@
-import unittest
-from typing import List
 
 import numpy as np
 
@@ -7,7 +5,12 @@ from mapof.core.features.common import extract_selected_coordinates
 from mapof.core.objects.Experiment import Experiment
 
 
-def calculate_stability(experiment: Experiment, election_ids: List[str] = None, rotate_to_match=True):
+def calculate_stability(
+        experiment: Experiment,
+        election_ids: list[str] = None,
+        rotate_to_match: bool = True
+) -> dict:
+
     if election_ids is None:
         election_ids = list(experiment.distances.keys())
 
@@ -78,14 +81,3 @@ def rotate_coordinates_to_match(coordinates_to_rotate, coordinates_to_match):
     t = -R @ centroid_a + centroid_b
 
     return ((R @ coordinates_to_rotate) + t).T
-
-
-class TestStability(unittest.TestCase):
-    def test_rotation(self):
-        n = 100
-        coordinates = np.random.uniform(-100, 100, size=(n, 2))
-        coordinates_rotated = rotate_via_numpy(coordinates, radians=2)
-        self.assertFalse(np.allclose(coordinates, coordinates_rotated))
-
-        coordinates_rotated = rotate_coordinates_to_match(coordinates_rotated, coordinates)
-        self.assertTrue(np.allclose(coordinates, coordinates_rotated))

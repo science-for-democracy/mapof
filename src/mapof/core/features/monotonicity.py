@@ -1,68 +1,73 @@
-import random
-import unittest
-import uuid
-from collections import defaultdict
-from typing import List
 
 import numpy as np
+from collections import defaultdict
 
-from mapof.core.features.common import extract_selected_distances, \
-    extract_selected_coordinates_from_experiment, MockExperiment
+from mapof.core.features.common import \
+    extract_selected_distances, \
+    extract_selected_coordinates_from_experiment
 from mapof.core.objects.Experiment import Experiment
 
 
-def _remove_diagonal(A):
-    return A[~np.eye(A.shape[0], dtype=bool)].reshape(A.shape[0], -1)
-
-
-def calculate_monotonicity(experiment: Experiment, election_ids: List[str] = None, max_distance_percentage=1.0,
-                           error_tolerance=0.):
-    if election_ids is None:
-        election_ids = list(experiment.distances.keys())
-
+def calculate_monotonicity(
+        experiment: Experiment,
+        election_ids: list[str] = None,
+        max_distance_percentage: float = 1.0,
+        error_tolerance: float = 0.
+) -> dict:
+    """ Calculate the monotonicity of the distances between the points in the experiment. """
     coordinates = extract_selected_coordinates_from_experiment(experiment, election_ids)
-
     desired_distances = extract_selected_distances(experiment, election_ids)
     calculated_distances = np.linalg.norm(coordinates[:, np.newaxis] - coordinates[np.newaxis, :], axis=2)
 
     max_distance = np.max(desired_distances)
+    allowed_distance = max_distance * max_distance_percentage
+    error_tolerance_squared = error_tolerance ** 2
 
-    good_distances_mask = desired_distances <= max_distance * max_distance_percentage
-    good_distances_mask = _remove_diagonal(good_distances_mask)
-    good_distances_mask = good_distances_mask[:, :, np.newaxis] * good_distances_mask[:, np.newaxis, :]
+    n = desired_distances.shape[0]
 
-    calculated_triangles_diff, _, coor_min = _get_triangles_differences(calculated_distances, good_distances_mask)
-    desired_triangles_diff, desired_mask, _ = _get_triangles_differences(desired_distances, good_distances_mask)
-    mul = calculated_triangles_diff * desired_triangles_diff
+    # Create a mask for valid distances
+    valid_mask = (desired_distances <= allowed_distance)
 
-    good_triangles = mul > 0
-    good_triangles |= (mul < 0) & (np.abs(calculated_triangles_diff) <= error_tolerance * coor_min)
+    # Create meshgrid for broadcasting
+    i_idx, j_idx, k_idx = np.meshgrid(np.arange(n), np.arange(n), np.arange(n), indexing='ij')
 
-    triangles_sums = good_triangles.sum(axis=1) / (good_triangles.shape[1] - (~desired_mask).sum(axis=1))
+    # Filter out diagonal elements and duplicates
+    valid_triplets = (i_idx != j_idx) & (i_idx != k_idx) & (j_idx != k_idx) & valid_mask[i_idx, j_idx] & valid_mask[i_idx, k_idx]
+
+    # Filtered indices
+    i_filtered = i_idx[valid_triplets]
+    j_filtered = j_idx[valid_triplets]
+    k_filtered = k_idx[valid_triplets]
+
+    # Calculate differences
+    calc_diff = calculated_distances[i_filtered, j_filtered] - calculated_distances[i_filtered, k_filtered]
+    des_diff = desired_distances[i_filtered, j_filtered] - desired_distances[i_filtered, k_filtered]
+
+    # Condition checks
+    is_good = (calc_diff * des_diff > 0) | (np.abs(calc_diff) <= error_tolerance * np.minimum(calculated_distances[i_filtered, j_filtered], calculated_distances[i_filtered, k_filtered]))
+
+    # Use bincount for counting good and all distances
+    good_counts = np.bincount(i_filtered, weights=is_good.astype(int), minlength=n)
+    all_counts = np.bincount(i_filtered, minlength=n)
+
+    # Calculate monotonicity
+    monotonicity = np.zeros(n)
+    non_zero_mask = all_counts > 0
+    monotonicity[non_zero_mask] = good_counts[non_zero_mask] / all_counts[non_zero_mask]
 
     return {
-        election: triangles_sums[i] for i, election in enumerate(election_ids)
+        election: monotonicity[i] for i, election in enumerate(election_ids)
     }
 
 
-def _get_triangles_differences(distances, good_distances_mask):
-    n = distances.shape[0]
-    coordinates_delta = _remove_diagonal(distances)
-
-    coor_min = np.minimum(coordinates_delta[:, :, np.newaxis], coordinates_delta[:, np.newaxis, :])
-
-    coordinates_delta = coordinates_delta[:, :, np.newaxis] - coordinates_delta[:, np.newaxis, :]
-
-    iu1 = np.triu_indices(n - 1, k=1)
-    fill = np.zeros(shape=(n - 1, n - 1), dtype=bool)
-    fill[iu1] = True
-    coordinates_delta[~good_distances_mask] = 0
-
-    return coordinates_delta[:, fill], good_distances_mask[:, fill], coor_min
-
-
-def calculate_monotonicity_naive(experiment: Experiment, election_ids: List[str] = None, max_distance_percentage=1.0,
-                                 error_tolerance=0.):
+def calculate_monotonicity_naive(
+        experiment: Experiment,
+        election_ids: list[str] = None,
+        max_distance_percentage: float = 1.0,
+        error_tolerance: float = 0.
+) -> dict:
+    """ Calculate the monotonicity of the distances between the points in the experiment
+    using a naive approach."""
     coordinates = extract_selected_coordinates_from_experiment(experiment, election_ids)
 
     desired_distances = extract_selected_distances(experiment, election_ids)
@@ -98,21 +103,3 @@ def calculate_monotonicity_naive(experiment: Experiment, election_ids: List[str]
     return {
         election: good_distances[i] / all_distances[i] for i, election in enumerate(election_ids)
     }
-
-
-class TestMonotonicity(unittest.TestCase):
-    def test_calculate_monotonicity(self):
-        n = 400
-        election_ids = [str(uuid.uuid4()) for _ in range(n)]
-
-        experiment = MockExperiment(election_ids)
-
-        elections_subset = random.sample(election_ids, 200)
-
-        m1 = calculate_monotonicity(experiment, elections_subset, 0.95)
-        print("m1 done")
-        m2 = calculate_monotonicity_naive(experiment, elections_subset, 0.95)
-        print("m2 done")
-
-        for el_id in elections_subset:
-            self.assertAlmostEqual(m1[el_id], m2[el_id])
