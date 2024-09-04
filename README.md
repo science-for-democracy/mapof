@@ -1,5 +1,5 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/szufix/mapel/HEAD)
-![TestsBadge](https://github.com/science-for-democracy/mapof/actions/workflows/python-tests.yml/badge.svg)
+[![MainTests](https://github.com/science-for-democracy/mapof/actions/workflows/python-tests.yml/badge.svg?branch=main)](https://github.com/science-for-democracy/mapof/actions/workflows/python-tests.yml)
 
 # Mapel
 
