@@ -39,7 +39,7 @@ jobs:
         pip install .
     - name: Test with pytest
       run: |
-        pytest --cov
+        pytest --cov=src/
     - name: Upload results to Codecov
       uses: codecov/codecov-action@v4
       with:
