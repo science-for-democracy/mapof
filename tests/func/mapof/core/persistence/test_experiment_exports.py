@@ -3,11 +3,7 @@ import csv
 import mapof.core.objects.Experiment as exp
 import mapof.core.persistence.experiment_exports as persist
 
-#@patch('exp.Experiment')
 def test_something(mocker, tmp_path):
-    #When Experiment becomes a true ABC metaclass, then the below method
-    #might appear useful!
-    #mocker.patch.multiple(exp.Experiment, __abstractmethods__=set())
     exp = mocker.patch('mapof.core.objects.Experiment.Experiment', experiment_id = "test_id")
     mocker.patch("os.getcwd", return_value = str(tmp_path))
     expected_dist = 143
@@ -22,7 +18,7 @@ def test_something(mocker, tmp_path):
      }
     dist_id = "test"
     persist.export_distances_to_file(exp,
-            dist_id, distances, times, False, [("id1", "id2")])
+            dist_id, distances, times, [("id1", "id2")])
 
     tested_file_path = tmp_path / "experiments" / exp.experiment_id / "distances" / (dist_id + ".csv")
     with open(tested_file_path, "r") as csv_file:
