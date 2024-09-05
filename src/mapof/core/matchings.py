@@ -32,6 +32,13 @@ def solve_matching_matrices(
     """
     Computes the minimal distance between two matrices.
 
+    We assume that both matrices are square matrices of the same size with zeros on the diagonal.
+
+    We allow reordering of the rows and columns of the second matrix, however, whenever we reorder
+     a row we have to reorder the corresponding column as well, and vice versa.
+
+    We use the Gurobi optimization library to solve the assignment problem.
+
     Parameters
     ----------
         matrix_1 : list[list]
@@ -111,6 +118,11 @@ def solve_matching_matrices(
     # SOLVE THE ILP
     m.setParam('OutputFlag', 0)
     m.optimize()
+
+    for var_name, var in variables.items():
+        print(f"{var_name}: {var}")
+    for constr in m.getConstrs():
+        print(constr)
 
     if m.status == GRB.OPTIMAL:
         objective_value = m.objVal
