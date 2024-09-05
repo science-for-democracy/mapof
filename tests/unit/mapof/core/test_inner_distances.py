@@ -1,6 +1,6 @@
 import unittest
 
-from src.mapof.core.inner_distances import *
+from mapof.core.inner_distances import *
 
 
 class TestDistanceFunctions(unittest.TestCase):
