@@ -162,8 +162,8 @@ def export_embedding_to_file(
 def export_distances_to_file(
         experiment,
         distance_id: str,
-        distances: dict,
-        times: dict,
+        distances:  dict[str, dict[str, int]],
+        times: dict[str, float],
         ids=None
 ) -> None:
     """
@@ -175,9 +175,9 @@ def export_distances_to_file(
            Experiment object.
         distance_id : str
             Name of the distance.
-        distances :  dict
+        distances :   dict[str, dict[str, int]]
             Dictionary with distances between each pair of instances
-        times : dict
+        times : dict[str, float]
             Dictionary with time of calculation of each distance.
         ids:
             List of the Ids.
