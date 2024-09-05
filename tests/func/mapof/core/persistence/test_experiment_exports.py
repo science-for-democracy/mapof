@@ -11,11 +11,11 @@ def test_something(mocker, tmp_path):
     expected_time = 0.25
     distances = {
         "id1": {"id1": 0, "id2": expected_dist},
-        "id2": {"id1": 2, "id2": 0}
+        "id2": {"id1": expected_dist, "id2": 0}
     }
     times = {
-        "id1": 0.1,
-        "id2": 0.2
+        "id1": {"id1": 0, "id2": 0.12},
+        "id2": {"id1": 0.12, "id2": 0}
     }
     dist_id = "test"
     persist.export_distances_to_file(

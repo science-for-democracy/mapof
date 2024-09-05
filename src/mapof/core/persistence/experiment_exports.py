@@ -163,7 +163,7 @@ def export_distances_to_file(
         experiment,
         distance_id: str,
         distances:  dict[str, dict[str, int]],
-        times: dict[str, float],
+        times: dict[str, dict[str, int]],
         ids=None
 ) -> None:
     """
@@ -177,7 +177,7 @@ def export_distances_to_file(
             Name of the distance.
         distances :   dict[str, dict[str, int]]
             Dictionary with distances between each pair of instances
-        times : dict[str, float]
+        times : dict[str, dict[str, int]]
             Dictionary with time of calculation of each distance.
         ids:
             List of the Ids.
