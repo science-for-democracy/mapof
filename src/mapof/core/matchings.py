@@ -4,13 +4,13 @@ from gurobipy import GRB
 from scipy.optimize import linear_sum_assignment
 
 
-def solve_matching_vectors(cost_table) -> (float, list):
+def solve_matching_vectors(cost_table: list[list]) -> (float, list):
     """
     Computes linear sum assignment.
 
     Parameters
     ----------
-        cost_table
+        cost_table : list[list]
             Cost table.
     Returns
     -------
@@ -24,28 +24,28 @@ def solve_matching_vectors(cost_table) -> (float, list):
 
 
 def solve_matching_matrices(
-        matrix_1,
-        matrix_2,
-        length,
-        inner_distance
+        matrix_1: list[list],
+        matrix_2: list[list],
+        length: int,
+        inner_distance: callable
 ) -> float:
     """
     Computes the minimal distance between two matrices.
 
     Parameters
     ----------
-        matrix_1
+        matrix_1 : list[list]
             First square matrix.
-        matrix_2
+        matrix_2 : list[list]
             Second square matrix.
-        length
+        length : int
             Length of the matrix.
-        inner_distance
+        inner_distance : callable
             The inner distance (like L1 or L2).
     Returns
     -------
         float
-            Objective value
+            Objective value.
     """
 
     m = gp.Model()
