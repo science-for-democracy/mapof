@@ -3,13 +3,11 @@ import os
 
 from mapof.core.utils import make_folder_if_do_not_exist
 
-from mapof.core.objects.Experiment import Experiment
-
 EMBEDDING_RELATED_FEATURE = ['monotonicity_triplets', 'distortion_from_all']
 
 
 def export_feature_to_file(
-        experiment: Experiment,
+        experiment,
         feature_id:  str,
         feature_dict: dict = None,
         saveas: str = None
@@ -57,7 +55,7 @@ def export_feature_to_file(
 
 
 def export_normalized_feature_to_file(
-        experiment : Experiment,
+        experiment,
         feature_dict: dict = None,
         saveas: str = None
 ) -> None:
@@ -97,7 +95,7 @@ def export_normalized_feature_to_file(
 
 # Embeddings
 def export_embedding_to_file(
-        experiment: Experiment,
+        experiment,
         embedding_id: str,
         saveas: str,
         dim: int,
@@ -162,7 +160,7 @@ def export_embedding_to_file(
 
 # Distances
 def export_distances_to_file(
-        experiment: Experiment,
+        experiment,
         distance_id: str,
         distances: dict,
         times: dict,

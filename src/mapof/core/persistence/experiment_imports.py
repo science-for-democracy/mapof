@@ -5,10 +5,8 @@ import os
 
 import numpy as np
 
-from mapof.core.objects.Experiment import Experiment
 
-
-def import_distances_from_file(experiment: Experiment, distance_id: str) -> dict:
+def import_distances_from_file(experiment, distance_id: str) -> dict:
     """
     Imports distances between each pair of instances from a file.
 
@@ -67,7 +65,7 @@ def import_distances_from_file(experiment: Experiment, distance_id: str) -> dict
     return distances
 
 
-def add_distances_to_experiment(experiment: Experiment) -> (dict, dict, dict, dict):
+def add_distances_to_experiment(experiment) -> (dict, dict, dict, dict):
     """
     Imports precomputed distances between each pair of instances
     from a file while preparing an experiment.
@@ -173,7 +171,7 @@ def add_distances_to_experiment(experiment: Experiment) -> (dict, dict, dict, di
 
 
 def get_values_from_csv_file(
-        experiment: Experiment,
+        experiment,
         feature_id: str,
         feature_long_id: str = None,
         upper_limit: float = np.infty,
@@ -231,7 +229,7 @@ def get_values_from_csv_file(
 
 
 def add_coordinates_to_experiment(
-        experiment: Experiment,
+        experiment,
         dim: int = 2,
         file_name: str = None
 ) -> dict:
