@@ -5,8 +5,10 @@ import os
 
 import numpy as np
 
+from mapof.core.objects.Experiment import Experiment
 
-def import_distances_from_file(experiment, distance_id) -> dict:
+
+def import_distances_from_file(experiment: Experiment, distance_id: str) -> dict:
     """
     Imports distances between each pair of instances from a file.
 
@@ -26,8 +28,11 @@ def import_distances_from_file(experiment, distance_id) -> dict:
     distances = {}
 
     file_name = f'{distance_id}.csv'
-    path = os.path.join(os.getcwd(), 'experiments', experiment.experiment_id,
-                        'distances', file_name)
+    path = os.path.join(os.getcwd(),
+                        'experiments',
+                        experiment.experiment_id,
+                        'distances',
+                        file_name)
 
     with open(path, 'r', newline='') as csv_file:
 
@@ -62,7 +67,7 @@ def import_distances_from_file(experiment, distance_id) -> dict:
     return distances
 
 
-def add_distances_to_experiment(experiment) -> (dict, dict, dict, dict):
+def add_distances_to_experiment(experiment: Experiment) -> (dict, dict, dict, dict):
     """
     Imports precomputed distances between each pair of instances
     from a file while preparing an experiment.
@@ -168,12 +173,12 @@ def add_distances_to_experiment(experiment) -> (dict, dict, dict, dict):
 
 
 def get_values_from_csv_file(
-        experiment,
-        feature_id,
-        feature_long_id=None,
-        upper_limit=np.infty,
-        lower_limit=-np.infty,
-        column_id='value'
+        experiment: Experiment,
+        feature_id: str,
+        feature_long_id: str = None,
+        upper_limit: float = np.infty,
+        lower_limit: float = -np.infty,
+        column_id: str = 'value'
 ) -> dict:
     """
     Imports values for a feature_id from a .csv file
@@ -184,6 +189,16 @@ def get_values_from_csv_file(
             Experiment object.
         feature_id : str
             Name of the feature.
+        feature_long_id: str
+            Long name of the feature.
+        upper_limit : float
+            Upper limit for the values. If the value of a feature is greater than the upper limit,
+            it is set to the upper limit.
+        lower_limit : float
+            Lower limit fot the values. If the value of a feature is smaller than the lower limit,
+            it is set to the lower limit.
+        column_id : str
+            Name of the column to be imported.
 
     Returns
     -------
@@ -216,7 +231,7 @@ def get_values_from_csv_file(
 
 
 def add_coordinates_to_experiment(
-        experiment,
+        experiment: Experiment,
         dim: int = 2,
         file_name: str = None
 ) -> dict:

@@ -1,18 +1,21 @@
 import csv
 import os
 
-from mapof.core.glossary import *
 from mapof.core.utils import make_folder_if_do_not_exist
+
+from mapof.core.objects.Experiment import Experiment
+
+EMBEDDING_RELATED_FEATURE = ['monotonicity_triplets', 'distortion_from_all']
 
 
 def export_feature_to_file(
-        experiment,
-        feature_id,
-        feature_dict,
-        saveas
+        experiment: Experiment,
+        feature_id:  str,
+        feature_dict: dict = None,
+        saveas: str = None
 ) -> None:
     """
-    Exports feature to .csv file.
+    Exports feature to a .csv file.
 
     Parameters
     ----------
@@ -34,8 +37,11 @@ def export_feature_to_file(
     make_folder_if_do_not_exist(path_to_folder)
 
     if feature_id in EMBEDDING_RELATED_FEATURE:
-        path = os.path.join(os.getcwd(), "experiments", experiment.experiment_id,
-                            "features", f'{feature_id}_{experiment.embedding_id}.csv')
+        path = os.path.join(os.getcwd(),
+                            "experiments",
+                            experiment.experiment_id,
+                            "features",
+                            f'{feature_id}_{experiment.embedding_id}.csv')
     else:
         path = os.path.join(os.getcwd(), "experiments", experiment.experiment_id,
                             "features", f'{saveas}.csv')
@@ -51,12 +57,12 @@ def export_feature_to_file(
 
 
 def export_normalized_feature_to_file(
-        experiment,
+        experiment : Experiment,
         feature_dict: dict = None,
         saveas: str = None
 ) -> None:
     """
-    Exports normalized feature to .csv file.
+    Exports normalized feature to a .csv file.
 
     Parameters
     ----------
@@ -72,7 +78,10 @@ def export_normalized_feature_to_file(
         None
     """
 
-    path_to_file = os.path.join(os.getcwd(), "experiments", experiment.experiment_id, "features",
+    path_to_file = os.path.join(os.getcwd(),
+                                "experiments",
+                                experiment.experiment_id,
+                                "features",
                                 f'{saveas}.csv')
 
     os.makedirs(os.path.dirname(path_to_file), exist_ok=True)
@@ -88,7 +97,7 @@ def export_normalized_feature_to_file(
 
 # Embeddings
 def export_embedding_to_file(
-        experiment,
+        experiment: Experiment,
         embedding_id: str,
         saveas: str,
         dim: int,
@@ -119,7 +128,9 @@ def export_embedding_to_file(
         file_name = f'{embedding_id}_{experiment.distance_id}_{str(dim)}d.csv'
     else:
         file_name = f'{saveas}.csv'
-    path_to_folder = os.path.join(os.getcwd(), "experiments", experiment.experiment_id,
+    path_to_folder = os.path.join(os.getcwd(),
+                                  "experiments",
+                                  experiment.experiment_id,
                                   "coordinates")
     make_folder_if_do_not_exist(path_to_folder)
     path_to_file = os.path.join(path_to_folder, file_name)
@@ -151,7 +162,7 @@ def export_embedding_to_file(
 
 # Distances
 def export_distances_to_file(
-        experiment,
+        experiment: Experiment,
         distance_id: str,
         distances: dict,
         times: dict,

@@ -2,8 +2,6 @@ MAIN_LOCAL_FEATUERS = []
 
 MAIN_GLOBAL_FEATUERS = ['distortion', 'monotonicity']
 
-EMBEDDING_RELATED_FEATURE = ['monotonicity_triplets', 'distortion_from_all']
-
 ELECTION_GLOBAL_FEATURES = {
     'clustering',
     'clustering_kmeans',
