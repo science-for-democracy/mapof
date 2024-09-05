@@ -25,7 +25,6 @@ def map_str_to_func(name: str) -> callable:
             'emd': emd,
             'emdinf': emdinf,
             'discrete': discrete,
-            'wl1': wl1,
             }.get(name)
 
 
@@ -66,11 +65,6 @@ def single_l1(value_1, value_2) -> float:
             L1 distance.
     """
     return abs(value_1 - value_2)
-
-
-def wl1(vector_1: np.ndarray, vector_2: np.ndarray) -> float:
-    """ Return: L1 distance """
-    return sum([len(vector_1)-i*abs(vector_1[i] - vector_2[i]) for i in range(len(vector_1))])
 
 
 def l1(vector_1: np.ndarray, vector_2: np.ndarray) -> float:
