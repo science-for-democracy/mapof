@@ -14,7 +14,7 @@ def test_something(mocker, tmp_path):
         "id2": {"id1": 2, "id2": 0}
     }
     times = {
-        "id1": {"id1": 0, "id2": 0.12},
+        "id1": {"id1": 0, "id2": expected_time},
         "id2": {"id1": 0.12, "id2": 0}
     }
     dist_id = "test"
