@@ -6,16 +6,22 @@ import os
 import numpy as np
 
 
-def import_distances_from_file(experiment, distance_id: str) -> dict:
+def import_distances_from_file(
+        experiment_id: str,
+        distance_id: str,
+        instance_ids: list
+) -> dict:
     """
     Imports distances between each pair of instances from a file.
 
     Parameters
     ----------
-        experiment : Experiment
-            Experiment object.
+        experiment_id : str
+            Name of the experiment.
         distance_id : str
             Name of the distance.
+        instance_ids : list
+            List of the Ids.
 
     Returns
     -------
@@ -28,7 +34,7 @@ def import_distances_from_file(experiment, distance_id: str) -> dict:
     file_name = f'{distance_id}.csv'
     path = os.path.join(os.getcwd(),
                         'experiments',
-                        experiment.experiment_id,
+                        experiment_id,
                         'distances',
                         file_name)
 
@@ -46,8 +52,8 @@ def import_distances_from_file(experiment, distance_id: str) -> dict:
                     instance_id_2 = row['instance_id_2']
                 except:
                     pass
-            if instance_id_1 not in experiment.instances \
-                    or instance_id_2 not in experiment.instances:
+            if instance_id_1 not in instance_ids \
+                    or instance_id_2 not in instance_ids:
                 continue
 
             if instance_id_1 not in distances:
@@ -65,15 +71,24 @@ def import_distances_from_file(experiment, distance_id: str) -> dict:
     return distances
 
 
-def add_distances_to_experiment(experiment) -> (dict, dict, dict, dict):
+def add_distances_to_experiment(
+        experiment_id: str,
+        distance_id: str,
+        instance_ids: list
+) -> (dict, dict, dict, dict):
     """
     Imports precomputed distances between each pair of instances
     from a file while preparing an experiment.
 
     Parameters
     ----------
-        experiment : Experiment
-            Experiment object.
+        experiment_id : str
+            Name of the experiment.
+        distance_id : str
+            Name of the distance.
+        instance_ids : list
+            List of the Ids.
+
 
     Returns
     -------
@@ -82,10 +97,10 @@ def add_distances_to_experiment(experiment) -> (dict, dict, dict, dict):
     """
 
     try:
-        file_name = f'{experiment.distance_id}.csv'
+        file_name = f'{distance_id}.csv'
         path = os.path.join(os.getcwd(),
                             'experiments',
-                            experiment.experiment_id,
+                            experiment_id,
                             'distances',
                             file_name)
 
@@ -109,8 +124,8 @@ def add_distances_to_experiment(experiment) -> (dict, dict, dict, dict):
                     except:
                         pass
 
-                if instance_id_1 not in experiment.instances or \
-                        instance_id_2 not in experiment.instances:
+                if instance_id_1 not in instance_ids or \
+                        instance_id_2 not in instance_ids:
                     continue
 
                 if instance_id_1 not in distances:
@@ -157,7 +172,7 @@ def add_distances_to_experiment(experiment) -> (dict, dict, dict, dict):
                 except:
                     pass
 
-                if instance_id_1 not in experiment.instances:
+                if instance_id_1 not in instance_ids:
                     warn = True
 
             if warn:
@@ -171,7 +186,7 @@ def add_distances_to_experiment(experiment) -> (dict, dict, dict, dict):
 
 
 def get_values_from_csv_file(
-        experiment,
+        experiment_id: str,
         feature_id: str,
         feature_long_id: str = None,
         upper_limit: float = np.infty,
@@ -183,8 +198,8 @@ def get_values_from_csv_file(
 
     Parameters
     ----------
-        experiment : Experiment
-            Experiment object.
+        experiment_id : str
+            Name of the experiment.
         feature_id : str
             Name of the feature.
         feature_long_id: str
@@ -206,7 +221,7 @@ def get_values_from_csv_file(
 
     feature_long_id = feature_id if feature_long_id is None else feature_long_id
 
-    path = os.path.join(os.getcwd(), "experiments", experiment.experiment_id, "features",
+    path = os.path.join(os.getcwd(), "experiments", experiment_id, "features",
                         f'{feature_long_id}.csv')
 
     values = {}
@@ -229,7 +244,10 @@ def get_values_from_csv_file(
 
 
 def add_coordinates_to_experiment(
-        experiment,
+        experiment_id: str,
+        distance_id: str,
+        embedding_id: str,
+        instance_ids: list,
         dim: int = 2,
         file_name: str = None
 ) -> dict:
@@ -239,8 +257,14 @@ def add_coordinates_to_experiment(
 
     Parameters
     ----------
-        experiment : Experiment
-           Experiment object.
+        experiment_id : str
+            Name of the experiment.
+        distance_id : str
+            Name of the distance.
+        embedding_id : str
+            Name of the embedding.
+        instance_ids : list
+            List of instance ids.
         dim : int
             Dimension.
         file_name : str
@@ -253,8 +277,8 @@ def add_coordinates_to_experiment(
     """
     coordinates = {}
     if file_name is None:
-        file_name = f'{experiment.embedding_id}_{experiment.distance_id}_{dim}d.csv'
-    path = os.path.join(os.getcwd(), "experiments", experiment.experiment_id,
+        file_name = f'{embedding_id}_{distance_id}_{dim}d.csv'
+    path = os.path.join(os.getcwd(), "experiments", experiment_id,
                         "coordinates", file_name)
 
     with open(path, 'r', newline='') as csv_file:
@@ -279,7 +303,7 @@ def add_coordinates_to_experiment(
             elif dim == 3:
                 coordinates[instance_id] = [float(row['x']), float(row['y']), float(row['z'])]
 
-            if instance_id not in experiment.instances:
+            if instance_id not in instance_ids:
                 warn = True
 
         if warn:

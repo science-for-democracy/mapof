@@ -100,7 +100,10 @@ class Experiment(ABC):
             self.distances = distances
         elif self.is_imported and self.experiment_id is not None:
             self.distances, self.times, self.stds, self.mappings = \
-                imports.add_distances_to_experiment(self)
+                imports.add_distances_to_experiment(
+                    self.experiment_id,
+                    self.distance_id,
+                    list(self.instances.keys()))
         else:
             self.distances = {}
 
@@ -116,12 +119,21 @@ class Experiment(ABC):
                 if coordinates_names is not None:
                     for file_name in coordinates_names:
                         self.coordinates_lists[file_name] = \
-                            imports.add_coordinates_to_experiment(self,
-                                                                  dim=dim,
-                                                                  file_name=file_name)
+                            imports.add_coordinates_to_experiment(
+                                self.experiment_id,
+                                self.distance_id,
+                                self.embedding_id,
+                                list(self.instances.keys()),
+                                dim=dim,
+                                file_name=file_name)
                     self.coordinates = self.coordinates_lists[coordinates_names[0]]
                 else:
-                    self.coordinates = imports.add_coordinates_to_experiment(self, dim=dim)
+                    self.coordinates = imports.add_coordinates_to_experiment(
+                        self.experiment_id,
+                        self.distance_id,
+                        self.embedding_id,
+                        list(self.instances.keys()),
+                        dim=dim)
             except FileNotFoundError:
                 pass
         else:
@@ -395,8 +407,12 @@ class Experiment(ABC):
 
         all_distances = {}
 
-        all_distances[distance_id_1] = imports.import_distances_from_file(self, distance_id_1)
-        all_distances[distance_id_2] = imports.import_distances_from_file(self, distance_id_2)
+        instance_ids = list(self.instances.keys())
+
+        all_distances[distance_id_1] = imports.import_distances_from_file(
+            self.experiment_id, distance_id_1, instance_ids)
+        all_distances[distance_id_2] = imports.import_distances_from_file(
+            self.experiment_id, distance_id_2, instance_ids)
 
         names = list(all_distances.keys())
 

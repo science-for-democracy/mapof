@@ -453,13 +453,15 @@ def _import_values_for_feature(experiment,
             else:
                 values = {k: convert_none(v) for k, v in values.items()}
         else:
-            values = imports.get_values_from_csv_file(experiment, feature_id=feature_id,
+            values = imports.get_values_from_csv_file(experiment.experiment_id,
+                                                      feature_id=feature_id,
                                                       feature_long_id=feature_id,
                                                       upper_limit=upper_limit,
                                                       lower_limit=lower_limit,
                                                       column_id=column_id)
             if feature_id == 'partylist' and column_id == 'value':
-                bounds = imports.get_values_from_csv_file(experiment, feature_id=feature_id,
+                bounds = imports.get_values_from_csv_file(experiment.experiment_id,
+                                                          feature_id=feature_id,
                                                           feature_long_id=feature_id,
                                                           upper_limit=upper_limit,
                                                           lower_limit=lower_limit,
@@ -581,11 +583,15 @@ def _import_values_for_features(experiment,
                                 column_id='value'):
     """ Import values for a feature_ids """
 
-    values_1 = imports.get_values_from_csv_file(experiment, feature_id=feature_ids[0],
-                                                column_id=column_id, upper_limit=upper_limit)
+    values_1 = imports.get_values_from_csv_file(experiment.experiment_id,
+                                                feature_id=feature_ids[0],
+                                                column_id=column_id,
+                                                upper_limit=upper_limit)
 
-    values_2 = imports.get_values_from_csv_file(experiment, feature_id=feature_ids[1],
-                                                column_id=column_id, upper_limit=upper_limit)
+    values_2 = imports.get_values_from_csv_file(experiment.experiment_id,
+                                                feature_id=feature_ids[1],
+                                                column_id=column_id,
+                                                upper_limit=upper_limit)
 
     xx = []
     yy = []
