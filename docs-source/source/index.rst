@@ -8,12 +8,8 @@ Mapof is the core package.
     :hidden:
 
     Mapof <self>
-    embedding/index
-    features/index
-    objects/index
-    persistence/index
-    matchings
-    inner_distances
-    printing
-    utils
+    installation
+    quickstart
+    reference/index
+    citation
 
