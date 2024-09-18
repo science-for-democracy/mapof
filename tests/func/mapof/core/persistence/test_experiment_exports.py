@@ -1,6 +1,4 @@
-import os
 import csv
-import mapof.core.objects.Experiment as exp
 import mapof.core.persistence.experiment_exports as persist
 
 
