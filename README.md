@@ -44,7 +44,7 @@ install packages from PyPi.
 > [section below](#patching-installation-from-pypi).
 
 ### Patching installation from PyPi
-To path functoin `mapof.bar.foo` you can define your own function `my_foo` and
+To patch function `mapof.bar.foo` you can define your own function `my_foo` and
 then assign it using `mapof.bar.foo = mapof.bar.my_foo`. If you do this before
 calling `mapof.bar.foo`, then each call to `mapof.bar.foo` will actually run
 your `my_foo` function.
