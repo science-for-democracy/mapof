@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  test-pypi:
+  pypi-upload:
     runs-on: ubuntu-latest
     environment:
       name: pypi-upload
@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v5
       with:
         python-version: '3.x'
     - name: Install dependencies
