@@ -40,8 +40,8 @@ install packages from PyPi.
 > You can still patch mapof using the fact that functions are First-Class
 > Citizens in Python. By separating changes from the actual mapof code, the
 > changes can later be easily changed to pull requests. And we would be very
-> happy if you contribute to mapof. For details, see the section
-> [below](#patching-installation-from-pypi) below.
+> happy if you contribute to mapof. For details, see the
+> [section below](#patching-installation-from-pypi).
 
 ### Patching installation from PyPi
 To path functoin `mapof.bar.foo` you can define your own function `my_foo` and
