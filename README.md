@@ -3,11 +3,12 @@
 
 # Mapof
 
-This package is a core part of the mapof ecosystem. This framework allow for
-representing various features of (computational) problem instances in the
-context of the instance structure in a visually appealing way. Mapof is a
-direct successor of [mapel](https://mapel.simple.ink/), which will become
-deprecated in some the (unforeseen) future.
+This open-source, MIT-licensed package is a core part of the mapof ecosystem.
+This framework allow for representing various features of (computational)
+problem instances in the context of the instance structure in a visually
+appealing way. Mapof is a direct successor of
+[mapel](https://mapel.simple.ink/), which will become deprecated in some the
+(unforeseen) future.
 
 ## Current status of mapof vs mapel
 When decided to start mapof and abandon active development of mapel, the latter
@@ -35,9 +36,15 @@ dependency. A drawback is here that one cannot edit the mapof code easily. If
 you use `pip` type `pip install mapof` to get the newest version and your are
 ready to go. If you use other package managers, do whatever it usually takes to
 install packages from PyPi.
-[!TIP]
-You can still patch mapof making use of the fact that functions are First-Class
-Citizens in Python. For example, you can define your own function `my_foo` and
+> [!TIP]
+> You can still patch mapof using the fact that functions are First-Class
+> Citizens in Python. By separating changes from the actual mapof code, the
+> changes can later be easily changed to pull requests. And we would be very
+> happy if you contribute to mapof. For details, see the section
+> [below](#patching-installation-from-pypi) below.
+
+### Patching installation from PyPi
+To path functoin `mapof.bar.foo` you can define your own function `my_foo` and
 then assign it using `mapof.bar.foo = mapof.bar.my_foo`. If you do this before
 calling `mapof.bar.foo`, then each call to `mapof.bar.foo` will actually run
 your `my_foo` function.
