@@ -26,4 +26,3 @@ dynamic = ["dependencies", "version"]
 dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools_scm]
-version_file = "mapof/_version.py"
