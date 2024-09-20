@@ -12,7 +12,7 @@ jobs:
   test-pypi:
     runs-on: ubuntu-latest
     environment:
-      name: test-pypi-uplpoad
+      name: test-pypi-upload
       url: https://test.pypi.org/p/mapof
     permissions:
       id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
