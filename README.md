@@ -1,62 +1,65 @@
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/szufix/mapel/HEAD)
 [![MainTests](https://github.com/science-for-democracy/mapof/actions/workflows/python-tests.yml/badge.svg?branch=main)](https://github.com/science-for-democracy/mapof/actions/workflows/python-tests.yml)
 [![codecov](https://codecov.io/github/science-for-democracy/mapof/branch/main/graph/badge.svg?token=XQ2W6SBI0V)](https://codecov.io/github/science-for-democracy/mapof)
 
-# Mapel
+# Mapof
 
-The repo of mapel and its plugins containing the code of
-the mapel ecosystem:  
+This package is a core part of the mapof ecosystem. This framework allow for
+representing various features of (computational) problem instances in the
+context of the instance structure in a visually appealing way. Mapof is a
+direct successor of [mapel](https://mapel.simple.ink/), which will become
+deprecated in some the (unforeseen) future.
+
+## Current status of mapof vs mapel
+When decided to start mapof and abandon active development of mapel, the latter
+consisted of the following packages:
 1. [mapel-core](https://pypi.org/project/mapel-core/)
 1. [mapel-elections](https://pypi.org/project/mapel-elections/)
 1. [mapel-roommates](https://pypi.org/project/mapel-rommmates/)
 1. [mapel-marriages](https://pypi.org/project/mapel-marriages/)
 
-See the documentation of the above (on pypi) for further information on the
-whole ecosystem. You can also consult the materials from the 
-[AAAI'24 tutorial](https://home.agh.edu.pl/~pragma/tutorials/aaai24/)
-about using mapel.
+This package is direct successor of mapel-core. Currently, *no* other packages
+are provided in mapof. The development is ongoing.
 
-To install all packages listed above follow the instructions below.
+# Installation of mapof
+There are in principle three (standard to python packages) ways to install
+mapof. We *strongly* recommend installing the package from PyPi but the other
+two are using the code as a local package and installing package from local
+code using some package manager.
 
+## Installation from PyPi 
+We recommend installing mapof in a separate virtual environment (we use `venv`
+but any reasonable environment manager should do). Installation from Pypi with
+one of Python's package managers allows a seamless usage of mapof with its
+remaining modules, *that are to come soon*, which all declare mapof as
+dependency. A drawback is here that one cannot edit the mapof code easily. If
+you use `pip` type `pip install mapof` to get the newest version and your are
+ready to go. If you use other package manager, do whatever it usually needs to
+instal packages from PyPi.
 
-# Installation
+## Using code locally without package managers 
+Using the code as a local package is another option. Doing so, by downloading
+the package and importing different modules directly, comes with an easy way to
+edit mapof files. However, it enforces usage of all other mapof packages in the
+very same way. Trying installing other packages via some package manger will
+most likely result in that you will be using the manager-downloaded PyPi
+version of the mapof module instead of your handcrafted one (there are
+workarounds, but you probably know these tricks very well if you ever want to
+take this path).
 
-There are three major ways of using mapel:
-1. Copy-paste the sources into your python project and import different `.py`
-files directly;
-2. (Recommended for developers) [Documentation---TBD] Install mapel as an editable package, which
-simulates a full-fledged global package installation yet keeping track of all
-changes to the source code and applying the on the fly to the "library";
-3. (Recommended for library users) Install mapel as a normal package.
+## Using code locally with package manager
+A somewhat compromise solution is to fork the repo and install the package into
+the package management system using your locally stored (perhaps edited) code.
+This might have a drawback that you need to update your installation after
+*every* change you make in the mapof code.
 
-The first point is considered to be only used temporarily and creates severe
-inconveniences with building the package. We only describe points 2 (not yet)
-and 3 in subsequent parts. For a better experience, our instructions assume
-usage of `venv`, which is optional, however recommended.
-
-## Editable Package
-
-TBD
-
-## Usual Package
-
-This variant is recommended for those, who plan to use mapel without modifying
-its source code. The instruction includes using `venv`, which is generally a
-good idea.
-
-1. Install `pip` and `venv`. Make sure that you are using the newest possible
-`pip`, newer than `22.0.0`. To upgrade you pip run:
-`pip install --upgrade pip`
-1. Prepare a virtual environment running this command:
-`python3 -m venv <virtual_envirnonment_name>`
-By default the above command creates a directory `<virtual_environment_name>`,
-where the virtual environment files are stored
-1. Activate the virtual environment:
-`source <virtual_envirnment_path>/bin/activate`
-If successful, your prompt is now preceded with the name of the virtual environment.
-1. Run
-`pip install mapel`
-
+However `pip` has a handy solution here, the editable mode. Overall, using
+`pip` you can pass to `pip install` the path to the project (where
+`pyproject.toml` resides) and the `-e` switch. By this you get the best of two
+world mapof is managed by pip *and* your modifications of the package are
+reflected immediately in the code that uses mapof. This approach also have its
+limitations but in most cases it should just work well. In case you experience
+troubles, you should see what the `pip` documentation has to say about the
+editable mode.
 
 # Acknowledgments
 
