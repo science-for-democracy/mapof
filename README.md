@@ -17,13 +17,13 @@ consisted of the following packages:
 1. [mapel-roommates](https://pypi.org/project/mapel-rommmates/)
 1. [mapel-marriages](https://pypi.org/project/mapel-marriages/)
 
-This package is direct successor of mapel-core. Currently, *no* other packages
-are provided in mapof. The development is ongoing.
+This package is a direct successor of mapel-core. Currently, *no* other
+packages are provided in mapof. The development is ongoing.
 
 # Installation of mapof
 There are in principle three (standard to python packages) ways to install
-mapof. We *strongly* recommend installing the package from PyPi but the other
-two are using the code as a local package and installing package from local
+mapof. We *strongly* recommend installing the package from PyPi but you can
+also: use the code as a local package or install the package from the local
 code using some package manager.
 
 ## Installation from PyPi 
@@ -33,8 +33,14 @@ one of Python's package managers allows a seamless usage of mapof with its
 remaining modules, *that are to come soon*, which all declare mapof as
 dependency. A drawback is here that one cannot edit the mapof code easily. If
 you use `pip` type `pip install mapof` to get the newest version and your are
-ready to go. If you use other package manager, do whatever it usually needs to
-instal packages from PyPi.
+ready to go. If you use other package managers, do whatever it usually takes to
+install packages from PyPi.
+[!TIP]
+You can still patch mapof making use of the fact that functions are First-Class
+Citizens in Python. For example, you can define your own function `my_foo` and
+then assign it using `mapof.bar.foo = mapof.bar.my_foo`. If you do this before
+calling `mapof.bar.foo`, then each call to `mapof.bar.foo` will actually run
+your `my_foo` function.
 
 ## Using code locally without package managers 
 Using the code as a local package is another option. Doing so, by downloading
@@ -52,7 +58,7 @@ the package management system using your locally stored (perhaps edited) code.
 This might have a drawback that you need to update your installation after
 *every* change you make in the mapof code.
 
-However `pip` has a handy solution here, the editable mode. Overall, using
+However `pip` offers a handy solution here, the editable mode. Overall, using
 `pip` you can pass to `pip install` the path to the project (where
 `pyproject.toml` resides) and the `-e` switch. By this you get the best of two
 world mapof is managed by pip *and* your modifications of the package are
