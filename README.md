@@ -7,19 +7,18 @@ This open-source, MIT-licensed package is a core part of the mapof ecosystem.
 This framework allow for representing various features of (computational)
 problem instances in the context of the instance structure in a visually
 appealing way. Mapof is a direct successor of
-[mapel](https://mapel.simple.ink/), which will become deprecated in some the
+[mapel](https://mapel.simple.ink/), which will be deprecated in the
 (unforeseen) future.
 
 ## Current status of mapof vs mapel
-When decided to start mapof and abandon active development of mapel, the latter
-consisted of the following packages:
-1. [mapel-core](https://pypi.org/project/mapel-core/)
-1. [mapel-elections](https://pypi.org/project/mapel-elections/)
-1. [mapel-roommates](https://pypi.org/project/mapel-rommmates/)
-1. [mapel-marriages](https://pypi.org/project/mapel-marriages/)
+We successively substitute mapel packages present when we decided to start mapof
+and abandon active development of mapel. Here is the current status:
+1. [~~mapel-core~~](https://pypi.org/project/mapel-core/) ==> [mapof](https://pypi.org/project/mapof) 
+1. [~~mapel-elections~~](https://pypi.org/project/mapel-elections/) ==> [mapof-elections](https://pypi.org/project/mapof-elections) 
+1. [mapel-roommates](https://pypi.org/project/mapel-rommmates/) ==> development ongoing
+1. [mapel-marriages](https://pypi.org/project/mapel-marriages/) ==> developmnet ongoing
 
-This package is a direct successor of mapel-core. Currently, *no* other
-packages are provided in mapof. The development is ongoing.
+Hence, this package, mapof, is a direct successor of mapel-core.
 
 # Installation of mapof
 There are in principle three (standard to python packages) ways to install
