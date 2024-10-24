@@ -4,8 +4,6 @@ import numpy as np
 
 import mapof.core.persistence.experiment_exports as exports
 from mapof.core.inner_distances import map_str_to_func
-from mapof.core.objects.Experiment import Experiment
-
 
 def extract_distance_id(distance_id: str) -> (callable, str):
     if '-' in distance_id:
@@ -18,7 +16,7 @@ def extract_distance_id(distance_id: str) -> (callable, str):
 
 
 def run_single_process(
-        exp: Experiment,
+        exp,
         instances_ids: list,
         distances: dict,
         times: dict,
@@ -44,7 +42,7 @@ def run_single_process(
 
 
 def run_multiple_processes(
-        experiment: Experiment,
+        experiment,
         instances_ids: list,
         distances: dict,
         times: dict,
