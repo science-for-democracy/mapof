@@ -222,7 +222,7 @@ def export_distances_multiple_processes(
             Dictionary with distances between each pair of instances
         times : dict
             Dictionary with time of calculation of each distance.
-        process_id : bool
+        process_id : int
             ID of the process.
 
     Returns
