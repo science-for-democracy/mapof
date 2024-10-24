@@ -4,12 +4,16 @@ import itertools
 import logging
 import math
 import os
-from abc import ABC, abstractmethod
+from abc import ABC
+from abc import abstractmethod
+from multiprocessing import Process
+from time import sleep
 
 import matplotlib.pyplot as plt
 from PIL import Image
 from scipy.stats import stats
 
+import mapof.core.distances as metr
 import mapof.core.embedding.embed as embed
 import mapof.core.persistence.experiment_exports as exports
 import mapof.core.persistence.experiment_imports as imports
@@ -94,6 +98,80 @@ class Experiment(ABC):
         else:
             self.instances = {}
 
+
+    def compute_distances(
+            self,
+            distance_id: str = 'l1-mutual_attraction',
+            num_processes: int = 1,
+            self_distances: bool = False
+    ) -> None:
+        """ Compute distances between instances (using processes) """
+
+        self.distance_id = distance_id
+
+        matchings = {instance_id: {} for instance_id in self.instances}
+        distances = {instance_id: {} for instance_id in self.instances}
+        times = {instance_id: {} for instance_id in self.instances}
+
+        ids = []
+        for i, instance_1 in enumerate(self.instances):
+            for j, instance_2 in enumerate(self.instances):
+                if i == j:
+                    if self_distances:
+                        ids.append((instance_1, instance_2))
+                elif i < j:
+                    ids.append((instance_1, instance_2))
+
+        num_distances = len(ids)
+
+        if self.experiment_id == 'virtual' or num_processes == 1:
+            metr.run_single_process(self, ids, distances, times, matchings)
+
+        else:
+            processes = []
+            for process_id in range(num_processes):
+                print(f'Starting process: {process_id}')
+                sleep(0.1)
+                start = int(process_id * num_distances / num_processes)
+                stop = int((process_id + 1) * num_distances / num_processes)
+                instances_ids = ids[start:stop]
+
+                process = Process(target=metr.run_multiple_processes, args=(self,
+                                                                            instances_ids,
+                                                                            distances,
+                                                                            times,
+                                                                            matchings,
+                                                                            process_id))
+                process.start()
+                processes.append(process)
+
+            for process in processes:
+                process.join()
+
+            distances = {instance_id: {} for instance_id in self.instances}
+            times = {instance_id: {} for instance_id in self.instances}
+            for t in range(num_processes):
+
+                file_name = f'{distance_id}_p{t}.csv'
+                path = os.path.join(os.getcwd(), "experiments", self.experiment_id, "distances",
+                                    file_name)
+
+                with open(path, 'r', newline='') as csv_file:
+                    reader = csv.DictReader(csv_file, delimiter=';')
+
+                    for row in reader:
+                        distances[row['instance_id_1']][row['instance_id_2']] = float(
+                            row['distance'])
+                        times[row['instance_id_1']][row['instance_id_2']] = float(row['time'])
+
+        if self.is_exported:
+            exports.export_distances_to_file(self, distance_id, distances, times, ids)
+
+        self.distances = distances
+        self.times = times
+        self.matchings = matchings
+
+
     def import_distances(self, distances):
         """ Imports distances to the experiment. """
         if isinstance(distances, dict):
@@ -147,6 +225,10 @@ class Experiment(ABC):
         self.num_instances = 0
 
     @abstractmethod
+    def get_distance(self):
+        pass
+
+    @abstractmethod
     def prepare_instances(self):
         pass
 
@@ -172,6 +254,10 @@ class Experiment(ABC):
 
     @abstractmethod
     def add_culture(self, name, function):
+        pass
+
+    @abstractmethod
+    def add_distance(self, name, function):
         pass
 
     @abstractmethod
