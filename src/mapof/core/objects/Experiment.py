@@ -225,7 +225,7 @@ class Experiment(ABC):
         self.num_instances = 0
 
     @abstractmethod
-    def get_distance(self):
+    def get_distance(self, insatnce_id_1, instance_id_2, distance_id: str = None, **kwargs):
         pass
 
     @abstractmethod
