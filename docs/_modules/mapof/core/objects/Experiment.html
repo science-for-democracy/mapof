@@ -307,12 +307,16 @@ document.write(`
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Process</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">stats</span>
 
+<span class="kn">import</span> <span class="nn">mapof.core.distances</span> <span class="k">as</span> <span class="nn">metr</span>
 <span class="kn">import</span> <span class="nn">mapof.core.embedding.embed</span> <span class="k">as</span> <span class="nn">embed</span>
 <span class="kn">import</span> <span class="nn">mapof.core.persistence.experiment_exports</span> <span class="k">as</span> <span class="nn">exports</span>
 <span class="kn">import</span> <span class="nn">mapof.core.persistence.experiment_imports</span> <span class="k">as</span> <span class="nn">imports</span>
@@ -402,6 +406,83 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">instances</span> <span class="o">=</span> <span class="p">{}</span></div>
 
 
+
+<div class="viewcode-block" id="Experiment.compute_distances">
+<a class="viewcode-back" href="../../../../reference/objects/Experiment.html#mapof.core.objects.Experiment.Experiment.compute_distances">[docs]</a>
+    <span class="k">def</span> <span class="nf">compute_distances</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">distance_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;l1-mutual_attraction&#39;</span><span class="p">,</span>
+            <span class="n">num_processes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">self_distances</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Compute distances between instances (using processes) &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">distance_id</span> <span class="o">=</span> <span class="n">distance_id</span>
+
+        <span class="n">matchings</span> <span class="o">=</span> <span class="p">{</span><span class="n">instance_id</span><span class="p">:</span> <span class="p">{}</span> <span class="k">for</span> <span class="n">instance_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">}</span>
+        <span class="n">distances</span> <span class="o">=</span> <span class="p">{</span><span class="n">instance_id</span><span class="p">:</span> <span class="p">{}</span> <span class="k">for</span> <span class="n">instance_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">}</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="p">{</span><span class="n">instance_id</span><span class="p">:</span> <span class="p">{}</span> <span class="k">for</span> <span class="n">instance_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">}</span>
+
+        <span class="n">ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">instance_1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">instance_2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">self_distances</span><span class="p">:</span>
+                        <span class="n">ids</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">instance_1</span><span class="p">,</span> <span class="n">instance_2</span><span class="p">))</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">:</span>
+                    <span class="n">ids</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">instance_1</span><span class="p">,</span> <span class="n">instance_2</span><span class="p">))</span>
+
+        <span class="n">num_distances</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span> <span class="o">==</span> <span class="s1">&#39;virtual&#39;</span> <span class="ow">or</span> <span class="n">num_processes</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">metr</span><span class="o">.</span><span class="n">run_single_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">distances</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">matchings</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">processes</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">process_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_processes</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Starting process: </span><span class="si">{</span><span class="n">process_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">process_id</span> <span class="o">*</span> <span class="n">num_distances</span> <span class="o">/</span> <span class="n">num_processes</span><span class="p">)</span>
+                <span class="n">stop</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">process_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_distances</span> <span class="o">/</span> <span class="n">num_processes</span><span class="p">)</span>
+                <span class="n">instances_ids</span> <span class="o">=</span> <span class="n">ids</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span>
+
+                <span class="n">process</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">metr</span><span class="o">.</span><span class="n">run_multiple_processes</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                                                                            <span class="n">instances_ids</span><span class="p">,</span>
+                                                                            <span class="n">distances</span><span class="p">,</span>
+                                                                            <span class="n">times</span><span class="p">,</span>
+                                                                            <span class="n">matchings</span><span class="p">,</span>
+                                                                            <span class="n">process_id</span><span class="p">))</span>
+                <span class="n">process</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+                <span class="n">processes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">process</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">processes</span><span class="p">:</span>
+                <span class="n">process</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+            <span class="n">distances</span> <span class="o">=</span> <span class="p">{</span><span class="n">instance_id</span><span class="p">:</span> <span class="p">{}</span> <span class="k">for</span> <span class="n">instance_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">}</span>
+            <span class="n">times</span> <span class="o">=</span> <span class="p">{</span><span class="n">instance_id</span><span class="p">:</span> <span class="p">{}</span> <span class="k">for</span> <span class="n">instance_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">}</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_processes</span><span class="p">):</span>
+
+                <span class="n">file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">distance_id</span><span class="si">}</span><span class="s1">_p</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s1">.csv&#39;</span>
+                <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;experiments&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span> <span class="s2">&quot;distances&quot;</span><span class="p">,</span>
+                                    <span class="n">file_name</span><span class="p">)</span>
+
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+                    <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+
+                    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+                        <span class="n">distances</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;instance_id_1&#39;</span><span class="p">]][</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;instance_id_2&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
+                            <span class="n">row</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">])</span>
+                        <span class="n">times</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;instance_id_1&#39;</span><span class="p">]][</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;instance_id_2&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_exported</span><span class="p">:</span>
+            <span class="n">exports</span><span class="o">.</span><span class="n">export_distances_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance_id</span><span class="p">,</span> <span class="n">distances</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">ids</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">distances</span> <span class="o">=</span> <span class="n">distances</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">=</span> <span class="n">times</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">matchings</span> <span class="o">=</span> <span class="n">matchings</span></div>
+
+
+
 <div class="viewcode-block" id="Experiment.import_distances">
 <a class="viewcode-back" href="../../../../reference/objects/Experiment.html#mapof.core.objects.Experiment.Experiment.import_distances">[docs]</a>
     <span class="k">def</span> <span class="nf">import_distances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distances</span><span class="p">):</span>
@@ -461,6 +542,10 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">num_instances</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">insatnce_id_1</span><span class="p">,</span> <span class="n">instance_id_2</span><span class="p">,</span> <span class="n">distance_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">prepare_instances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
@@ -486,6 +571,10 @@ document.write(`
 
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">add_culture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">add_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
         <span class="k">pass</span>
 
     <span class="nd">@abstractmethod</span>

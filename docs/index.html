@@ -325,7 +325,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -341,6 +343,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof-components">Mapof Components</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -352,9 +362,23 @@ document.write(`
                   
   <section id="mapof">
 <h1>Mapof<a class="headerlink" href="#mapof" title="Link to this heading">#</a></h1>
-<p>Mapof is the core package.</p>
+<p>This open-source, MIT-licensed package is a core part of the mapof ecosystem.
+This framework allow for representing various features of (computational) problem instances
+in the context of the instance structure in a visually appealing way.
+Mapof is a direct successor of mapel, which will be deprecated in the (unforeseen) future.</p>
+<section id="mapof-components">
+<h2>Mapof Components<a class="headerlink" href="#mapof-components" title="Link to this heading">#</a></h2>
+<p>List of available packages within the mapof ecosystem:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://science-for-democracy.github.io/mapof-elections">Mapof-elections</a></p></li>
+<li><p><a class="reference external" href="https://science-for-democracy.github.io/mapof-roommates">Mapof-roommates</a></p></li>
+<li><p><a class="reference external" href="https://science-for-democracy.github.io/mapof-marriages">Mapof-marriages</a></p></li>
+<li><p>Mapof-tournaments (comming soon)</p></li>
+<li><p>Mapof-allocations (comming soon)</p></li>
+</ul>
 <div class="toctree-wrapper compound">
 </div>
+</section>
 </section>
 
 
@@ -383,6 +407,21 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof-components">Mapof Components</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
