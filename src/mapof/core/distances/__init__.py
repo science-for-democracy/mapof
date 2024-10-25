@@ -1,11 +1,28 @@
 import copy
 from time import time
+
 import numpy as np
 
 import mapof.core.persistence.experiment_exports as exports
 from mapof.core.inner_distances import map_str_to_func
 
+
 def extract_distance_id(distance_id: str) -> (callable, str):
+    """
+    Extracts inner distance and main distance from distance_id.
+
+    Parameters
+    ----------
+        distance_id : str
+            Name of the distance.
+
+    Returns
+    -------
+        callable
+            Inner distance.
+        str
+            Main distance.
+    """
     if '-' in distance_id:
         inner_distance, main_distance = distance_id.split('-')
         inner_distance = map_str_to_func(inner_distance)
@@ -16,25 +33,48 @@ def extract_distance_id(distance_id: str) -> (callable, str):
 
 
 def run_single_process(
-        exp,
+        experiment,
         instances_ids: list,
         distances: dict,
         times: dict,
         matchings: dict
 ) -> None:
-    """ Single process for computing distances """
+    """
+    Calculates distances between each pair of instances (using single process).
+
+    Parameters
+    ----------
+        experiment : Experiment
+            Experiment object.
+        instances_ids : list
+            List of the Ids.
+        distances :  dict
+            Dictionary with distances between each pair of instances
+        times : dict
+            Dictionary with time of calculation of each distance.
+        matchings : dict
+            Dictionary with matchings between each pair of instances.
+
+    Returns
+    -------
+        None
+    """
 
     for instance_id_1, instance_id_2 in instances_ids:
 
         start_time = time()
-        distance = exp.get_distance(copy.deepcopy(exp.instances[instance_id_1]),
-                                copy.deepcopy(exp.instances[instance_id_2]),
-                                distance_id=copy.deepcopy(exp.distance_id))
+        distance = experiment.get_distance(
+            copy.deepcopy(experiment.instances[instance_id_1]),
+            copy.deepcopy(experiment.instances[instance_id_2]),
+            distance_id=copy.deepcopy(experiment.distance_id)
+        )
+
         if type(distance) is tuple:
             distance, matching = distance
             matching = np.array(matching)
             matchings[instance_id_1][instance_id_2] = matching
             matchings[instance_id_2][instance_id_1] = np.argsort(matching)
+
         distances[instance_id_1][instance_id_2] = distance
         distances[instance_id_2][instance_id_1] = distances[instance_id_1][instance_id_2]
         times[instance_id_1][instance_id_2] = time() - start_time
@@ -49,18 +89,44 @@ def run_multiple_processes(
         matchings: dict,
         process_id: int
 ) -> None:
-    """ Multiple processes for computing distances """
+    """
+    Calculates distances between each pair of instances (using multiple processes).
+
+    Parameters
+    ----------
+        experiment : Experiment
+            Experiment object.
+        instances_ids : list
+            List of the Ids.
+        distances :  dict
+            Dictionary with distances between each pair of instances
+        times : dict
+            Dictionary with time of calculation of each distance.
+        matchings : dict
+            Dictionary with matchings between each pair of instances.
+        process_id : int
+            ID of the process.
+
+    Returns
+    -------
+        None
+    """
 
     for instance_id_1, instance_id_2 in instances_ids:
+
         start_time = time()
-        distance = experiment.get_distance(copy.deepcopy(experiment.instances[instance_id_1]),
-                                copy.deepcopy(experiment.instances[instance_id_2]),
-                                distance_id=copy.deepcopy(experiment.distance_id))
+        distance = experiment.get_distance(
+            copy.deepcopy(experiment.instances[instance_id_1]),
+            copy.deepcopy(experiment.instances[instance_id_2]),
+            distance_id=copy.deepcopy(experiment.distance_id)
+        )
+
         if type(distance) is tuple:
             distance, matching = distance
             matching = np.array(matching)
             matchings[instance_id_1][instance_id_2] = matching
             matchings[instance_id_2][instance_id_1] = np.argsort(matching)
+
         distances[instance_id_1][instance_id_2] = distance
         distances[instance_id_2][instance_id_1] = distances[instance_id_1][instance_id_2]
         times[instance_id_1][instance_id_2] = time() - start_time
@@ -72,4 +138,3 @@ def run_multiple_processes(
                                                     distances,
                                                     times,
                                                     process_id)
-

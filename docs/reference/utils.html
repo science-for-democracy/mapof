@@ -166,6 +166,10 @@
 <li class="toctree-l3"><a class="reference internal" href="features/stability.html">Stability</a></li>
 </ul>
 </details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="distances/index.html">Distance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="distances/main.html">Main</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="objects/Experiment.html">Experiment Object</a></li>
 <li class="toctree-l3"><a class="reference internal" href="objects/Family.html">Family Object</a></li>
@@ -366,7 +370,7 @@ document.write(`
 <span id="utils"></span><h1>Utils<a class="headerlink" href="#module-mapof.core.utils" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.core.utils.get_instance_id">
-<span class="sig-name descname"><span class="pre">get_instance_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">single</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">family_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mapof/core/utils.html#get_instance_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.core.utils.get_instance_id" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_instance_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">single</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">family_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/mapof/core/utils.html#get_instance_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.core.utils.get_instance_id" title="Link to this definition">#</a></dt>
 <dd><p>Return the instance id</p>
 </dd></dl>
 
@@ -382,8 +386,19 @@ one should pass “foo” to this function</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.core.utils.make_folder_if_do_not_exist">
-<span class="sig-name descname"><span class="pre">make_folder_if_do_not_exist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mapof/core/utils.html#make_folder_if_do_not_exist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.core.utils.make_folder_if_do_not_exist" title="Link to this definition">#</a></dt>
-<dd><p>Create a folder if it does not exist</p>
+<span class="sig-name descname"><span class="pre">make_folder_if_do_not_exist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/mapof/core/utils.html#make_folder_if_do_not_exist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.core.utils.make_folder_if_do_not_exist" title="Link to this definition">#</a></dt>
+<dd><p>Create a folder if it does not exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>)</p></li>
+<li><p><strong>folder.</strong> (<em>Path to the</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>None</em></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">

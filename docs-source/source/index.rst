@@ -13,8 +13,8 @@ List of available packages within the mapof ecosystem:
 - `Mapof-elections <https://science-for-democracy.github.io/mapof-elections>`_
 - `Mapof-roommates <https://science-for-democracy.github.io/mapof-roommates>`_
 - `Mapof-marriages <https://science-for-democracy.github.io/mapof-marriages>`_
-- Mapof-tournaments (comming soon)
-- Mapof-allocations (comming soon)
+- Mapof-tournaments (coming soon)
+- Mapof-allocations (coming soon)
 
 
 .. toctree::

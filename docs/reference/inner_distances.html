@@ -166,6 +166,10 @@
 <li class="toctree-l3"><a class="reference internal" href="features/stability.html">Stability</a></li>
 </ul>
 </details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="distances/index.html">Distance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="distances/main.html">Main</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="objects/Experiment.html">Experiment Object</a></li>
 <li class="toctree-l3"><a class="reference internal" href="objects/Family.html">Family Object</a></li>
@@ -357,6 +361,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.inner_distances.l2"><code class="docutils literal notranslate"><span class="pre">l2()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.inner_distances.map_str_to_func"><code class="docutils literal notranslate"><span class="pre">map_str_to_func()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.inner_distances.single_l1"><code class="docutils literal notranslate"><span class="pre">single_l1()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.inner_distances.spearman_distance_between_potes"><code class="docutils literal notranslate"><span class="pre">spearman_distance_between_potes()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.inner_distances.swap_distance"><code class="docutils literal notranslate"><span class="pre">swap_distance()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.inner_distances.swap_distance_between_potes"><code class="docutils literal notranslate"><span class="pre">swap_distance_between_potes()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.inner_distances.vote_to_pote"><code class="docutils literal notranslate"><span class="pre">vote_to_pote()</span></code></a></li>
@@ -568,6 +573,26 @@ document.write(`
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="mapof.core.inner_distances.spearman_distance_between_potes">
+<span class="sig-name descname"><span class="pre">spearman_distance_between_potes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pote_1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pote_2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/mapof/core/inner_distances.html#spearman_distance_between_potes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.core.inner_distances.spearman_distance_between_potes" title="Link to this definition">#</a></dt>
+<dd><p>Computes the Spearman distance between two potes (i.e. positional votes).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pote_1</strong> (<em>list</em>) – First vector.</p></li>
+<li><p><strong>pote_2</strong> (<em>list</em>) – Second vector.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Spearman distance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>int</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="mapof.core.inner_distances.swap_distance">
 <span class="sig-name descname"><span class="pre">swap_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vote_1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vote_2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matching</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/mapof/core/inner_distances.html#swap_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.core.inner_distances.swap_distance" title="Link to this definition">#</a></dt>
 <dd><p>Return: Swap distance between two votes</p>
@@ -576,7 +601,21 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.core.inner_distances.swap_distance_between_potes">
 <span class="sig-name descname"><span class="pre">swap_distance_between_potes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pote_1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pote_2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/mapof/core/inner_distances.html#swap_distance_between_potes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.core.inner_distances.swap_distance_between_potes" title="Link to this definition">#</a></dt>
-<dd><p>Return: Swap distance between two potes</p>
+<dd><p>Computes the swap distance between two potes (i.e. positional votes).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pote_1</strong> (<em>list</em>) – First vector.</p></li>
+<li><p><strong>pote_2</strong> (<em>list</em>) – Second vector.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Swap distance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>int</em></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -653,6 +692,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.inner_distances.l2"><code class="docutils literal notranslate"><span class="pre">l2()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.inner_distances.map_str_to_func"><code class="docutils literal notranslate"><span class="pre">map_str_to_func()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.inner_distances.single_l1"><code class="docutils literal notranslate"><span class="pre">single_l1()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.inner_distances.spearman_distance_between_potes"><code class="docutils literal notranslate"><span class="pre">spearman_distance_between_potes()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.inner_distances.swap_distance"><code class="docutils literal notranslate"><span class="pre">swap_distance()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.inner_distances.swap_distance_between_potes"><code class="docutils literal notranslate"><span class="pre">swap_distance_between_potes()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.inner_distances.vote_to_pote"><code class="docutils literal notranslate"><span class="pre">vote_to_pote()</span></code></a></li>

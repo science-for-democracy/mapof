@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import csv
 import itertools
 import logging
@@ -19,6 +18,7 @@ import mapof.core.persistence.experiment_exports as exports
 import mapof.core.persistence.experiment_imports as imports
 import mapof.core.printing as pr
 from mapof.core.objects.Family import Family
+from mapof.core.utils import make_folder_if_do_not_exist
 
 
 class Experiment(ABC):
@@ -556,10 +556,7 @@ class Experiment(ABC):
                 plt.title(title, size=title_size)
 
             path = f'images/correlation'
-            is_exist = os.path.exists(path)
-
-            if not is_exist:
-                os.makedirs(path)
+            make_folder_if_do_not_exist(path)
 
             saveas = f'images/correlation/corr_{name_1}_{name_2}'
             plt.savefig(saveas, pad_inches=1)

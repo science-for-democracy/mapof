@@ -7,6 +7,7 @@ Code Reference
 
     embedding/index
     features/index
+    distances/index
     objects/index
     persistence/index
     matchings

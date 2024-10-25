@@ -1,8 +1,19 @@
 import os
 
 
-def make_folder_if_do_not_exist(path):
-    """ Create a folder if it does not exist """
+def make_folder_if_do_not_exist(path) -> None:
+    """
+    Create a folder if it does not exist.
+
+    Parameters
+    ----------
+        path : str
+        Path to the folder.
+
+    Returns
+    -------
+        None
+    """
     is_exist = os.path.exists(path)
     if not is_exist:
         os.makedirs(path)
@@ -20,7 +31,7 @@ def is_module_loaded(module_import_name):
     return module_import_name in sys.modules
 
 
-def get_instance_id(single, family_id, j):
+def get_instance_id(single, family_id, j) -> str:
     """ Return the instance id """
     if single:
         return family_id

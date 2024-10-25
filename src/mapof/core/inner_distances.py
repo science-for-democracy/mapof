@@ -1,7 +1,8 @@
-from copy import deepcopy
-import math
-import numpy as np
 import itertools
+import math
+from copy import deepcopy
+
+import numpy as np
 
 
 def map_str_to_func(name: str) -> callable:
@@ -266,7 +267,20 @@ def swap_distance(vote_1: list, vote_2: list, matching=None) -> int:
 
 
 def swap_distance_between_potes(pote_1: list, pote_2: list) -> int:
-    """ Return: Swap distance between two potes """
+    """
+    Computes the swap distance between two potes (i.e. positional votes).
+
+    Parameters
+    ----------
+        pote_1 : list
+            First vector.
+        pote_2 : list
+            Second vector.
+    Returns
+    -------
+        int
+            Swap distance.
+    """
     swap_distance = 0
     for i, j in itertools.combinations(pote_1, 2):
         if (pote_1[i] > pote_1[j] and
@@ -278,4 +292,18 @@ def swap_distance_between_potes(pote_1: list, pote_2: list) -> int:
 
 
 def spearman_distance_between_potes(pote_1: list, pote_2: list) -> int:
+    """
+    Computes the Spearman distance between two potes (i.e. positional votes).
+
+    Parameters
+    ----------
+        pote_1 : list
+            First vector.
+        pote_2 : list
+            Second vector.
+    Returns
+    -------
+        int
+            Spearman distance.
+    """
     return sum([abs(pote_1[c] - pote_2[c]) for c in range(len(pote_1))])

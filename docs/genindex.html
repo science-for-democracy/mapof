@@ -165,6 +165,10 @@
 <li class="toctree-l3"><a class="reference internal" href="reference/features/stability.html">Stability</a></li>
 </ul>
 </details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="reference/distances/index.html">Distance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/distances/main.html">Main</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="reference/objects/Experiment.html">Experiment Object</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/objects/Family.html">Family Object</a></li>
@@ -378,10 +382,10 @@ document.write(`
 </li>
       <li><a href="reference/inner_distances.html#mapof.core.inner_distances.emdinf">emdinf() (in module mapof.core.inner_distances)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/objects/Experiment.html#mapof.core.objects.Experiment.Experiment">Experiment (class in mapof.core.objects.Experiment)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/persistence/experiment_exports.html#mapof.core.persistence.experiment_exports.export_distances_multiple_processes">export_distances_multiple_processes() (in module mapof.core.persistence.experiment_exports)</a>
 </li>
       <li><a href="reference/persistence/experiment_exports.html#mapof.core.persistence.experiment_exports.export_distances_to_file">export_distances_to_file() (in module mapof.core.persistence.experiment_exports)</a>
@@ -391,6 +395,8 @@ document.write(`
       <li><a href="reference/persistence/experiment_exports.html#mapof.core.persistence.experiment_exports.export_feature_to_file">export_feature_to_file() (in module mapof.core.persistence.experiment_exports)</a>
 </li>
       <li><a href="reference/persistence/experiment_exports.html#mapof.core.persistence.experiment_exports.export_normalized_feature_to_file">export_normalized_feature_to_file() (in module mapof.core.persistence.experiment_exports)</a>
+</li>
+      <li><a href="reference/distances/main.html#mapof.core.distances.extract_distance_id">extract_distance_id() (in module mapof.core.distances)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -473,6 +479,13 @@ document.write(`
       <li><a href="reference/inner_distances.html#mapof.core.inner_distances.map_str_to_func">map_str_to_func() (in module mapof.core.inner_distances)</a>
 </li>
       <li>
+    mapof.core.distances
+
+      <ul>
+        <li><a href="reference/distances/main.html#module-mapof.core.distances">module</a>
+</li>
+      </ul></li>
+      <li>
     mapof.core.embedding.embed
 
       <ul>
@@ -549,6 +562,8 @@ document.write(`
         <li><a href="reference/objects/Family.html#module-mapof.core.objects.Family">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     mapof.core.objects.Instance
 
@@ -556,8 +571,6 @@ document.write(`
         <li><a href="reference/objects/Instance.html#module-mapof.core.objects.Instance">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     mapof.core.persistence.experiment_exports
 
@@ -590,6 +603,8 @@ document.write(`
     module
 
       <ul>
+        <li><a href="reference/distances/main.html#module-mapof.core.distances">mapof.core.distances</a>
+</li>
         <li><a href="reference/embedding/embed.html#module-mapof.core.embedding.embed">mapof.core.embedding.embed</a>
 </li>
         <li><a href="reference/embedding/initial_positions.html#module-mapof.core.embedding.initial_positions">mapof.core.embedding.initial_positions</a>
@@ -673,6 +688,10 @@ document.write(`
 </li>
       <li><a href="reference/features/stability.html#mapof.core.features.stability.rotate_via_numpy">rotate_via_numpy() (in module mapof.core.features.stability)</a>
 </li>
+      <li><a href="reference/distances/main.html#mapof.core.distances.run_multiple_processes">run_multiple_processes() (in module mapof.core.distances)</a>
+</li>
+      <li><a href="reference/distances/main.html#mapof.core.distances.run_single_process">run_single_process() (in module mapof.core.distances)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -683,9 +702,11 @@ document.write(`
 </li>
       <li><a href="reference/matchings.html#mapof.core.matchings.solve_matching_matrices">solve_matching_matrices() (in module mapof.core.matchings)</a>
 </li>
+      <li><a href="reference/matchings.html#mapof.core.matchings.solve_matching_vectors">solve_matching_vectors() (in module mapof.core.matchings)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/matchings.html#mapof.core.matchings.solve_matching_vectors">solve_matching_vectors() (in module mapof.core.matchings)</a>
+      <li><a href="reference/inner_distances.html#mapof.core.inner_distances.spearman_distance_between_potes">spearman_distance_between_potes() (in module mapof.core.inner_distances)</a>
 </li>
       <li><a href="reference/inner_distances.html#mapof.core.inner_distances.swap_distance">swap_distance() (in module mapof.core.inner_distances)</a>
 </li>

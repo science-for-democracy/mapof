@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Stability &#8212; Map of Objects</title>
+    <title>Main &#8212; Map of Objects</title>
   
   
   
@@ -40,11 +40,11 @@
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/features/stability';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/distances/main';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Distance" href="../distances/index.html" />
-    <link rel="prev" title="Monotonicity" href="monotonicity.html" />
+    <link rel="next" title="Objects" href="../objects/index.html" />
+    <link rel="prev" title="Distance" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -158,16 +158,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../embedding/initial_positions.html">Initial Positions</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Features</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="common.html">Common</a></li>
-<li class="toctree-l3"><a class="reference internal" href="distortion.html">Distortion</a></li>
-<li class="toctree-l3"><a class="reference internal" href="mallows.html">Mallows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="monotonicity.html">Monotonicity</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Stability</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../features/common.html">Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/distortion.html">Distortion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/mallows.html">Mallows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/monotonicity.html">Monotonicity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/stability.html">Stability</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../distances/index.html">Distance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../distances/main.html">Main</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Distance</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Main</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -257,7 +257,7 @@
       
       
       
-      <li><a href="../../_sources/reference/features/stability.rst" target="_blank"
+      <li><a href="../../_sources/reference/distances/main.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -341,7 +341,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Stability</h1>
+    <h1>Main</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -351,7 +351,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.features.stability.rotate_via_numpy"><code class="docutils literal notranslate"><span class="pre">rotate_via_numpy()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.distances.extract_distance_id"><code class="docutils literal notranslate"><span class="pre">extract_distance_id()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.distances.run_multiple_processes"><code class="docutils literal notranslate"><span class="pre">run_multiple_processes()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.distances.run_single_process"><code class="docutils literal notranslate"><span class="pre">run_single_process()</span></code></a></li>
 </ul>
             </nav>
         </div>
@@ -363,12 +365,65 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-mapof.core.features.stability">
-<span id="stability"></span><h1>Stability<a class="headerlink" href="#module-mapof.core.features.stability" title="Link to this heading">#</a></h1>
+  <section id="module-mapof.core.distances">
+<span id="main"></span><h1>Main<a class="headerlink" href="#module-mapof.core.distances" title="Link to this heading">#</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="mapof.core.features.stability.rotate_via_numpy">
-<span class="sig-name descname"><span class="pre">rotate_via_numpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coordinates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radians</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/core/features/stability.html#rotate_via_numpy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.core.features.stability.rotate_via_numpy" title="Link to this definition">#</a></dt>
-<dd><p>Use numpy to build a rotation matrix and take the dot product.</p>
+<dt class="sig sig-object py" id="mapof.core.distances.extract_distance_id">
+<span class="sig-name descname"><span class="pre">extract_distance_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance_id:</span> <span class="pre">str)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;built-in</span> <span class="pre">function</span> <span class="pre">callable&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'str'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/core/distances.html#extract_distance_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.core.distances.extract_distance_id" title="Link to this definition">#</a></dt>
+<dd><p>Extracts inner distance and main distance from distance_id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>distance_id</strong> (<em>str</em>) – Name of the distance.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>callable</em> – Inner distance.</p></li>
+<li><p><em>str</em> – Main distance.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.core.distances.run_multiple_processes">
+<span class="sig-name descname"><span class="pre">run_multiple_processes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">experiment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instances_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distances</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matchings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/mapof/core/distances.html#run_multiple_processes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.core.distances.run_multiple_processes" title="Link to this definition">#</a></dt>
+<dd><p>Calculates distances between each pair of instances (using multiple processes).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment</strong> (<a class="reference internal" href="../objects/Experiment.html#mapof.core.objects.Experiment.Experiment" title="mapof.core.objects.Experiment.Experiment"><em>Experiment</em></a>) – Experiment object.</p></li>
+<li><p><strong>instances_ids</strong> (<em>list</em>) – List of the Ids.</p></li>
+<li><p><strong>distances</strong> (<em>dict</em>) – Dictionary with distances between each pair of instances</p></li>
+<li><p><strong>times</strong> (<em>dict</em>) – Dictionary with time of calculation of each distance.</p></li>
+<li><p><strong>matchings</strong> (<em>dict</em>) – Dictionary with matchings between each pair of instances.</p></li>
+<li><p><strong>process_id</strong> (<em>int</em>) – ID of the process.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>None</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.core.distances.run_single_process">
+<span class="sig-name descname"><span class="pre">run_single_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">experiment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instances_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distances</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matchings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/mapof/core/distances.html#run_single_process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.core.distances.run_single_process" title="Link to this definition">#</a></dt>
+<dd><p>Calculates distances between each pair of instances (using single process).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment</strong> (<a class="reference internal" href="../objects/Experiment.html#mapof.core.objects.Experiment.Experiment" title="mapof.core.objects.Experiment.Experiment"><em>Experiment</em></a>) – Experiment object.</p></li>
+<li><p><strong>instances_ids</strong> (<em>list</em>) – List of the Ids.</p></li>
+<li><p><strong>distances</strong> (<em>dict</em>) – Dictionary with distances between each pair of instances</p></li>
+<li><p><strong>times</strong> (<em>dict</em>) – Dictionary with time of calculation of each distance.</p></li>
+<li><p><strong>matchings</strong> (<em>dict</em>) – Dictionary with matchings between each pair of instances.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>None</em></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -385,20 +440,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="monotonicity.html"
+       href="index.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Monotonicity</p>
+        <p class="prev-next-title">Distance</p>
       </div>
     </a>
     <a class="right-next"
-       href="../distances/index.html"
+       href="../objects/index.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Distance</p>
+        <p class="prev-next-title">Objects</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -418,7 +473,9 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.features.stability.rotate_via_numpy"><code class="docutils literal notranslate"><span class="pre">rotate_via_numpy()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.distances.extract_distance_id"><code class="docutils literal notranslate"><span class="pre">extract_distance_id()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.distances.run_multiple_processes"><code class="docutils literal notranslate"><span class="pre">run_multiple_processes()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.core.distances.run_single_process"><code class="docutils literal notranslate"><span class="pre">run_single_process()</span></code></a></li>
 </ul>
   </nav></div>
 

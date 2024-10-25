@@ -165,6 +165,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/stability.html">Stability</a></li>
 </ul>
 </details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/distances/index.html">Distance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main.html">Main</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Experiment.html">Experiment Object</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Family.html">Family Object</a></li>
@@ -301,8 +305,7 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.core.objects.Experiment</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="kn">import</span> <span class="nn">csv</span>
+<span></span><span class="kn">import</span> <span class="nn">csv</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">math</span>
@@ -322,6 +325,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">mapof.core.persistence.experiment_imports</span> <span class="k">as</span> <span class="nn">imports</span>
 <span class="kn">import</span> <span class="nn">mapof.core.printing</span> <span class="k">as</span> <span class="nn">pr</span>
 <span class="kn">from</span> <span class="nn">mapof.core.objects.Family</span> <span class="kn">import</span> <span class="n">Family</span>
+<span class="kn">from</span> <span class="nn">mapof.core.utils</span> <span class="kn">import</span> <span class="n">make_folder_if_do_not_exist</span>
 
 
 <div class="viewcode-block" id="Experiment">
@@ -914,10 +918,7 @@ document.write(`
                 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">title_size</span><span class="p">)</span>
 
             <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;images/correlation&#39;</span>
-            <span class="n">is_exist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_exist</span><span class="p">:</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="n">make_folder_if_do_not_exist</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
             <span class="n">saveas</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;images/correlation/corr_</span><span class="si">{</span><span class="n">name_1</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">name_2</span><span class="si">}</span><span class="s1">&#39;</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">saveas</span><span class="p">,</span> <span class="n">pad_inches</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>

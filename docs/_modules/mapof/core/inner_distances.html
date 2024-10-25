@@ -165,6 +165,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/stability.html">Stability</a></li>
 </ul>
 </details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/distances/index.html">Distance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/main.html">Main</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/Experiment.html">Experiment Object</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/Family.html">Family Object</a></li>
@@ -301,10 +305,11 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.core.inner_distances</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span></span><span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">itertools</span>
 
 
 <div class="viewcode-block" id="map_str_to_func">
@@ -607,7 +612,20 @@ document.write(`
 <div class="viewcode-block" id="swap_distance_between_potes">
 <a class="viewcode-back" href="../../../reference/inner_distances.html#mapof.core.inner_distances.swap_distance_between_potes">[docs]</a>
 <span class="k">def</span> <span class="nf">swap_distance_between_potes</span><span class="p">(</span><span class="n">pote_1</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">pote_2</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Return: Swap distance between two potes &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the swap distance between two potes (i.e. positional votes).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        pote_1 : list</span>
+<span class="sd">            First vector.</span>
+<span class="sd">        pote_2 : list</span>
+<span class="sd">            Second vector.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        int</span>
+<span class="sd">            Swap distance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">swap_distance</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">pote_1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">pote_1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">pote_1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="ow">and</span>
@@ -619,8 +637,25 @@ document.write(`
 
 
 
+<div class="viewcode-block" id="spearman_distance_between_potes">
+<a class="viewcode-back" href="../../../reference/inner_distances.html#mapof.core.inner_distances.spearman_distance_between_potes">[docs]</a>
 <span class="k">def</span> <span class="nf">spearman_distance_between_potes</span><span class="p">(</span><span class="n">pote_1</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">pote_2</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="n">pote_1</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">-</span> <span class="n">pote_2</span><span class="p">[</span><span class="n">c</span><span class="p">])</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pote_1</span><span class="p">))])</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the Spearman distance between two potes (i.e. positional votes).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        pote_1 : list</span>
+<span class="sd">            First vector.</span>
+<span class="sd">        pote_2 : list</span>
+<span class="sd">            Second vector.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        int</span>
+<span class="sd">            Spearman distance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="n">pote_1</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">-</span> <span class="n">pote_2</span><span class="p">[</span><span class="n">c</span><span class="p">])</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pote_1</span><span class="p">))])</span></div>
+
 </pre></div>
 
                 </article>
