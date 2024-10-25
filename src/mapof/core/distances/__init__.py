@@ -4,7 +4,44 @@ from time import time
 import numpy as np
 
 import mapof.core.persistence.experiment_exports as exports
-from mapof.core.inner_distances import map_str_to_func
+from mapof.core.distances.inner_distances import (
+    map_str_to_func,
+    l1,
+    l2,
+    chebyshev,
+    hellinger,
+    emd,
+    emdinf,
+    discrete,
+    single_l1,
+    hamming,
+
+    vote_to_pote,
+    swap_distance,
+    swap_distance_between_potes,
+    spearman_distance_between_potes,
+)
+
+__all__ = [
+    'run_single_process',
+    'run_multiple_processes',
+    'extract_distance_id',
+    'map_str_to_func',
+    'l1',
+    'l2',
+    'chebyshev',
+    'hellinger',
+    'emd',
+    'emdinf',
+    'discrete',
+    'single_l1',
+    'hamming',
+
+    'vote_to_pote',
+    'swap_distance',
+    'swap_distance_between_potes',
+    'spearman_distance_between_potes',
+]
 
 
 def extract_distance_id(distance_id: str) -> (callable, str):

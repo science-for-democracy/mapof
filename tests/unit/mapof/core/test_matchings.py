@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 from gurobipy import GRB
 from mapof.core.matchings import *
-from mapof.core.inner_distances import single_l1
+from mapof.core.distances import single_l1
 
 def l1_distance(x, y):
     return np.abs(x - y).sum()

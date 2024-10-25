@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Distance &#8212; Map of Objects</title>
+    <title>Inner Distances &#8212; Map of Objects</title>
   
   
   
@@ -166,8 +166,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../features/stability.html">Stability</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">Distance</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">Inner Distances</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inner_distances.html">Inner Distances</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -182,7 +183,6 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../matchings.html">Matchings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inner_distances.html">Inner Distances</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../printing.html">Printing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../utils.html">Utils</a></li>
 </ul>
@@ -339,7 +339,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Distance</h1>
+    <h1>Inner Distances</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -353,14 +353,45 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="distance">
-<h1>Distance<a class="headerlink" href="#distance" title="Link to this heading">#</a></h1>
+  <section id="inner-distances">
+<h1>Inner Distances<a class="headerlink" href="#inner-distances" title="Link to this heading">#</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="main.html">Main</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="main.html#mapof.core.distances.chebyshev"><code class="docutils literal notranslate"><span class="pre">chebyshev()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#mapof.core.distances.discrete"><code class="docutils literal notranslate"><span class="pre">discrete()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#mapof.core.distances.emd"><code class="docutils literal notranslate"><span class="pre">emd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#mapof.core.distances.emdinf"><code class="docutils literal notranslate"><span class="pre">emdinf()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="main.html#mapof.core.distances.extract_distance_id"><code class="docutils literal notranslate"><span class="pre">extract_distance_id()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#mapof.core.distances.hamming"><code class="docutils literal notranslate"><span class="pre">hamming()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#mapof.core.distances.hellinger"><code class="docutils literal notranslate"><span class="pre">hellinger()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#mapof.core.distances.l1"><code class="docutils literal notranslate"><span class="pre">l1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#mapof.core.distances.l2"><code class="docutils literal notranslate"><span class="pre">l2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#mapof.core.distances.map_str_to_func"><code class="docutils literal notranslate"><span class="pre">map_str_to_func()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="main.html#mapof.core.distances.run_multiple_processes"><code class="docutils literal notranslate"><span class="pre">run_multiple_processes()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="main.html#mapof.core.distances.run_single_process"><code class="docutils literal notranslate"><span class="pre">run_single_process()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#mapof.core.distances.single_l1"><code class="docutils literal notranslate"><span class="pre">single_l1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#mapof.core.distances.spearman_distance_between_potes"><code class="docutils literal notranslate"><span class="pre">spearman_distance_between_potes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#mapof.core.distances.swap_distance"><code class="docutils literal notranslate"><span class="pre">swap_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#mapof.core.distances.swap_distance_between_potes"><code class="docutils literal notranslate"><span class="pre">swap_distance_between_potes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#mapof.core.distances.vote_to_pote"><code class="docutils literal notranslate"><span class="pre">vote_to_pote()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="inner_distances.html">Inner Distances</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="inner_distances.html#mapof.core.distances.inner_distances.chebyshev"><code class="docutils literal notranslate"><span class="pre">chebyshev()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inner_distances.html#mapof.core.distances.inner_distances.discrete"><code class="docutils literal notranslate"><span class="pre">discrete()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inner_distances.html#mapof.core.distances.inner_distances.emd"><code class="docutils literal notranslate"><span class="pre">emd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inner_distances.html#mapof.core.distances.inner_distances.emdinf"><code class="docutils literal notranslate"><span class="pre">emdinf()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inner_distances.html#mapof.core.distances.inner_distances.hamming"><code class="docutils literal notranslate"><span class="pre">hamming()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inner_distances.html#mapof.core.distances.inner_distances.hellinger"><code class="docutils literal notranslate"><span class="pre">hellinger()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inner_distances.html#mapof.core.distances.inner_distances.l1"><code class="docutils literal notranslate"><span class="pre">l1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inner_distances.html#mapof.core.distances.inner_distances.l2"><code class="docutils literal notranslate"><span class="pre">l2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inner_distances.html#mapof.core.distances.inner_distances.map_str_to_func"><code class="docutils literal notranslate"><span class="pre">map_str_to_func()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inner_distances.html#mapof.core.distances.inner_distances.single_l1"><code class="docutils literal notranslate"><span class="pre">single_l1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inner_distances.html#mapof.core.distances.inner_distances.spearman_distance_between_potes"><code class="docutils literal notranslate"><span class="pre">spearman_distance_between_potes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inner_distances.html#mapof.core.distances.inner_distances.swap_distance"><code class="docutils literal notranslate"><span class="pre">swap_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inner_distances.html#mapof.core.distances.inner_distances.swap_distance_between_potes"><code class="docutils literal notranslate"><span class="pre">swap_distance_between_potes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inner_distances.html#mapof.core.distances.inner_distances.vote_to_pote"><code class="docutils literal notranslate"><span class="pre">vote_to_pote()</span></code></a></li>
 </ul>
 </li>
 </ul>

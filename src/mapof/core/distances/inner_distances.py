@@ -26,46 +26,9 @@ def map_str_to_func(name: str) -> callable:
             'emd': emd,
             'emdinf': emdinf,
             'discrete': discrete,
+            'single_l1': single_l1,
+            'hamming': hamming,
             }.get(name)
-
-
-def discrete(vector_1, vector_2) -> int:
-    """
-    Computes the discrete distance.
-
-    Parameters
-    ----------
-        vector_1
-            First vector.
-        vector_2
-            Second vector.
-    Returns
-    -------
-        int
-            Discrete distance.
-    """
-    for i in range(len(vector_1)):
-        if vector_1[i] != vector_2[i]:
-            return 1
-    return 0
-
-
-def single_l1(value_1, value_2) -> float:
-    """
-    Computes the L1 distance between two values.
-
-    Parameters
-    ----------
-        value_1
-            First value.
-        value_2
-            Second values.
-    Returns
-    -------
-        float
-            L1 distance.
-    """
-    return abs(value_1 - value_2)
 
 
 def l1(vector_1: np.ndarray, vector_2: np.ndarray) -> float:
@@ -145,6 +108,51 @@ def hellinger(vector_1: list, vector_2: list) -> float:
                      * product)
 
 
+def discrete(vector_1, vector_2) -> int:
+    """
+    Computes the discrete distance.
+
+    Parameters
+    ----------
+        vector_1
+            First vector.
+        vector_2
+            Second vector.
+    Returns
+    -------
+        int
+            Discrete distance.
+    """
+    for i in range(len(vector_1)):
+        if vector_1[i] != vector_2[i]:
+            return 1
+    return 0
+
+
+def emd(vector_1: list, vector_2: list) -> float:
+    """
+    Computes the EMD distance.
+
+    Parameters
+    ----------
+        vector_1 : list
+            First vector.
+        vector_2 : list
+            Second vector.
+    Returns
+    -------
+        float
+            EMD distance.
+    """
+    vector_1 = deepcopy(vector_1)
+    dirt = 0.
+    for i in range(len(vector_1) - 1):
+        surplus = vector_1[i] - vector_2[i]
+        dirt += abs(surplus)
+        vector_1[i + 1] += surplus
+    return dirt
+
+
 def _stretch(vector, mult):
     return [x for _ in range(mult) for x in vector]
 
@@ -190,28 +198,22 @@ def emdinf(vector_1: list, vector_2: list) -> float:
     return res
 
 
-def emd(vector_1: list, vector_2: list) -> float:
+def single_l1(value_1, value_2) -> float:
     """
-    Computes the EMD distance.
+    Computes the L1 distance between two values.
 
     Parameters
     ----------
-        vector_1 : list
-            First vector.
-        vector_2 : list
-            Second vector.
+        value_1
+            First value.
+        value_2
+            Second values.
     Returns
     -------
         float
-            EMD distance.
+            L1 distance.
     """
-    vector_1 = deepcopy(vector_1)
-    dirt = 0.
-    for i in range(len(vector_1) - 1):
-        surplus = vector_1[i] - vector_2[i]
-        dirt += abs(surplus)
-        vector_1[i + 1] += surplus
-    return dirt
+    return abs(value_1 - value_2)
 
 
 def hamming(set_1: set, set_2: set) -> int:

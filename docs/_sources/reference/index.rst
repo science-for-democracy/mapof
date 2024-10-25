@@ -11,7 +11,6 @@ Code Reference
     objects/index
     persistence/index
     matchings
-    inner_distances
     printing
     utils
 

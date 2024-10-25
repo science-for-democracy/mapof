@@ -165,8 +165,9 @@
 <li class="toctree-l3"><a class="reference internal" href="reference/features/stability.html">Stability</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="reference/distances/index.html">Distance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="reference/distances/index.html">Inner Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/distances/inner_distances.html">Inner Distances</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -181,7 +182,6 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/matchings.html">Matchings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/inner_distances.html">Inner Distances</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/printing.html">Printing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/utils.html">Utils</a></li>
 </ul>
@@ -348,12 +348,16 @@ document.write(`
 </li>
       <li><a href="reference/features/monotonicity.html#mapof.core.features.monotonicity.calculate_monotonicity">calculate_monotonicity() (in module mapof.core.features.monotonicity)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/features/monotonicity.html#mapof.core.features.monotonicity.calculate_monotonicity_naive">calculate_monotonicity_naive() (in module mapof.core.features.monotonicity)</a>
 </li>
-      <li><a href="reference/inner_distances.html#mapof.core.inner_distances.chebyshev">chebyshev() (in module mapof.core.inner_distances)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/distances/main.html#mapof.core.distances.chebyshev">chebyshev() (in module mapof.core.distances)</a>
+
+      <ul>
+        <li><a href="reference/distances/inner_distances.html#mapof.core.distances.inner_distances.chebyshev">(in module mapof.core.distances.inner_distances)</a>
 </li>
+      </ul></li>
       <li><a href="reference/objects/Experiment.html#mapof.core.objects.Experiment.Experiment.compute_coordinates_by_families">compute_coordinates_by_families() (Experiment method)</a>
 </li>
       <li><a href="reference/objects/Experiment.html#mapof.core.objects.Experiment.Experiment.compute_distances">compute_distances() (Experiment method)</a>
@@ -364,8 +368,12 @@ document.write(`
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/inner_distances.html#mapof.core.inner_distances.discrete">discrete() (in module mapof.core.inner_distances)</a>
+      <li><a href="reference/distances/main.html#mapof.core.distances.discrete">discrete() (in module mapof.core.distances)</a>
+
+      <ul>
+        <li><a href="reference/distances/inner_distances.html#mapof.core.distances.inner_distances.discrete">(in module mapof.core.distances.inner_distances)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -378,14 +386,22 @@ document.write(`
 </li>
       <li><a href="reference/objects/Experiment.html#mapof.core.objects.Experiment.Experiment.embed_3d">embed_3d() (Experiment method)</a>
 </li>
-      <li><a href="reference/inner_distances.html#mapof.core.inner_distances.emd">emd() (in module mapof.core.inner_distances)</a>
+      <li><a href="reference/distances/main.html#mapof.core.distances.emd">emd() (in module mapof.core.distances)</a>
+
+      <ul>
+        <li><a href="reference/distances/inner_distances.html#mapof.core.distances.inner_distances.emd">(in module mapof.core.distances.inner_distances)</a>
 </li>
-      <li><a href="reference/inner_distances.html#mapof.core.inner_distances.emdinf">emdinf() (in module mapof.core.inner_distances)</a>
+      </ul></li>
+      <li><a href="reference/distances/main.html#mapof.core.distances.emdinf">emdinf() (in module mapof.core.distances)</a>
+
+      <ul>
+        <li><a href="reference/distances/inner_distances.html#mapof.core.distances.inner_distances.emdinf">(in module mapof.core.distances.inner_distances)</a>
 </li>
-      <li><a href="reference/objects/Experiment.html#mapof.core.objects.Experiment.Experiment">Experiment (class in mapof.core.objects.Experiment)</a>
-</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/objects/Experiment.html#mapof.core.objects.Experiment.Experiment">Experiment (class in mapof.core.objects.Experiment)</a>
+</li>
       <li><a href="reference/persistence/experiment_exports.html#mapof.core.persistence.experiment_exports.export_distances_multiple_processes">export_distances_multiple_processes() (in module mapof.core.persistence.experiment_exports)</a>
 </li>
       <li><a href="reference/persistence/experiment_exports.html#mapof.core.persistence.experiment_exports.export_distances_to_file">export_distances_to_file() (in module mapof.core.persistence.experiment_exports)</a>
@@ -428,12 +444,20 @@ document.write(`
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/inner_distances.html#mapof.core.inner_distances.hamming">hamming() (in module mapof.core.inner_distances)</a>
+      <li><a href="reference/distances/main.html#mapof.core.distances.hamming">hamming() (in module mapof.core.distances)</a>
+
+      <ul>
+        <li><a href="reference/distances/inner_distances.html#mapof.core.distances.inner_distances.hamming">(in module mapof.core.distances.inner_distances)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/inner_distances.html#mapof.core.inner_distances.hellinger">hellinger() (in module mapof.core.inner_distances)</a>
+      <li><a href="reference/distances/main.html#mapof.core.distances.hellinger">hellinger() (in module mapof.core.distances)</a>
+
+      <ul>
+        <li><a href="reference/distances/inner_distances.html#mapof.core.distances.inner_distances.hellinger">(in module mapof.core.distances.inner_distances)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -460,12 +484,20 @@ document.write(`
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/inner_distances.html#mapof.core.inner_distances.l1">l1() (in module mapof.core.inner_distances)</a>
+      <li><a href="reference/distances/main.html#mapof.core.distances.l1">l1() (in module mapof.core.distances)</a>
+
+      <ul>
+        <li><a href="reference/distances/inner_distances.html#mapof.core.distances.inner_distances.l1">(in module mapof.core.distances.inner_distances)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/inner_distances.html#mapof.core.inner_distances.l2">l2() (in module mapof.core.inner_distances)</a>
+      <li><a href="reference/distances/main.html#mapof.core.distances.l2">l2() (in module mapof.core.distances)</a>
+
+      <ul>
+        <li><a href="reference/distances/inner_distances.html#mapof.core.distances.inner_distances.l2">(in module mapof.core.distances.inner_distances)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -476,13 +508,24 @@ document.write(`
 </li>
       <li><a href="reference/printing.html#mapof.core.printing.map_diameter">map_diameter() (in module mapof.core.printing)</a>
 </li>
-      <li><a href="reference/inner_distances.html#mapof.core.inner_distances.map_str_to_func">map_str_to_func() (in module mapof.core.inner_distances)</a>
+      <li><a href="reference/distances/main.html#mapof.core.distances.map_str_to_func">map_str_to_func() (in module mapof.core.distances)</a>
+
+      <ul>
+        <li><a href="reference/distances/inner_distances.html#mapof.core.distances.inner_distances.map_str_to_func">(in module mapof.core.distances.inner_distances)</a>
 </li>
+      </ul></li>
       <li>
     mapof.core.distances
 
       <ul>
         <li><a href="reference/distances/main.html#module-mapof.core.distances">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.core.distances.inner_distances
+
+      <ul>
+        <li><a href="reference/distances/inner_distances.html#module-mapof.core.distances.inner_distances">module</a>
 </li>
       </ul></li>
       <li>
@@ -532,13 +575,6 @@ document.write(`
 
       <ul>
         <li><a href="reference/features/stability.html#module-mapof.core.features.stability">module</a>
-</li>
-      </ul></li>
-      <li>
-    mapof.core.inner_distances
-
-      <ul>
-        <li><a href="reference/inner_distances.html#module-mapof.core.inner_distances">module</a>
 </li>
       </ul></li>
       <li>
@@ -605,6 +641,8 @@ document.write(`
       <ul>
         <li><a href="reference/distances/main.html#module-mapof.core.distances">mapof.core.distances</a>
 </li>
+        <li><a href="reference/distances/inner_distances.html#module-mapof.core.distances.inner_distances">mapof.core.distances.inner_distances</a>
+</li>
         <li><a href="reference/embedding/embed.html#module-mapof.core.embedding.embed">mapof.core.embedding.embed</a>
 </li>
         <li><a href="reference/embedding/initial_positions.html#module-mapof.core.embedding.initial_positions">mapof.core.embedding.initial_positions</a>
@@ -618,8 +656,6 @@ document.write(`
         <li><a href="reference/features/monotonicity.html#module-mapof.core.features.monotonicity">mapof.core.features.monotonicity</a>
 </li>
         <li><a href="reference/features/stability.html#module-mapof.core.features.stability">mapof.core.features.stability</a>
-</li>
-        <li><a href="reference/inner_distances.html#module-mapof.core.inner_distances">mapof.core.inner_distances</a>
 </li>
         <li><a href="reference/matchings.html#module-mapof.core.matchings">mapof.core.matchings</a>
 </li>
@@ -698,20 +734,36 @@ document.write(`
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/inner_distances.html#mapof.core.inner_distances.single_l1">single_l1() (in module mapof.core.inner_distances)</a>
+      <li><a href="reference/distances/main.html#mapof.core.distances.single_l1">single_l1() (in module mapof.core.distances)</a>
+
+      <ul>
+        <li><a href="reference/distances/inner_distances.html#mapof.core.distances.inner_distances.single_l1">(in module mapof.core.distances.inner_distances)</a>
 </li>
+      </ul></li>
       <li><a href="reference/matchings.html#mapof.core.matchings.solve_matching_matrices">solve_matching_matrices() (in module mapof.core.matchings)</a>
 </li>
       <li><a href="reference/matchings.html#mapof.core.matchings.solve_matching_vectors">solve_matching_vectors() (in module mapof.core.matchings)</a>
 </li>
+      <li><a href="reference/distances/main.html#mapof.core.distances.spearman_distance_between_potes">spearman_distance_between_potes() (in module mapof.core.distances)</a>
+
+      <ul>
+        <li><a href="reference/distances/inner_distances.html#mapof.core.distances.inner_distances.spearman_distance_between_potes">(in module mapof.core.distances.inner_distances)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/inner_distances.html#mapof.core.inner_distances.spearman_distance_between_potes">spearman_distance_between_potes() (in module mapof.core.inner_distances)</a>
+      <li><a href="reference/distances/main.html#mapof.core.distances.swap_distance">swap_distance() (in module mapof.core.distances)</a>
+
+      <ul>
+        <li><a href="reference/distances/inner_distances.html#mapof.core.distances.inner_distances.swap_distance">(in module mapof.core.distances.inner_distances)</a>
 </li>
-      <li><a href="reference/inner_distances.html#mapof.core.inner_distances.swap_distance">swap_distance() (in module mapof.core.inner_distances)</a>
+      </ul></li>
+      <li><a href="reference/distances/main.html#mapof.core.distances.swap_distance_between_potes">swap_distance_between_potes() (in module mapof.core.distances)</a>
+
+      <ul>
+        <li><a href="reference/distances/inner_distances.html#mapof.core.distances.inner_distances.swap_distance_between_potes">(in module mapof.core.distances.inner_distances)</a>
 </li>
-      <li><a href="reference/inner_distances.html#mapof.core.inner_distances.swap_distance_between_potes">swap_distance_between_potes() (in module mapof.core.inner_distances)</a>
-</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -726,8 +778,12 @@ document.write(`
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/inner_distances.html#mapof.core.inner_distances.vote_to_pote">vote_to_pote() (in module mapof.core.inner_distances)</a>
+      <li><a href="reference/distances/main.html#mapof.core.distances.vote_to_pote">vote_to_pote() (in module mapof.core.distances)</a>
+
+      <ul>
+        <li><a href="reference/distances/inner_distances.html#mapof.core.distances.inner_distances.vote_to_pote">(in module mapof.core.distances.inner_distances)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 

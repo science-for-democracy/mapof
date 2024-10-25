@@ -165,8 +165,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/stability.html">Stability</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/distances/index.html">Distance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/distances/index.html">Inner Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/inner_distances.html">Inner Distances</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -181,7 +182,6 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/matchings.html">Matchings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/inner_distances.html">Inner Distances</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/printing.html">Printing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/utils.html">Utils</a></li>
 </ul>
@@ -311,7 +311,44 @@ document.write(`
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">import</span> <span class="nn">mapof.core.persistence.experiment_exports</span> <span class="k">as</span> <span class="nn">exports</span>
-<span class="kn">from</span> <span class="nn">mapof.core.inner_distances</span> <span class="kn">import</span> <span class="n">map_str_to_func</span>
+<span class="kn">from</span> <span class="nn">mapof.core.distances.inner_distances</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">map_str_to_func</span><span class="p">,</span>
+    <span class="n">l1</span><span class="p">,</span>
+    <span class="n">l2</span><span class="p">,</span>
+    <span class="n">chebyshev</span><span class="p">,</span>
+    <span class="n">hellinger</span><span class="p">,</span>
+    <span class="n">emd</span><span class="p">,</span>
+    <span class="n">emdinf</span><span class="p">,</span>
+    <span class="n">discrete</span><span class="p">,</span>
+    <span class="n">single_l1</span><span class="p">,</span>
+    <span class="n">hamming</span><span class="p">,</span>
+
+    <span class="n">vote_to_pote</span><span class="p">,</span>
+    <span class="n">swap_distance</span><span class="p">,</span>
+    <span class="n">swap_distance_between_potes</span><span class="p">,</span>
+    <span class="n">spearman_distance_between_potes</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;run_single_process&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;run_multiple_processes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;extract_distance_id&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;map_str_to_func&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;l1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;l2&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;chebyshev&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hellinger&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;emd&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;emdinf&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;discrete&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;single_l1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hamming&#39;</span><span class="p">,</span>
+
+    <span class="s1">&#39;vote_to_pote&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;swap_distance&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;swap_distance_between_potes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;spearman_distance_between_potes&#39;</span><span class="p">,</span>
+<span class="p">]</span>
 
 
 <div class="viewcode-block" id="extract_distance_id">
