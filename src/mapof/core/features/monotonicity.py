@@ -7,7 +7,10 @@ from mapof.core.features.common import \
     extract_selected_coordinates_from_experiment
 from mapof.core.objects.Experiment import Experiment
 
+from mapof.core.features.register import register_experiment_feature
 
+
+@register_experiment_feature('monotonicity', is_embedding_related=True)
 def calculate_monotonicity(
         experiment: Experiment,
         election_ids: list[str] = None,
@@ -60,6 +63,7 @@ def calculate_monotonicity(
     }
 
 
+@register_experiment_feature('monotonicity_naive', is_embedding_related=True)
 def calculate_monotonicity_naive(
         experiment: Experiment,
         election_ids: list[str] = None,

@@ -4,7 +4,10 @@ import numpy as np
 from mapof.core.features.common import extract_selected_coordinates
 from mapof.core.objects.Experiment import Experiment
 
+from mapof.core.features.register import registered_experiment_features
 
+
+@registered_experiment_features("stability", is_embedding_related=True)
 def calculate_stability(
         experiment: Experiment,
         election_ids: list[str] = None,

@@ -19,7 +19,7 @@ class Family(ABC):
                  single: bool = False,
                  instance_ids: list = None,
                  path: dict = None,
-                 **kwargs):
+                 **_kwargs):
 
         if path is None:
             path = {}

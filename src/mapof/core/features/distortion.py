@@ -7,7 +7,10 @@ from mapof.core.features.common import \
     extract_calculated_distances
 from mapof.core.objects.Experiment import Experiment
 
+from mapof.core.features.register import register_experiment_feature
 
+
+@register_experiment_feature('distortion', is_embedding_related=True)
 def calculate_distortion(
         experiment: Experiment,
         election_ids: list[str] = None,
@@ -66,6 +69,7 @@ def calculate_distortion(
     }
 
 
+@register_experiment_feature('distortion_naive', is_embedding_related=True)
 def calculate_distortion_naive(
         experiment: Experiment,
         election_ids: list[str] = None,

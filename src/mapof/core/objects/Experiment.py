@@ -98,7 +98,6 @@ class Experiment(ABC):
         else:
             self.instances = {}
 
-
     def compute_distances(
             self,
             distance_id: str = 'l1-mutual_attraction',
@@ -153,7 +152,10 @@ class Experiment(ABC):
             for t in range(num_processes):
 
                 file_name = f'{distance_id}_p{t}.csv'
-                path = os.path.join(os.getcwd(), "experiments", self.experiment_id, "distances",
+                path = os.path.join(os.getcwd(),
+                                    "experiments",
+                                    self.experiment_id,
+                                    "distances",
                                     file_name)
 
                 with open(path, 'r', newline='') as csv_file:
@@ -225,7 +227,7 @@ class Experiment(ABC):
         self.num_instances = 0
 
     @abstractmethod
-    def get_distance(self, insatnce_id_1, instance_id_2, distance_id: str = None, **kwargs):
+    def get_distance(self, instance_id_1, instance_id_2, distance_id: str = None, **kwargs):
         pass
 
     @abstractmethod
@@ -360,14 +362,14 @@ class Experiment(ABC):
 
         self.coordinates_by_families = coordinates_by_families
 
-    def get_distance(self, i, j):
-        """ Computes Euclidean distance in two-dimensional space"""
-
-        distance = 0.
-        for d in range(2):
-            distance += (self.coordinates[i][d] - self.coordinates[j][d]) ** 2
-
-        return math.sqrt(distance)
+    # def get_distance(self, i, j):
+    #     """ Computes Euclidean distance in two-dimensional space"""
+    #
+    #     distance = 0.
+    #     for d in range(2):
+    #         distance += (self.coordinates[i][d] - self.coordinates[j][d]) ** 2
+    #
+    #     return math.sqrt(distance)
 
     def rotate(self, angle) -> None:
         """ Rotates all the points by a given angle """
@@ -431,9 +433,11 @@ class Experiment(ABC):
             feature_long_id = feature_id
         else:
             feature_long_id = f'{feature_id}_{rule}'
-        return imports.get_values_from_csv_file(self, feature_id=feature_id,
-                                                column_id=column_id,
-                                                feature_long_id=feature_long_id)
+        return imports.get_values_from_csv_file(
+            self,
+            feature_id=feature_id,
+            column_id=column_id,
+            feature_long_id=feature_long_id)
 
     def normalize_feature_by_feature(
             self,

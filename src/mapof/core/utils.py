@@ -8,7 +8,7 @@ def make_folder_if_do_not_exist(path) -> None:
     Parameters
     ----------
         path : str
-        Path to the folder.
+            Path to the folder.
 
     Returns
     -------
