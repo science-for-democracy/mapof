@@ -15,7 +15,6 @@ class Family(ABC):
                  ms: int = 20,
                  show: bool = True,
                  marker: str = 'o',
-                 starting_from: int = 0,
                  single: bool = False,
                  instance_ids: list = None,
                  path: dict = None,
@@ -40,7 +39,6 @@ class Family(ABC):
         self.show = show
         self.marker = marker
         self.ms = ms
-        self.starting_from = starting_from
         self.single = single
         self.path = path
         self.instance_ids = instance_ids

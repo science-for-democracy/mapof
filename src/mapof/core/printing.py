@@ -11,46 +11,8 @@ try:
 except ImportError:
     tikzplotlib = None
 
-from mapof.core.glossary import *
+from mapof.core.glossary import RULE_NAME_MATRIX, SHORT_NICE_NAME, RULE_NAME_MAP
 import mapof.core.persistence.experiment_imports as imports
-
-
-def _get_main_mask(mask):
-    if mask == '10x50-fr-swap-color':
-        figsize = (6.4, 6.4)
-        pad_inches = 1
-    elif mask == '10x50-kk-swap-color':
-        figsize = (6.4, 6.4)
-        pad_inches = 0.8
-    elif mask == '100x100-fr-emd-positionwise-color':
-        figsize = (6.4, 6.4)
-        pad_inches = 1
-    elif mask == '100x100-kk-emd-positionwise-color':
-        figsize = (6.9, 6.9)
-        pad_inches = 1.4
-    else:
-        logging.warning("Incorrect mask name")
-
-    return figsize, pad_inches
-
-
-def _get_feature_mask(mask):
-    if mask == '10x50-fr-swap-black':
-        figsize = (7.7, 7.7)
-        pad_inches = 0.4
-    elif mask == '10x50-kk-swap-black':
-        figsize = (7.2, 7.2)
-        pad_inches = 0.5
-    elif mask == '100x100-fr-emd-positionwise-black':
-        figsize = (7.5, 7.5)
-        pad_inches = 0.6
-    elif mask == '100x100-kk-emd-positionwise-black':
-        figsize = (7.6, 7.6)
-        pad_inches = 1.4
-    else:
-        logging.warning("Incorrect mask name")
-
-    return figsize, pad_inches
 
 
 def print_map_2d(
@@ -68,7 +30,6 @@ def print_map_2d(
         bbox_inches='tight',
         saveas: str = None,
         show: bool = True,
-        tex: bool = False,
         legend: bool = True,
         dpi: int = 250,
         title_size: int = 16,
@@ -77,54 +38,56 @@ def print_map_2d(
         mask: str = None
 ):
     """
-    Prints map of instances on a 2d plane.
+        Prints a 2D map of experiment instances.
 
-    Parameters
-    ----------
-        experiment : Experiment
-            Experiment object.
-        return_map : bool
-            If True then return: fig, ax
-        xlabel
-            Pyplot param.
-        legend_pos
-            Pyplot param.
-        title_pos
-            Pyplot param.
-        angle
-            Rotate the map by a given angle.
-        reverse : bool
-            If True then reverse the map.
-        update : bool
-            If True then the points coordinates are exported.
-        textual : list[str]
-            Print thext over the points with names from the list.
-        textual_size
-            Size of the 'textual' text.
-        title : str
-            Pyplot param.
-        bbox_inches
-            Pyplot param.
-        saveas
-            Name of file in which the image will be stored.
-        show : bool
-            If true show the map on screen.
-        tex : bool
-            If True save image in tex format.
-        legend
-            Pyplot param.
-        dpi : int
-            Quality of the image.
-        title_size : int
-            Size of the title.
-        figsize
-            Size of the figure.
-        pad_inches
-            Pyplot param.
-        mask : str
-            Name of the mask to be put on top of the image.
+        Parameters
+        ----------
+            experiment : Experiment
+                Experiment object containing data for the map.
+            return_map : bool, default=False
+                If True, return fig, ax instead of displaying the map.
+            xlabel : str, optional
+                Label for the x-axis.
+            legend_pos : tuple, optional
+                Position of the legend on the plot.
+            title_pos : tuple, optional
+                Position of the title on the plot.
+            angle : float, default=0
+                Angle to rotate the map.
+            reverse : bool, default=False
+                If True, reverse the map orientation.
+            update : bool, default=False
+                If True, export updated point coordinates.
+            textual : list of str, optional
+                Labels for specific points on the map.
+            textual_size : int, default=16
+                Font size for textual labels.
+            title : str, optional
+                Title of the plot.
+            bbox_inches : str, default='tight'
+                Bounding box setting for saving the plot.
+            saveas : str, optional
+                File path to save the image.
+            show : bool, default=True
+                If True, display the map.
+            legend : bool, default=True
+                Display the legend if True.
+            dpi : int, default=250
+                Resolution of the saved image.
+            title_size : int, default=16
+                Font size for the plot title.
+            figsize : tuple, default=(6.4, 6.4)
+                Size of the figure in inches.
+            pad_inches : float, optional
+                Padding for saving the plot.
+            mask : str, optional
+                Mask to apply to the plot background.
 
-    """
+        Returns
+        -------
+            fig, ax : matplotlib Figure and Axes
+                If `return_map` is True, returns the figure and axis objects.
+        """
 
     if textual is None:
         textual = []
@@ -176,8 +139,6 @@ def print_map_2d(
     if return_map:
         return fig, ax
     else:
-        if tex:
-            _saveas_tex(saveas=saveas)
         if show:
             plt.show()
 
@@ -208,7 +169,6 @@ def print_map_2d_colored_by_feature(
         xticklabels=None,
         cmap=None,
         marker_func=None,
-        tex: bool = False,
         feature_labelsize: int = 14,
         dpi: int = 250,
         title_size: int = 16,
@@ -359,8 +319,6 @@ def print_map_2d_colored_by_feature(
     if return_map:
         return fig, ax
     else:
-        if tex:
-            _saveas_tex(saveas=saveas)
         if show:
             plt.show()
 
@@ -388,7 +346,6 @@ def print_map_2d_colored_by_features(
         xticklabels=None,
         cmap=None,
         marker_func=None,
-        tex: bool = False,
         feature_labelsize: int = 14,
         dpi: int = 250,
         column_id: str = 'value',
@@ -498,9 +455,6 @@ def print_map_2d_colored_by_features(
                       title=title, legend_pos=legend_pos, title_size=title_size,
                       title_pos=title_pos, dpi=dpi)
 
-    if tex:
-        _saveas_tex(saveas=saveas)
-
     if show:
         plt.show()
 
@@ -520,7 +474,6 @@ def print_map_3d(experiment,
                  xticklabels=None,
                  cmap=None,
                  marker_func=None,
-                 tex=False,
                  legend=True,
                  title_pos=None):
     """ This function is not updated """
@@ -552,9 +505,6 @@ def print_map_3d(experiment,
     _basic_background(ax=ax, legend=legend,
                       saveas=saveas, xlabel=xlabel,
                       title=title, title_pos=title_pos)
-
-    if tex:
-        _saveas_tex(saveas=saveas)
 
     if show:
         plt.show()
@@ -981,11 +931,24 @@ def _color_map_by_feature(experiment=None,
     return shades_dict, cmap
 
 
-def _color_map_by_features(experiment=None, fig=None, ax=None, feature_ids=None,
-                           upper_limit=np.infty,
-                           normalizing_func=None, marker_func=None, xticklabels=None, ms=None,
-                           cmap=None, ticks=None, dim=2, rounding=1, column_id='value',
-                           feature_labelsize=14, ticks_pos=None):
+def _color_map_by_features(
+        experiment=None,
+        fig=None,
+        ax=None,
+        feature_ids=None,
+        upper_limit=np.infty,
+        normalizing_func=None,
+        marker_func=None,
+        xticklabels=None,
+        ms=None,
+        cmap=None,
+        ticks=None,
+        dim=2,
+        rounding=1,
+        column_id='value',
+        feature_labelsize=14,
+        ticks_pos=None
+):
     xx, yy, zz, shades_1, shades_2, markers_1, mses_1, _min, _max, blank_xx_1, blank_yy_1 = \
         _import_values_for_features(
         experiment, feature_ids=feature_ids, upper_limit=upper_limit,
@@ -1235,17 +1198,6 @@ def _basic_background(
             path_2 = os.path.join(os.getcwd(), "images", "masks", mask + ".png")
             path_3 = file_name + ".png"
             _overlay_images(path_1, path_2, path_3)
-
-
-# TEX
-def _saveas_tex(saveas=None):
-    try:
-        os.mkdir(os.path.join(os.getcwd(), "images", "tex"))
-    except FileExistsError:
-        pass
-    file_name = saveas + ".tex"
-    path = os.path.join(os.getcwd(), "images", "tex", file_name)
-    tikzplotlib.save(path)
 
 
 # MAIN FUNCTIONS
@@ -1674,3 +1626,42 @@ def print_map_1d(experiment, saveas=None):
     if saveas:
         plt.savefig(saveas)
     plt.show()
+
+
+def _get_main_mask(mask):
+    if mask == '10x50-fr-swap-color':
+        figsize = (6.4, 6.4)
+        pad_inches = 1
+    elif mask == '10x50-kk-swap-color':
+        figsize = (6.4, 6.4)
+        pad_inches = 0.8
+    elif mask == '100x100-fr-emd-positionwise-color':
+        figsize = (6.4, 6.4)
+        pad_inches = 1
+    elif mask == '100x100-kk-emd-positionwise-color':
+        figsize = (6.9, 6.9)
+        pad_inches = 1.4
+    else:
+        logging.warning("Incorrect mask name")
+
+    return figsize, pad_inches
+
+
+def _get_feature_mask(mask):
+    if mask == '10x50-fr-swap-black':
+        figsize = (7.7, 7.7)
+        pad_inches = 0.4
+    elif mask == '10x50-kk-swap-black':
+        figsize = (7.2, 7.2)
+        pad_inches = 0.5
+    elif mask == '100x100-fr-emd-positionwise-black':
+        figsize = (7.5, 7.5)
+        pad_inches = 0.6
+    elif mask == '100x100-kk-emd-positionwise-black':
+        figsize = (7.6, 7.6)
+        pad_inches = 1.4
+    else:
+        logging.warning("Incorrect mask name")
+
+    return figsize, pad_inches
+
