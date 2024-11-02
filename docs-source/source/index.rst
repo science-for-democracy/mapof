@@ -24,5 +24,6 @@ List of available packages within the mapof ecosystem:
     installation
     quickstart
     reference/index
+    resources
     citation
 

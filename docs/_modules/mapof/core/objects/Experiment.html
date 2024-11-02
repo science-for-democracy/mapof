@@ -165,8 +165,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/stability.html">Stability</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/distances/index.html">Distance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/distances/index.html">Inner Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/inner_distances.html">Inner Distances</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -181,11 +182,11 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../reference/matchings.html">Matchings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../reference/inner_distances.html">Inner Distances</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../reference/printing.html">Printing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../reference/utils.html">Utils</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../resources.html">Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citation Policy</a></li>
 </ul>
 
@@ -410,7 +411,6 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">instances</span> <span class="o">=</span> <span class="p">{}</span></div>
 
 
-
 <div class="viewcode-block" id="Experiment.compute_distances">
 <a class="viewcode-back" href="../../../../reference/objects/Experiment.html#mapof.core.objects.Experiment.Experiment.compute_distances">[docs]</a>
     <span class="k">def</span> <span class="nf">compute_distances</span><span class="p">(</span>
@@ -467,7 +467,10 @@ document.write(`
             <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_processes</span><span class="p">):</span>
 
                 <span class="n">file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">distance_id</span><span class="si">}</span><span class="s1">_p</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s1">.csv&#39;</span>
-                <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;experiments&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span> <span class="s2">&quot;distances&quot;</span><span class="p">,</span>
+                <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
+                                    <span class="s2">&quot;experiments&quot;</span><span class="p">,</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span>
+                                    <span class="s2">&quot;distances&quot;</span><span class="p">,</span>
                                     <span class="n">file_name</span><span class="p">)</span>
 
                 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
@@ -546,7 +549,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">num_instances</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">get_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">insatnce_id_1</span><span class="p">,</span> <span class="n">instance_id_2</span><span class="p">,</span> <span class="n">distance_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_id_1</span><span class="p">,</span> <span class="n">instance_id_2</span><span class="p">,</span> <span class="n">distance_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">pass</span>
 
     <span class="nd">@abstractmethod</span>
@@ -705,17 +708,14 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">coordinates_by_families</span> <span class="o">=</span> <span class="n">coordinates_by_families</span></div>
 
 
-<div class="viewcode-block" id="Experiment.get_distance">
-<a class="viewcode-back" href="../../../../reference/objects/Experiment.html#mapof.core.objects.Experiment.Experiment.get_distance">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; Computes Euclidean distance in two-dimensional space&quot;&quot;&quot;</span>
-
-        <span class="n">distance</span> <span class="o">=</span> <span class="mf">0.</span>
-        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-            <span class="n">distance</span> <span class="o">+=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">d</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">d</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
-
-        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span></div>
-
+    <span class="c1"># def get_distance(self, i, j):</span>
+    <span class="c1">#     &quot;&quot;&quot; Computes Euclidean distance in two-dimensional space&quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1">#     distance = 0.</span>
+    <span class="c1">#     for d in range(2):</span>
+    <span class="c1">#         distance += (self.coordinates[i][d] - self.coordinates[j][d]) ** 2</span>
+    <span class="c1">#</span>
+    <span class="c1">#     return math.sqrt(distance)</span>
 
 <div class="viewcode-block" id="Experiment.rotate">
 <a class="viewcode-back" href="../../../../reference/objects/Experiment.html#mapof.core.objects.Experiment.Experiment.rotate">[docs]</a>
@@ -791,9 +791,11 @@ document.write(`
             <span class="n">feature_long_id</span> <span class="o">=</span> <span class="n">feature_id</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">feature_long_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">feature_id</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">rule</span><span class="si">}</span><span class="s1">&#39;</span>
-        <span class="k">return</span> <span class="n">imports</span><span class="o">.</span><span class="n">get_values_from_csv_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id</span><span class="o">=</span><span class="n">feature_id</span><span class="p">,</span>
-                                                <span class="n">column_id</span><span class="o">=</span><span class="n">column_id</span><span class="p">,</span>
-                                                <span class="n">feature_long_id</span><span class="o">=</span><span class="n">feature_long_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">imports</span><span class="o">.</span><span class="n">get_values_from_csv_file</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">feature_id</span><span class="o">=</span><span class="n">feature_id</span><span class="p">,</span>
+            <span class="n">column_id</span><span class="o">=</span><span class="n">column_id</span><span class="p">,</span>
+            <span class="n">feature_long_id</span><span class="o">=</span><span class="n">feature_long_id</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">normalize_feature_by_feature</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -985,6 +987,7 @@ document.write(`
         <span class="k">for</span> <span class="n">family_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">culture_id</span> <span class="o">==</span> <span class="n">culture_id</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">family_id</span></div>
+
 
 </pre></div>
 

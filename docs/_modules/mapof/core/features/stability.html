@@ -165,6 +165,11 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/stability.html">Stability</a></li>
 </ul>
 </details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/distances/index.html">Inner Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/inner_distances.html">Inner Distances</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Experiment.html">Experiment Object</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Family.html">Family Object</a></li>
@@ -177,11 +182,11 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../reference/matchings.html">Matchings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../reference/inner_distances.html">Inner Distances</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../reference/printing.html">Printing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../reference/utils.html">Utils</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../resources.html">Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citation Policy</a></li>
 </ul>
 
@@ -307,7 +312,10 @@ document.write(`
 <span class="kn">from</span> <span class="nn">mapof.core.features.common</span> <span class="kn">import</span> <span class="n">extract_selected_coordinates</span>
 <span class="kn">from</span> <span class="nn">mapof.core.objects.Experiment</span> <span class="kn">import</span> <span class="n">Experiment</span>
 
+<span class="kn">from</span> <span class="nn">mapof.core.features.register</span> <span class="kn">import</span> <span class="n">register_experiment_feature</span>
 
+
+<span class="nd">@register_experiment_feature</span><span class="p">(</span><span class="s2">&quot;stability&quot;</span><span class="p">,</span> <span class="n">is_embedding_related</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">calculate_stability</span><span class="p">(</span>
         <span class="n">experiment</span><span class="p">:</span> <span class="n">Experiment</span><span class="p">,</span>
         <span class="n">election_ids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>

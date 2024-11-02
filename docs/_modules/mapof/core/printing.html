@@ -165,6 +165,11 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/stability.html">Stability</a></li>
 </ul>
 </details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/distances/index.html">Inner Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/inner_distances.html">Inner Distances</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/Experiment.html">Experiment Object</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/Family.html">Family Object</a></li>
@@ -177,11 +182,11 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/matchings.html">Matchings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/inner_distances.html">Inner Distances</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/printing.html">Printing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/utils.html">Utils</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../resources.html">Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../citation.html">Citation Policy</a></li>
 </ul>
 
@@ -314,46 +319,8 @@ document.write(`
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="n">tikzplotlib</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="kn">from</span> <span class="nn">mapof.core.glossary</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mapof.core.glossary</span> <span class="kn">import</span> <span class="n">RULE_NAME_MATRIX</span><span class="p">,</span> <span class="n">SHORT_NICE_NAME</span><span class="p">,</span> <span class="n">RULE_NAME_MAP</span>
 <span class="kn">import</span> <span class="nn">mapof.core.persistence.experiment_imports</span> <span class="k">as</span> <span class="nn">imports</span>
-
-
-<span class="k">def</span> <span class="nf">_get_main_mask</span><span class="p">(</span><span class="n">mask</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">mask</span> <span class="o">==</span> <span class="s1">&#39;10x50-fr-swap-color&#39;</span><span class="p">:</span>
-        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">)</span>
-        <span class="n">pad_inches</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">elif</span> <span class="n">mask</span> <span class="o">==</span> <span class="s1">&#39;10x50-kk-swap-color&#39;</span><span class="p">:</span>
-        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">)</span>
-        <span class="n">pad_inches</span> <span class="o">=</span> <span class="mf">0.8</span>
-    <span class="k">elif</span> <span class="n">mask</span> <span class="o">==</span> <span class="s1">&#39;100x100-fr-emd-positionwise-color&#39;</span><span class="p">:</span>
-        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">)</span>
-        <span class="n">pad_inches</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">elif</span> <span class="n">mask</span> <span class="o">==</span> <span class="s1">&#39;100x100-kk-emd-positionwise-color&#39;</span><span class="p">:</span>
-        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">6.9</span><span class="p">,</span> <span class="mf">6.9</span><span class="p">)</span>
-        <span class="n">pad_inches</span> <span class="o">=</span> <span class="mf">1.4</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Incorrect mask name&quot;</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">figsize</span><span class="p">,</span> <span class="n">pad_inches</span>
-
-
-<span class="k">def</span> <span class="nf">_get_feature_mask</span><span class="p">(</span><span class="n">mask</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">mask</span> <span class="o">==</span> <span class="s1">&#39;10x50-fr-swap-black&#39;</span><span class="p">:</span>
-        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">7.7</span><span class="p">,</span> <span class="mf">7.7</span><span class="p">)</span>
-        <span class="n">pad_inches</span> <span class="o">=</span> <span class="mf">0.4</span>
-    <span class="k">elif</span> <span class="n">mask</span> <span class="o">==</span> <span class="s1">&#39;10x50-kk-swap-black&#39;</span><span class="p">:</span>
-        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">7.2</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">)</span>
-        <span class="n">pad_inches</span> <span class="o">=</span> <span class="mf">0.5</span>
-    <span class="k">elif</span> <span class="n">mask</span> <span class="o">==</span> <span class="s1">&#39;100x100-fr-emd-positionwise-black&#39;</span><span class="p">:</span>
-        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">7.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">)</span>
-        <span class="n">pad_inches</span> <span class="o">=</span> <span class="mf">0.6</span>
-    <span class="k">elif</span> <span class="n">mask</span> <span class="o">==</span> <span class="s1">&#39;100x100-kk-emd-positionwise-black&#39;</span><span class="p">:</span>
-        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">7.6</span><span class="p">,</span> <span class="mf">7.6</span><span class="p">)</span>
-        <span class="n">pad_inches</span> <span class="o">=</span> <span class="mf">1.4</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Incorrect mask name&quot;</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">figsize</span><span class="p">,</span> <span class="n">pad_inches</span>
 
 
 <div class="viewcode-block" id="print_map_2d">
@@ -367,14 +334,12 @@ document.write(`
         <span class="n">angle</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
         <span class="n">reverse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">axis</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">textual</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">textual_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
         <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span>
         <span class="n">saveas</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">tex</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">legend</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span>
         <span class="n">title_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
@@ -383,56 +348,56 @@ document.write(`
         <span class="n">mask</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Prints map of instances on a 2d plane.</span>
+<span class="sd">        Prints a 2D map of experiment instances.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">        experiment : Experiment</span>
-<span class="sd">            Experiment object.</span>
-<span class="sd">        return_map : bool</span>
-<span class="sd">            If True then return: fig, ax</span>
-<span class="sd">        xlabel</span>
-<span class="sd">            Pyplot param.</span>
-<span class="sd">        legend_pos</span>
-<span class="sd">            Pyplot param.</span>
-<span class="sd">        title_pos</span>
-<span class="sd">            Pyplot param.</span>
-<span class="sd">        angle</span>
-<span class="sd">            Rotate the map by a given angle.</span>
-<span class="sd">        reverse : bool</span>
-<span class="sd">            If True then reverse the map.</span>
-<span class="sd">        update : bool</span>
-<span class="sd">            If True then the points coordinates are exported.</span>
-<span class="sd">        axis : bool</span>
-<span class="sd">            Deprecated param.</span>
-<span class="sd">        textual : list[str]</span>
-<span class="sd">            Print thext over the points with names from the list.</span>
-<span class="sd">        textual_size</span>
-<span class="sd">            Size of the &#39;textual&#39; text.</span>
-<span class="sd">        title : str</span>
-<span class="sd">            Pyplot param.</span>
-<span class="sd">        bbox_inches</span>
-<span class="sd">            Pyplot param.</span>
-<span class="sd">        saveas</span>
-<span class="sd">            Name of file in which the image will be stored.</span>
-<span class="sd">        show : bool</span>
-<span class="sd">            If true show the map on screen.</span>
-<span class="sd">        tex : bool</span>
-<span class="sd">            If True save image in tex format.</span>
-<span class="sd">        legend</span>
-<span class="sd">            Pyplot param.</span>
-<span class="sd">        dpi : int</span>
-<span class="sd">            Quality of the image.</span>
-<span class="sd">        title_size : int</span>
-<span class="sd">            Size of the title.</span>
-<span class="sd">        figsize</span>
-<span class="sd">            Size of the figure.</span>
-<span class="sd">        pad_inches</span>
-<span class="sd">            Pyplot param.</span>
-<span class="sd">        mask : str</span>
-<span class="sd">            Name of the mask to be put on top of the image.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">            experiment : Experiment</span>
+<span class="sd">                Experiment object containing data for the map.</span>
+<span class="sd">            return_map : bool, default=False</span>
+<span class="sd">                If True, return fig, ax instead of displaying the map.</span>
+<span class="sd">            xlabel : str, optional</span>
+<span class="sd">                Label for the x-axis.</span>
+<span class="sd">            legend_pos : tuple, optional</span>
+<span class="sd">                Position of the legend on the plot.</span>
+<span class="sd">            title_pos : tuple, optional</span>
+<span class="sd">                Position of the title on the plot.</span>
+<span class="sd">            angle : float, default=0</span>
+<span class="sd">                Angle to rotate the map.</span>
+<span class="sd">            reverse : bool, default=False</span>
+<span class="sd">                If True, reverse the map orientation.</span>
+<span class="sd">            update : bool, default=False</span>
+<span class="sd">                If True, export updated point coordinates.</span>
+<span class="sd">            textual : list of str, optional</span>
+<span class="sd">                Labels for specific points on the map.</span>
+<span class="sd">            textual_size : int, default=16</span>
+<span class="sd">                Font size for textual labels.</span>
+<span class="sd">            title : str, optional</span>
+<span class="sd">                Title of the plot.</span>
+<span class="sd">            bbox_inches : str, default=&#39;tight&#39;</span>
+<span class="sd">                Bounding box setting for saving the plot.</span>
+<span class="sd">            saveas : str, optional</span>
+<span class="sd">                File path to save the image.</span>
+<span class="sd">            show : bool, default=True</span>
+<span class="sd">                If True, display the map.</span>
+<span class="sd">            legend : bool, default=True</span>
+<span class="sd">                Display the legend if True.</span>
+<span class="sd">            dpi : int, default=250</span>
+<span class="sd">                Resolution of the saved image.</span>
+<span class="sd">            title_size : int, default=16</span>
+<span class="sd">                Font size for the plot title.</span>
+<span class="sd">            figsize : tuple, default=(6.4, 6.4)</span>
+<span class="sd">                Size of the figure in inches.</span>
+<span class="sd">            pad_inches : float, optional</span>
+<span class="sd">                Padding for saving the plot.</span>
+<span class="sd">            mask : str, optional</span>
+<span class="sd">                Mask to apply to the plot background.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            fig, ax : matplotlib Figure and Axes</span>
+<span class="sd">                If `return_map` is True, returns the figure and axis objects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">textual</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">textual</span> <span class="o">=</span> <span class="p">[]</span>
@@ -457,9 +422,7 @@ document.write(`
     <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">()</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">axis</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 
     <span class="n">_add_textual</span><span class="p">(</span><span class="n">experiment</span><span class="o">=</span><span class="n">experiment</span><span class="p">,</span>
                  <span class="n">textual</span><span class="o">=</span><span class="n">textual</span><span class="p">,</span>
@@ -486,8 +449,6 @@ document.write(`
     <span class="k">if</span> <span class="n">return_map</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">tex</span><span class="p">:</span>
-            <span class="n">_saveas_tex</span><span class="p">(</span><span class="n">saveas</span><span class="o">=</span><span class="n">saveas</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 
@@ -497,6 +458,8 @@ document.write(`
     <span class="k">return</span> <span class="n">print_map_2d</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">return_map</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 
+<div class="viewcode-block" id="print_map_2d_colored_by_feature">
+<a class="viewcode-back" href="../../../reference/printing.html#mapof.core.printing.print_map_2d_colored_by_feature">[docs]</a>
 <span class="k">def</span> <span class="nf">print_map_2d_colored_by_feature</span><span class="p">(</span>
         <span class="n">experiment</span><span class="p">,</span>
         <span class="n">return_map</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -505,7 +468,6 @@ document.write(`
         <span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">legend_pos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">title_pos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">axis</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">rounding</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">upper_limit</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">infty</span><span class="p">,</span>
         <span class="n">lower_limit</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">infty</span><span class="p">,</span>
@@ -520,7 +482,6 @@ document.write(`
         <span class="n">xticklabels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">marker_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">tex</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">feature_labelsize</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">14</span><span class="p">,</span>
         <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span>
         <span class="n">title_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
@@ -533,6 +494,81 @@ document.write(`
         <span class="n">pad_inches</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">mask</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prints map of instances on a 2d plane.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        experiment : Experiment</span>
+<span class="sd">            Experiment object.</span>
+<span class="sd">        return_map : bool</span>
+<span class="sd">            If True then return: fig, ax</span>
+<span class="sd">        feature_id</span>
+<span class="sd">            Id of the feature to be used for coloring.</span>
+<span class="sd">        column_id</span>
+<span class="sd">            Column of the feature to be used for coloring.</span>
+<span class="sd">        xlabel</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        legend_pos</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        title_pos</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        rounding : int</span>
+<span class="sd">            Rounding of the feature values.</span>
+<span class="sd">        upper_limit : float</span>
+<span class="sd">            Upper limit of the feature values.</span>
+<span class="sd">        lower_limit : float</span>
+<span class="sd">            Lower limit of the feature values.</span>
+<span class="sd">        ticks</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        textual : list[str]</span>
+<span class="sd">            Print thext over the points with names from the list.</span>
+<span class="sd">        scale</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        textual_size</span>
+<span class="sd">            Size of the &#39;textual&#39; text.</span>
+<span class="sd">        title : str</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        bbox_inches</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        saveas</span>
+<span class="sd">            Name of file in which the image will be stored.</span>
+<span class="sd">        show : bool</span>
+<span class="sd">            If true show the map on screen.</span>
+<span class="sd">        normalizing_func</span>
+<span class="sd">            Normalizing function.</span>
+<span class="sd">        xticklabels</span>
+<span class="sd">            xticklabels.</span>
+<span class="sd">        cmap</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        marker_func</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        tex : bool</span>
+<span class="sd">            If True save image in tex format.</span>
+<span class="sd">        feature_labelsize : int</span>
+<span class="sd">            Size of the feature labels.</span>
+<span class="sd">        legend</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        dpi : int</span>
+<span class="sd">            Quality of the image.</span>
+<span class="sd">        title_size : int</span>
+<span class="sd">            Size of the title.</span>
+<span class="sd">        ticks_pos</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        omit : list</span>
+<span class="sd">            List of the points to be omitted.</span>
+<span class="sd">        figsize</span>
+<span class="sd">            Size of the figure.</span>
+<span class="sd">        strech</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        colors</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        pad_inches</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        mask : str</span>
+<span class="sd">            Name of the mask to be put on top of the image.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">textual</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">textual</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -550,9 +586,7 @@ document.write(`
     <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">()</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">axis</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 
     <span class="n">shades_dict</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="n">_color_map_by_feature</span><span class="p">(</span><span class="n">experiment</span><span class="o">=</span><span class="n">experiment</span><span class="p">,</span>
                                               <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span>
@@ -598,23 +632,23 @@ document.write(`
     <span class="k">if</span> <span class="n">return_map</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">tex</span><span class="p">:</span>
-            <span class="n">_saveas_tex</span><span class="p">(</span><span class="n">saveas</span><span class="o">=</span><span class="n">saveas</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
 
 
 <span class="k">def</span> <span class="nf">get_map_map_2d_colored_by_feature</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">print_map_2d_colored_by_feature</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">return_map</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 
+<div class="viewcode-block" id="print_map_2d_colored_by_features">
+<a class="viewcode-back" href="../../../reference/printing.html#mapof.core.printing.print_map_2d_colored_by_features">[docs]</a>
 <span class="k">def</span> <span class="nf">print_map_2d_colored_by_features</span><span class="p">(</span>
         <span class="n">experiment</span><span class="p">,</span>
-        <span class="n">feature_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">feature_ids</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">legend_pos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">title_pos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">axis</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">rounding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">upper_limit</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">infty</span><span class="p">,</span>
         <span class="n">ticks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -628,7 +662,6 @@ document.write(`
         <span class="n">xticklabels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">marker_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">tex</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">feature_labelsize</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">14</span><span class="p">,</span>
         <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span>
         <span class="n">column_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span>
@@ -637,6 +670,82 @@ document.write(`
         <span class="n">textual_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
         <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">)</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prints map of instances on a 2d plane.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        experiment : Experiment</span>
+<span class="sd">            Experiment object.</span>
+<span class="sd">        return_map : bool</span>
+<span class="sd">            If True then return: fig, ax</span>
+<span class="sd">        feature_ids : list</span>
+<span class="sd">            Ids of the feature to be used for coloring.</span>
+<span class="sd">        column_id</span>
+<span class="sd">            Column of the feature to be used for coloring.</span>
+<span class="sd">        xlabel</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        legend_pos</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        title_pos</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        rounding : int</span>
+<span class="sd">            Rounding of the feature values.</span>
+<span class="sd">        upper_limit : float</span>
+<span class="sd">            Upper limit of the feature values.</span>
+<span class="sd">        lower_limit : float</span>
+<span class="sd">            Lower limit of the feature values.</span>
+<span class="sd">        ticks</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        textual : list[str]</span>
+<span class="sd">            Print thext over the points with names from the list.</span>
+<span class="sd">        scale</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        textual_size</span>
+<span class="sd">            Size of the &#39;textual&#39; text.</span>
+<span class="sd">        title : str</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        bbox_inches</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        saveas</span>
+<span class="sd">            Name of file in which the image will be stored.</span>
+<span class="sd">        show : bool</span>
+<span class="sd">            If true show the map on screen.</span>
+<span class="sd">        normalizing_func</span>
+<span class="sd">            Normalizing function.</span>
+<span class="sd">        xticklabels</span>
+<span class="sd">            xticklabels.</span>
+<span class="sd">        cmap</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        marker_func</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        tex : bool</span>
+<span class="sd">            If True save image in tex format.</span>
+<span class="sd">        feature_labelsize : int</span>
+<span class="sd">            Size of the feature labels.</span>
+<span class="sd">        legend</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        dpi : int</span>
+<span class="sd">            Quality of the image.</span>
+<span class="sd">        title_size : int</span>
+<span class="sd">            Size of the title.</span>
+<span class="sd">        ticks_pos</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        omit : list</span>
+<span class="sd">            List of the points to be omitted.</span>
+<span class="sd">        figsize</span>
+<span class="sd">            Size of the figure.</span>
+<span class="sd">        strech</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        colors</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        pad_inches</span>
+<span class="sd">            Pyplot param.</span>
+<span class="sd">        mask : str</span>
+<span class="sd">            Name of the mask to be put on top of the image.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">textual</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">textual</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -647,9 +756,7 @@ document.write(`
     <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">()</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">axis</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 
     <span class="n">_color_map_by_features</span><span class="p">(</span><span class="n">experiment</span><span class="o">=</span><span class="n">experiment</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
                            <span class="n">feature_ids</span><span class="o">=</span><span class="n">feature_ids</span><span class="p">,</span> <span class="n">rounding</span><span class="o">=</span><span class="n">rounding</span><span class="p">,</span>
@@ -664,11 +771,9 @@ document.write(`
                       <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">legend_pos</span><span class="o">=</span><span class="n">legend_pos</span><span class="p">,</span> <span class="n">title_size</span><span class="o">=</span><span class="n">title_size</span><span class="p">,</span>
                       <span class="n">title_pos</span><span class="o">=</span><span class="n">title_pos</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">tex</span><span class="p">:</span>
-        <span class="n">_saveas_tex</span><span class="p">(</span><span class="n">saveas</span><span class="o">=</span><span class="n">saveas</span><span class="p">)</span>
-
     <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
 
 
 <div class="viewcode-block" id="print_map_3d">
@@ -688,7 +793,6 @@ document.write(`
                  <span class="n">xticklabels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">marker_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">tex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                  <span class="n">title_pos</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; This function is not updated &quot;&quot;&quot;</span>
@@ -721,15 +825,11 @@ document.write(`
                       <span class="n">saveas</span><span class="o">=</span><span class="n">saveas</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="n">xlabel</span><span class="p">,</span>
                       <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">title_pos</span><span class="o">=</span><span class="n">title_pos</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">tex</span><span class="p">:</span>
-        <span class="n">_saveas_tex</span><span class="p">(</span><span class="n">saveas</span><span class="o">=</span><span class="n">saveas</span><span class="p">)</span>
-
     <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 
 
 
-<span class="c1"># HELPER FUNCTIONS FOR PRINT_2D</span>
 <span class="k">def</span> <span class="nf">_convert_none</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
@@ -874,11 +974,6 @@ document.write(`
     <span class="n">shades</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">shades</span><span class="p">)</span>
     <span class="n">markers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">markers</span><span class="p">)</span>
     <span class="n">mses</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mses</span><span class="p">)</span>
-    <span class="c1"># if feature_id == &#39;partylist&#39; and column_id == &#39;value&#39;:</span>
-    <span class="c1">#     mses = np.asarray(</span>
-    <span class="c1">#         [1. + 20. * (b / (v + 1)) for b, v in zip(bounds.values(), values.values())])</span>
-    <span class="c1"># else:</span>
-    <span class="c1">#     mses = None</span>
 
     <span class="k">return</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span><span class="p">,</span> <span class="n">shades</span><span class="p">,</span> <span class="n">markers</span><span class="p">,</span> <span class="n">mses</span><span class="p">,</span> <span class="n">local_min</span><span class="p">,</span> <span class="n">local_max</span><span class="p">,</span> <span class="n">blank_xx</span><span class="p">,</span> <span class="n">blank_yy</span><span class="p">,</span> <span class="n">names</span>
 
@@ -1156,11 +1251,24 @@ document.write(`
     <span class="k">return</span> <span class="n">shades_dict</span><span class="p">,</span> <span class="n">cmap</span>
 
 
-<span class="k">def</span> <span class="nf">_color_map_by_features</span><span class="p">(</span><span class="n">experiment</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feature_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                           <span class="n">upper_limit</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">infty</span><span class="p">,</span>
-                           <span class="n">normalizing_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">marker_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                           <span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ticks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">rounding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column_id</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span>
-                           <span class="n">feature_labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">ticks_pos</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_color_map_by_features</span><span class="p">(</span>
+        <span class="n">experiment</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">feature_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">upper_limit</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">infty</span><span class="p">,</span>
+        <span class="n">normalizing_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">marker_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">xticklabels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ms</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ticks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">rounding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">column_id</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span>
+        <span class="n">feature_labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+        <span class="n">ticks_pos</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
     <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span><span class="p">,</span> <span class="n">shades_1</span><span class="p">,</span> <span class="n">shades_2</span><span class="p">,</span> <span class="n">markers_1</span><span class="p">,</span> <span class="n">mses_1</span><span class="p">,</span> <span class="n">_min</span><span class="p">,</span> <span class="n">_max</span><span class="p">,</span> <span class="n">blank_xx_1</span><span class="p">,</span> <span class="n">blank_yy_1</span> <span class="o">=</span> \
         <span class="n">_import_values_for_features</span><span class="p">(</span>
         <span class="n">experiment</span><span class="p">,</span> <span class="n">feature_ids</span><span class="o">=</span><span class="n">feature_ids</span><span class="p">,</span> <span class="n">upper_limit</span><span class="o">=</span><span class="n">upper_limit</span><span class="p">,</span>
@@ -1303,22 +1411,6 @@ document.write(`
         <span class="c1"># cb_2.ax.set_xticklabels([])</span>
 
 
-<span class="c1"># HELPER FUNCTIONS FOR PRINT_3D</span>
-<span class="k">def</span> <span class="nf">add_advanced_points_to_picture_3d</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span>
-                                      <span class="n">values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                                      <span class="n">normalizing_func</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span><span class="p">,</span> <span class="n">shades</span><span class="p">,</span> <span class="n">markers</span><span class="p">,</span> <span class="n">_min</span><span class="p">,</span> <span class="n">_max</span> <span class="o">=</span> <span class="n">get_values_from_file_3d</span><span class="p">(</span>
-        <span class="n">experiment</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">normalizing_func</span><span class="p">)</span>
-    <span class="n">unique_markers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">markers</span><span class="p">)</span>
-    <span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">for</span> <span class="n">um</span> <span class="ow">in</span> <span class="n">unique_markers</span><span class="p">:</span>
-        <span class="n">masks</span> <span class="o">=</span> <span class="p">(</span><span class="n">markers</span> <span class="o">==</span> <span class="n">um</span><span class="p">)</span>
-        <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="p">[</span><span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xx</span><span class="p">[</span><span class="n">masks</span><span class="p">],</span> <span class="n">yy</span><span class="p">[</span><span class="n">masks</span><span class="p">],</span> <span class="n">zz</span><span class="p">[</span><span class="n">masks</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">shades</span><span class="p">[</span><span class="n">masks</span><span class="p">],</span>
-                        <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">um</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">ms</span><span class="p">)])</span>
-
-
 <span class="k">def</span> <span class="nf">_basic_coloring</span><span class="p">(</span><span class="n">experiment</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
 
     <span class="k">for</span> <span class="n">family</span> <span class="ow">in</span> <span class="n">experiment</span><span class="o">.</span><span class="n">families</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
@@ -1426,17 +1518,6 @@ document.write(`
             <span class="n">path_2</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;images&quot;</span><span class="p">,</span> <span class="s2">&quot;masks&quot;</span><span class="p">,</span> <span class="n">mask</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span><span class="p">)</span>
             <span class="n">path_3</span> <span class="o">=</span> <span class="n">file_name</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span>
             <span class="n">_overlay_images</span><span class="p">(</span><span class="n">path_1</span><span class="p">,</span> <span class="n">path_2</span><span class="p">,</span> <span class="n">path_3</span><span class="p">)</span>
-
-
-<span class="c1"># TEX</span>
-<span class="k">def</span> <span class="nf">_saveas_tex</span><span class="p">(</span><span class="n">saveas</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;images&quot;</span><span class="p">,</span> <span class="s2">&quot;tex&quot;</span><span class="p">))</span>
-    <span class="k">except</span> <span class="ne">FileExistsError</span><span class="p">:</span>
-        <span class="k">pass</span>
-    <span class="n">file_name</span> <span class="o">=</span> <span class="n">saveas</span> <span class="o">+</span> <span class="s2">&quot;.tex&quot;</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;images&quot;</span><span class="p">,</span> <span class="s2">&quot;tex&quot;</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
-    <span class="n">tikzplotlib</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
 
 <span class="c1"># MAIN FUNCTIONS</span>
@@ -1718,142 +1799,7 @@ document.write(`
                     <span class="n">rgba</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">shades_dict</span><span class="p">[</span><span class="n">name_id</span><span class="p">])</span>
                     <span class="n">my_text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">rgba</span><span class="p">,</span> <span class="n">b_color</span><span class="o">=</span><span class="n">rgba</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># rgba = cmap(shades_dict[name_id])</span>
-                <span class="c1"># my_text(x, y, name, color=rgba, b_color=rgba)</span>
                 <span class="n">my_text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">b_color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
-            <span class="c1"># if shades_dict[name_id] == 0:</span>
-            <span class="c1">#     rgba = cmap(shades_dict[name_id])</span>
-            <span class="c1">#     my_text(x, y, name, color=&#39;green&#39;, b_color=&#39;green&#39;)</span>
-            <span class="c1">#</span>
-            <span class="c1"># else:</span>
-            <span class="c1">#     rgba = cmap(shades_dict[name_id])</span>
-            <span class="c1">#     my_text(x, y, name, color=rgba, b_color=rgba)</span>
-
-
-<span class="k">def</span> <span class="nf">add_roads</span><span class="p">(</span><span class="n">experiment</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">roads</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">my_line</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
-                 <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-        <span class="n">dx</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">+</span> <span class="p">(</span><span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-        <span class="n">dy</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">+</span> <span class="p">(</span><span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">road</span> <span class="ow">in</span> <span class="n">roads</span><span class="p">:</span>
-        <span class="n">x1</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">road</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">y1</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">road</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">x2</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">road</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">y2</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">road</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">pos_dist</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">distances</span><span class="p">[</span><span class="n">road</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">road</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
-        <span class="n">pos_dist</span> <span class="o">/=</span> <span class="n">map_diameter</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">default_num_candidates</span><span class="p">)</span>
-        <span class="n">pos_dist</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">pos_dist</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-        <span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">pos_dist</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">experiment</span><span class="o">.</span><span class="n">default_num_candidates</span> <span class="o">==</span> <span class="mi">10</span> <span class="ow">and</span> <span class="n">road</span> <span class="ow">in</span> <span class="p">[[</span><span class="s1">&#39;WAL&#39;</span><span class="p">,</span> <span class="s1">&#39;UN&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;UN&#39;</span><span class="p">,</span> <span class="s1">&#39;WAL&#39;</span><span class="p">]]:</span>
-            <span class="n">x1</span> <span class="o">-=</span> <span class="mf">0.5</span>
-            <span class="n">y1</span> <span class="o">-=</span> <span class="mi">2</span>
-            <span class="n">x2</span> <span class="o">-=</span> <span class="mf">0.5</span>
-            <span class="n">y2</span> <span class="o">-=</span> <span class="mi">2</span>
-
-        <span class="n">my_line</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">_skeleton_coloring</span><span class="p">(</span><span class="n">experiment</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">family_id</span> <span class="ow">in</span> <span class="n">experiment</span><span class="o">.</span><span class="n">families</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">experiment</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">show</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">dim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">family_id</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;WAL&#39;</span><span class="p">,</span> <span class="s1">&#39;CON&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">}:</span>
-                    <span class="n">MAL_COUNT</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">coordinates_by_families</span><span class="p">[</span><span class="n">family_id</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAL_COUNT</span><span class="p">):</span>
-                        <span class="n">normphi</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">MAL_COUNT</span> <span class="o">*</span> <span class="n">i</span>
-                        <span class="k">if</span> <span class="n">family_id</span> <span class="o">==</span> <span class="s1">&#39;A&#39;</span><span class="p">:</span>  <span class="c1"># Mal 0.</span>
-                            <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="n">normphi</span><span class="p">,</span> <span class="n">normphi</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-                        <span class="k">elif</span> <span class="n">family_id</span> <span class="o">==</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span>  <span class="c1"># Mal 0.25</span>
-                            <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="n">normphi</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="n">normphi</span><span class="p">)</span>
-                        <span class="k">elif</span> <span class="n">family_id</span> <span class="o">==</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span>  <span class="c1"># Mal 0.5</span>
-                            <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">normphi</span><span class="p">,</span> <span class="n">normphi</span><span class="p">)</span>
-                        <span class="k">elif</span> <span class="n">family_id</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;WAL&#39;</span><span class="p">]:</span>  <span class="c1"># Walsh</span>
-                            <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">normphi</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-                        <span class="k">elif</span> <span class="n">family_id</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;CON&#39;</span><span class="p">]:</span>  <span class="c1"># Conitzer</span>
-                            <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">normphi</span><span class="p">)</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
-                        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">experiment</span><span class="o">.</span><span class="n">coordinates_by_families</span><span class="p">[</span><span class="n">family_id</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-                                    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)],</span>
-                                   <span class="p">[</span><span class="n">experiment</span><span class="o">.</span><span class="n">coordinates_by_families</span><span class="p">[</span><span class="n">family_id</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-                                    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)],</span>
-                                   <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
-                                   <span class="n">alpha</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">ms</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span>
-                                   <span class="n">marker</span><span class="o">=</span><span class="n">experiment</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">marker</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">coordinates_by_families</span><span class="p">[</span><span class="n">family_id</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">experiment</span><span class="o">.</span><span class="n">coordinates_by_families</span><span class="p">[</span><span class="n">family_id</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-                                    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)],</span>
-                                   <span class="p">[</span><span class="n">experiment</span><span class="o">.</span><span class="n">coordinates_by_families</span><span class="p">[</span><span class="n">family_id</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-                                    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)],</span>
-                                   <span class="n">color</span><span class="o">=</span><span class="n">experiment</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">color</span><span class="p">,</span>
-                                   <span class="n">label</span><span class="o">=</span><span class="n">experiment</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="p">,</span>
-                                   <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                   <span class="n">s</span><span class="o">=</span><span class="n">ms</span><span class="p">,</span>
-                                   <span class="n">marker</span><span class="o">=</span><span class="n">experiment</span><span class="o">.</span><span class="n">families</span><span class="p">[</span>
-                                       <span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">marker</span><span class="p">)</span>
-
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">coordinates_by_families</span><span class="p">[</span><span class="n">family_id</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
-                                   <span class="n">experiment</span><span class="o">.</span><span class="n">coordinates_by_families</span><span class="p">[</span><span class="n">family_id</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
-                                   <span class="n">color</span><span class="o">=</span><span class="n">experiment</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">color</span><span class="p">,</span>
-                                   <span class="n">label</span><span class="o">=</span><span class="n">experiment</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="p">,</span>
-                                   <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-                                   <span class="n">s</span><span class="o">=</span><span class="n">ms</span><span class="p">,</span>
-                                   <span class="n">marker</span><span class="o">=</span><span class="n">experiment</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">marker</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">get_values_from_file_old</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span>
-                             <span class="n">normalizing_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">marker_func</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;election&quot;</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="s2">&quot;features&quot;</span><span class="p">,</span>
-                        <span class="nb">str</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.txt&quot;</span><span class="p">)</span>
-
-    <span class="n">_min</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">_max</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">txtfile</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">num_elections</span><span class="p">):</span>
-            <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">txtfile</span><span class="o">.</span><span class="n">readline</span><span class="p">()))</span>
-    <span class="n">_min</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
-    <span class="n">_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
-
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">txtfile</span><span class="p">:</span>
-
-        <span class="n">shades</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">xx</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">yy</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">markers</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="n">ctr</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">family_id</span> <span class="ow">in</span> <span class="n">experiment</span><span class="o">.</span><span class="n">families</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
-                <span class="n">election_id</span> <span class="o">=</span> <span class="n">family_id</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-
-                <span class="n">shade</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">txtfile</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
-                <span class="k">if</span> <span class="n">normalizing_func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">shade</span> <span class="o">=</span> <span class="n">normalizing_func</span><span class="p">(</span><span class="n">shade</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">shade</span> <span class="o">=</span> <span class="p">(</span><span class="n">shade</span> <span class="o">-</span> <span class="n">_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">_max</span> <span class="o">-</span> <span class="n">_min</span><span class="p">)</span>
-                <span class="n">shades</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shade</span><span class="p">)</span>
-
-                <span class="n">marker</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">marker</span>
-                <span class="k">if</span> <span class="n">marker_func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">marker</span> <span class="o">=</span> <span class="n">marker_func</span><span class="p">(</span><span class="n">shade</span><span class="p">)</span>
-                <span class="n">markers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">marker</span><span class="p">)</span>
-
-                <span class="n">xx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">election_id</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-                <span class="n">yy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">election_id</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
-
-                <span class="n">ctr</span> <span class="o">+=</span> <span class="mi">1</span>
-
-        <span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span>
-        <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">yy</span><span class="p">)</span>
-        <span class="n">shades</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">shades</span><span class="p">)</span>
-        <span class="n">markers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">markers</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">shades</span><span class="p">,</span> <span class="n">markers</span><span class="p">,</span> <span class="n">_min</span><span class="p">,</span> <span class="n">_max</span>
 
 
 <span class="k">def</span> <span class="nf">_adjust_the_map_on_three_points_horizontal</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">down</span><span class="p">,</span> <span class="n">is_down</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1938,9 +1884,7 @@ document.write(`
 
 <span class="k">def</span> <span class="nf">adjust_the_map</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">up</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">down</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
-    <span class="c1"># NEW CODE</span>
     <span class="k">try</span><span class="p">:</span>
-
         <span class="k">if</span> <span class="n">left</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">right</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">up</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">_adjust_the_map_on_three_points_without_down</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">up</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">right</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">down</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">left</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1955,94 +1899,8 @@ document.write(`
         <span class="k">elif</span> <span class="n">down</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">up</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">_adjust_the_map_on_two_points_vertical</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">down</span><span class="p">,</span> <span class="n">up</span><span class="p">)</span>
 
-    <span class="c1"># OLD CODE</span>
     <span class="k">except</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">experiment</span><span class="o">.</span><span class="n">instance_type</span> <span class="o">==</span> <span class="s1">&#39;ordinal&#39;</span><span class="p">:</span>
-
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">left</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_instance_id_from_culture_id</span><span class="p">(</span><span class="s1">&#39;uniformity&#39;</span><span class="p">)</span>
-                <span class="n">right</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_instance_id_from_culture_id</span><span class="p">(</span><span class="s1">&#39;identity&#39;</span><span class="p">)</span>
-                <span class="n">down</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_instance_id_from_culture_id</span><span class="p">(</span><span class="s1">&#39;stratification&#39;</span><span class="p">)</span>
-                <span class="n">_adjust_the_map_on_three_points_without_up</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">down</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">left</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_instance_id_from_culture_id</span><span class="p">(</span><span class="s1">&#39;un_from_matrix&#39;</span><span class="p">)</span>
-                    <span class="n">right</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_instance_id_from_culture_id</span><span class="p">(</span><span class="s1">&#39;real_identity&#39;</span><span class="p">)</span>
-                    <span class="n">up</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_instance_id_from_culture_id</span><span class="p">(</span><span class="s1">&#39;real_antagonism&#39;</span><span class="p">)</span>
-                    <span class="n">_adjust_the_map_on_three_points_without_down</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">up</span><span class="p">)</span>
-                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                    <span class="k">try</span><span class="p">:</span>
-                        <span class="n">left</span> <span class="o">=</span> <span class="s1">&#39;UN_0&#39;</span>
-                        <span class="n">right</span> <span class="o">=</span> <span class="s1">&#39;ID&#39;</span>
-                        <span class="n">up</span> <span class="o">=</span> <span class="s1">&#39;AN&#39;</span>
-                        <span class="n">_adjust_the_map_on_three_points_horizontal</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">is_down</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                        <span class="k">pass</span>
-                    <span class="k">pass</span>
-                <span class="k">pass</span>
-
-        <span class="k">elif</span> <span class="n">experiment</span><span class="o">.</span><span class="n">instance_type</span> <span class="o">==</span> <span class="s1">&#39;approval&#39;</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">left</span> <span class="o">=</span> <span class="s1">&#39;IC 0.5&#39;</span>
-                <span class="n">right</span> <span class="o">=</span> <span class="s1">&#39;ID 0.5&#39;</span>
-                <span class="n">down</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_instance_id_from_culture_id</span><span class="p">(</span><span class="s1">&#39;empty&#39;</span><span class="p">)</span>
-                <span class="n">_adjust_the_map_on_three_points_horizontal</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">down</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">left</span> <span class="o">=</span> <span class="s1">&#39;IC 0.25&#39;</span>
-                    <span class="n">right</span> <span class="o">=</span> <span class="s1">&#39;ID 0.25&#39;</span>
-                    <span class="n">down</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_instance_id_from_culture_id</span><span class="p">(</span><span class="s1">&#39;empty&#39;</span><span class="p">)</span>
-                    <span class="n">_adjust_the_map_on_three_points_horizontal</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">down</span><span class="p">)</span>
-                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                    <span class="k">pass</span>
-
-        <span class="k">elif</span> <span class="n">experiment</span><span class="o">.</span><span class="n">instance_type</span> <span class="o">==</span> <span class="s1">&#39;rule&#39;</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">left</span> <span class="o">=</span> <span class="s1">&#39;cc&#39;</span>
-                <span class="n">right</span> <span class="o">=</span> <span class="s1">&#39;av&#39;</span>
-                <span class="n">down</span> <span class="o">=</span> <span class="s1">&#39;minimaxav&#39;</span>
-                <span class="n">_adjust_the_map_on_three_points_horizontal</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">down</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">left</span> <span class="o">=</span> <span class="s1">&#39;seqcc&#39;</span>
-                    <span class="n">right</span> <span class="o">=</span> <span class="s1">&#39;av&#39;</span>
-                    <span class="n">down</span> <span class="o">=</span> <span class="s1">&#39;minimaxav&#39;</span>
-                    <span class="n">_adjust_the_map_on_three_points_horizontal</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">down</span><span class="p">)</span>
-                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                    <span class="k">pass</span>
-
-        <span class="k">elif</span> <span class="n">experiment</span><span class="o">.</span><span class="n">instance_type</span> <span class="o">==</span> <span class="s1">&#39;roommates&#39;</span><span class="p">:</span>
-
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">left</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_instance_id_from_culture_id</span><span class="p">(</span><span class="s1">&#39;roommates_asymmetric&#39;</span><span class="p">)</span>
-                <span class="n">right</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_instance_id_from_culture_id</span><span class="p">(</span><span class="s1">&#39;roommates_symmetric&#39;</span><span class="p">)</span>
-                <span class="c1"># up = election.get_election_id_from_model_name(&#39;antagonism&#39;)</span>
-                <span class="n">down</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_instance_id_from_culture_id</span><span class="p">(</span><span class="s1">&#39;roommates_id&#39;</span><span class="p">)</span>
-                <span class="n">_adjust_the_map_on_three_points_horizontal</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">down</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                <span class="k">pass</span>
-
-
-        <span class="k">elif</span> <span class="n">experiment</span><span class="o">.</span><span class="n">instance_type</span> <span class="o">==</span> <span class="s1">&#39;marriages&#39;</span><span class="p">:</span>
-
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">left</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_instance_id_from_culture_id</span><span class="p">(</span><span class="s1">&#39;asymmetric&#39;</span><span class="p">)</span>
-                <span class="n">right</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_instance_id_from_culture_id</span><span class="p">(</span><span class="s1">&#39;symmetric&#39;</span><span class="p">)</span>
-                <span class="c1"># up = election.get_election_id_from_model_name(&#39;antagonism&#39;)</span>
-                <span class="n">down</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_instance_id_from_culture_id</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
-                <span class="n">_adjust_the_map_on_three_points_horizontal</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">down</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                <span class="k">pass</span>
-
-        <span class="k">elif</span> <span class="n">experiment</span><span class="o">.</span><span class="n">instance_type</span> <span class="o">==</span> <span class="s1">&#39;allocation&#39;</span><span class="p">:</span>
-
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">left</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_election_id_from_model_name</span><span class="p">(</span><span class="s1">&#39;indifference&#39;</span><span class="p">)</span>
-                <span class="n">right</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_election_id_from_model_name</span><span class="p">(</span><span class="s1">&#39;separability&#39;</span><span class="p">)</span>
-                <span class="n">up</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_election_id_from_model_name</span><span class="p">(</span><span class="s1">&#39;contention&#39;</span><span class="p">)</span>
-                <span class="n">_adjust_the_map_on_three_points_horizontal</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">is_down</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                <span class="k">pass</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Cannot adjust the map!&#39;</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_centroid</span><span class="p">(</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
@@ -2052,27 +1910,10 @@ document.write(`
     <span class="k">return</span> <span class="n">sum_x</span> <span class="o">/</span> <span class="n">length</span><span class="p">,</span> <span class="n">sum_y</span> <span class="o">/</span> <span class="n">length</span>
 
 
-<span class="k">def</span> <span class="nf">adjust_the_map_on_one_point</span><span class="p">(</span><span class="n">experiment</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="n">xc</span><span class="p">,</span> <span class="n">yc</span> <span class="o">=</span> <span class="n">_centroid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">coordinates</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
-    <span class="n">d_x</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="s1">&#39;all_0&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">xc</span>
-    <span class="n">d_y</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="s1">&#39;all_0&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">yc</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">alpha</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="n">d_x</span> <span class="o">/</span> <span class="n">d_y</span><span class="p">)</span>
-        <span class="n">experiment</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">experiment</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="s1">&#39;all_0&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">experiment</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="s1">&#39;all_1&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
-            <span class="n">experiment</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
-    <span class="k">except</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Cannot adjust!&#39;</span><span class="p">)</span>
-
-
-
-
 <span class="k">def</span> <span class="nf">print_approvals_histogram</span><span class="p">(</span><span class="n">election</span><span class="p">):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">election_id</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
     <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">51</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">vote</span><span class="p">)</span> <span class="k">for</span> <span class="n">vote</span> <span class="ow">in</span> <span class="n">election</span><span class="o">.</span><span class="n">votes</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-    <span class="c1"># x_axis = np.arange(0, 100, 0.01)</span>
-    <span class="c1"># plt.plot(x_axis, norm.pdf(x_axis, 50, 2)*2000)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;images/histograms/&quot;</span> <span class="o">+</span> <span class="n">election</span><span class="o">.</span><span class="n">election_id</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span><span class="p">)</span>
@@ -2114,6 +1955,45 @@ document.write(`
     <span class="k">if</span> <span class="n">saveas</span><span class="p">:</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">saveas</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">_get_main_mask</span><span class="p">(</span><span class="n">mask</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">mask</span> <span class="o">==</span> <span class="s1">&#39;10x50-fr-swap-color&#39;</span><span class="p">:</span>
+        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">)</span>
+        <span class="n">pad_inches</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">mask</span> <span class="o">==</span> <span class="s1">&#39;10x50-kk-swap-color&#39;</span><span class="p">:</span>
+        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">)</span>
+        <span class="n">pad_inches</span> <span class="o">=</span> <span class="mf">0.8</span>
+    <span class="k">elif</span> <span class="n">mask</span> <span class="o">==</span> <span class="s1">&#39;100x100-fr-emd-positionwise-color&#39;</span><span class="p">:</span>
+        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">)</span>
+        <span class="n">pad_inches</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">mask</span> <span class="o">==</span> <span class="s1">&#39;100x100-kk-emd-positionwise-color&#39;</span><span class="p">:</span>
+        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">6.9</span><span class="p">,</span> <span class="mf">6.9</span><span class="p">)</span>
+        <span class="n">pad_inches</span> <span class="o">=</span> <span class="mf">1.4</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Incorrect mask name&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">figsize</span><span class="p">,</span> <span class="n">pad_inches</span>
+
+
+<span class="k">def</span> <span class="nf">_get_feature_mask</span><span class="p">(</span><span class="n">mask</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">mask</span> <span class="o">==</span> <span class="s1">&#39;10x50-fr-swap-black&#39;</span><span class="p">:</span>
+        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">7.7</span><span class="p">,</span> <span class="mf">7.7</span><span class="p">)</span>
+        <span class="n">pad_inches</span> <span class="o">=</span> <span class="mf">0.4</span>
+    <span class="k">elif</span> <span class="n">mask</span> <span class="o">==</span> <span class="s1">&#39;10x50-kk-swap-black&#39;</span><span class="p">:</span>
+        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">7.2</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">)</span>
+        <span class="n">pad_inches</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="k">elif</span> <span class="n">mask</span> <span class="o">==</span> <span class="s1">&#39;100x100-fr-emd-positionwise-black&#39;</span><span class="p">:</span>
+        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">7.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">)</span>
+        <span class="n">pad_inches</span> <span class="o">=</span> <span class="mf">0.6</span>
+    <span class="k">elif</span> <span class="n">mask</span> <span class="o">==</span> <span class="s1">&#39;100x100-kk-emd-positionwise-black&#39;</span><span class="p">:</span>
+        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">7.6</span><span class="p">,</span> <span class="mf">7.6</span><span class="p">)</span>
+        <span class="n">pad_inches</span> <span class="o">=</span> <span class="mf">1.4</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Incorrect mask name&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">figsize</span><span class="p">,</span> <span class="n">pad_inches</span>
+
 </pre></div>
 
                 </article>
