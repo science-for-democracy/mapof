@@ -21,6 +21,5 @@ class Instance(ABC):
         self.printing_params = {}
         self.params = params
 
-
         for key in ['color', 'alpha', 'marker', 'ms']:
             self.printing_params[key] = None

@@ -25,19 +25,19 @@ except ImportError as error:
     print(error)
 
 
-def embed(experiment_id,
+def embed(experiment,
           embedding_id: str = None,
           num_iterations: int = 1000,
           radius: float = np.infty,
           dim: int = 2,
           num_neighbors: int = None,
-          method: str = 'standard',
+          method: str = None,
           zero_distance: float = 1.,
           factor: float = 1.,
           saveas: str = None,
           init_pos: dict = None,
-          fixed=True,
-          attraction_factor=None,
+          fixed: bool = True,
+          attraction_factor: float = None,
           left=None,
           up=None,
           right=None,
@@ -50,7 +50,7 @@ def embed(experiment_id,
         if embedding_id in {'fr', 'spring'}:
             attraction_factor = 2
 
-    num_elections = len(experiment_id.distances)
+    num_elections = len(experiment.distances)
 
     x = np.zeros((num_elections, num_elections))
 
@@ -58,28 +58,28 @@ def embed(experiment_id,
 
     if init_pos is not None:
         initial_positions = {}
-        for i, instance_id_1 in enumerate(experiment_id.distances):
+        for i, instance_id_1 in enumerate(experiment.distances):
             if instance_id_1 in init_pos:
                 initial_positions[i] = init_pos[instance_id_1]
 
-    for i, instance_id_1 in enumerate(experiment_id.distances):
-        for j, instance_id_2 in enumerate(experiment_id.distances):
+    for i, instance_id_1 in enumerate(experiment.distances):
+        for j, instance_id_2 in enumerate(experiment.distances):
             if i < j:
 
-                experiment_id.distances[instance_id_1][instance_id_2] *= factor
+                experiment.distances[instance_id_1][instance_id_2] *= factor
                 if embedding_id in {'fr', 'spring'}:
-                    if experiment_id.distances[instance_id_1][instance_id_2] == 0.:
-                        experiment_id.distances[instance_id_1][instance_id_2] = zero_distance
-                        experiment_id.distances[instance_id_2][instance_id_1] = zero_distance
+                    if experiment.distances[instance_id_1][instance_id_2] == 0.:
+                        experiment.distances[instance_id_1][instance_id_2] = zero_distance
+                        experiment.distances[instance_id_2][instance_id_1] = zero_distance
                     normal = True
-                    if experiment_id.distances[instance_id_1][instance_id_2] > radius:
+                    if experiment.distances[instance_id_1][instance_id_2] > radius:
                         x[i][j] = 0.
                         normal = False
                     if num_neighbors is not None:
-                        tmp = experiment_id.distances[instance_id_1]
+                        tmp = experiment.distances[instance_id_1]
                         sorted_list_1 = list((dict(sorted(tmp.items(),
                                                           key=lambda item: item[1]))).keys())
-                        tmp = experiment_id.distances[instance_id_2]
+                        tmp = experiment.distances[instance_id_2]
                         sorted_list_2 = list((dict(sorted(tmp.items(),
                                                           key=lambda item: item[1]))).keys())
                         if (instance_id_1 not in sorted_list_2[0:num_neighbors]) and (
@@ -87,9 +87,9 @@ def embed(experiment_id,
                             x[i][j] = 0.
                             normal = False
                     if normal:
-                        x[i][j] = 1. / experiment_id.distances[instance_id_1][instance_id_2]
+                        x[i][j] = 1. / experiment.distances[instance_id_1][instance_id_2]
                 else:
-                    x[i][j] = experiment_id.distances[instance_id_1][instance_id_2]
+                    x[i][j] = experiment.distances[instance_id_1][instance_id_2]
                 x[i][j] = x[i][j] ** attraction_factor
                 x[j][i] = x[i][j]
 
@@ -140,8 +140,8 @@ def embed(experiment_id,
             fix_initial_positions=fixed
         )
     elif embedding_id.lower() in {'geo'}:
-        f1 = experiment_id.import_feature('voterlikeness_sqrt')
-        f2 = experiment_id.import_feature('borda_diversity')
+        f1 = experiment.import_feature('voterlikeness_sqrt')
+        f2 = experiment.import_feature('borda_diversity')
         for f in f1:
             if f1[f] is None:
                 f1[f] = 0
@@ -154,13 +154,13 @@ def embed(experiment_id,
         my_pos = principalComponents
     else:
         my_pos = []
-        logging.warning("Unknown method!")
+        logging.warning("Unknown embedding method!")
 
-    experiment_id.coordinates = {}
-    for i, instance_id in enumerate(experiment_id.distances):
-        experiment_id.coordinates[instance_id] = [my_pos[i][d] for d in range(dim)]
+    experiment.coordinates = {}
+    for i, instance_id in enumerate(experiment.distances):
+        experiment.coordinates[instance_id] = [my_pos[i][d] for d in range(dim)]
 
-    pr.adjust_the_map(experiment_id, left=left, up=up, right=right, down=down)
+    pr.adjust_the_map(experiment, left=left, up=up, right=right, down=down)
 
-    if experiment_id.is_exported:
-        exports.export_embedding_to_file(experiment_id, embedding_id, saveas, dim, my_pos)
+    if experiment.is_exported:
+        exports.export_embedding_to_file(experiment, embedding_id, saveas, dim, my_pos)

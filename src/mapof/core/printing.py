@@ -1397,9 +1397,9 @@ def add_margin(pil_img, top, right, bottom, left, color):
     return result
 
 
-def map_diameter(c):
-    """ Compute the diameter """
-    return 1. / 3. * float((c + 1) * (c - 1))
+# def map_diameter(c):
+#     """ Compute the diameter """
+#     return 1. / 3. * float((c + 1) * (c - 1))
 
 
 # SKELETON RELATED
@@ -1554,6 +1554,7 @@ def _adjust_the_map_on_three_points_without_right(experiment, down, up, left):
 
 
 def adjust_the_map(experiment, left=None, up=None, right=None, down=None) -> None:
+    """ Adjust the map. """
 
     try:
         if left is not None and right is not None and up is not None:
@@ -1607,25 +1608,26 @@ def _overlay_images(background_path, overlay_path, output_path):
 
 
 def print_map_1d(experiment, saveas=None):
-    experiment.compute_coordinates_by_families()
-    all_values = [0]
-    for family in experiment.families.values():
-        x = float(experiment.coordinates_by_families[family.family_id][0][0])
-        all_values.append(x)
-    min_ = min(all_values)
-    max_ = max(all_values)
-
-    fig, ax = plt.subplots(figsize=(3, 8))
-    for family in experiment.families.values():
-        x = float(experiment.coordinates_by_families[family.family_id][0][0])
-        x = (x - min_) / (max_ - min_)
-        x = 1 - x
-        ax.scatter(0, x)
-        ax.annotate(family.family_id, (0, x), rotation=0, size=10)
-    ax.get_xaxis().set_visible(False)
-    if saveas:
-        plt.savefig(saveas)
-    plt.show()
+    logging.warning("Printing map in 1D is not supported anymore.")
+    # experiment.compute_coordinates_by_families()
+    # all_values = [0]
+    # for family in experiment.families.values():
+    #     x = float(experiment.coordinates_by_families[family.family_id][0][0])
+    #     all_values.append(x)
+    # min_ = min(all_values)
+    # max_ = max(all_values)
+    #
+    # fig, ax = plt.subplots(figsize=(3, 8))
+    # for family in experiment.families.values():
+    #     x = float(experiment.coordinates_by_families[family.family_id][0][0])
+    #     x = (x - min_) / (max_ - min_)
+    #     x = 1 - x
+    #     ax.scatter(0, x)
+    #     ax.annotate(family.family_id, (0, x), rotation=0, size=10)
+    # ax.get_xaxis().set_visible(False)
+    # if saveas:
+    #     plt.savefig(saveas)
+    # plt.show()
 
 
 def _get_main_mask(mask):

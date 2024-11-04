@@ -100,7 +100,7 @@ class Experiment(ABC):
 
     def compute_distances(
             self,
-            distance_id: str = 'l1-mutual_attraction',
+            distance_id: str = None,
             num_processes: int = 1,
             self_distances: bool = False
     ) -> None:
@@ -123,7 +123,7 @@ class Experiment(ABC):
 
         num_distances = len(ids)
 
-        if self.experiment_id == 'virtual' or num_processes == 1:
+        if self.experiment_id is not None or num_processes == 1:
             metr.run_single_process(self, ids, distances, times, matchings)
 
         else:
@@ -362,15 +362,6 @@ class Experiment(ABC):
 
         self.coordinates_by_families = coordinates_by_families
 
-    # def get_distance(self, i, j):
-    #     """ Computes Euclidean distance in two-dimensional space"""
-    #
-    #     distance = 0.
-    #     for d in range(2):
-    #         distance += (self.coordinates[i][d] - self.coordinates[j][d]) ** 2
-    #
-    #     return math.sqrt(distance)
-
     def rotate(self, angle) -> None:
         """ Rotates all the points by a given angle """
 
@@ -445,7 +436,7 @@ class Experiment(ABC):
             denom=None,
             saveas=None,
             column_id='value'
-    ):
+    ) -> None:
         f1 = self.get_feature(nom, column_id=column_id)
         f2 = self.get_feature(denom, column_id=column_id)
         f3 = {}
@@ -484,6 +475,7 @@ class Experiment(ABC):
                 Name of the second distance.
             title : str
                 Title of the plot.
+
 
         Returns
         -------
@@ -574,7 +566,7 @@ class Experiment(ABC):
             ncol: int = 1,
             nrow: int = 1,
             object_type: str = None
-    ):
+    ) -> None:
         if object_type is None:
             logging.warning('Object type not defined!')
 
@@ -604,7 +596,7 @@ class Experiment(ABC):
             show: bool = False,
             ncol: int = 1,
             nrow: int = 1
-    ):
+    ) -> None:
         images = []
         for i, election in enumerate(self.instances.values()):
             images.append(Image.open(f'images/{name}/{election.label}_{distance_ids[0]}.png'))
@@ -623,6 +615,7 @@ class Experiment(ABC):
             new_image.show()
 
     def get_instance_id_from_culture_id(self, culture_id: str) -> str:
+        """ Gets the instances id from a culture id """
         for family_id in self.families:
             if self.families[family_id].culture_id == culture_id:
                 return family_id
