@@ -84,6 +84,46 @@ class Experiment(ABC):
             self.distances = {}
             self.coordinates = {}
 
+    @abstractmethod
+    def get_distance(self, instance_id_1, instance_id_2, distance_id: str = None, **kwargs):
+        pass
+
+    @abstractmethod
+    def prepare_instances(self):
+        pass
+
+    @abstractmethod
+    def add_instance(self):
+        pass
+
+    @abstractmethod
+    def add_family(self):
+        pass
+
+    @abstractmethod
+    def add_instances_to_experiment(self):
+        pass
+
+    @abstractmethod
+    def add_folders_to_experiment(self):
+        pass
+
+    @abstractmethod
+    def import_controllers(self):
+        pass
+
+    @abstractmethod
+    def add_culture(self, name, function):
+        pass
+
+    @abstractmethod
+    def add_distance(self, name, function):
+        pass
+
+    @abstractmethod
+    def add_feature(self, name, function):
+        pass
+
     def import_instances(self, instances):
         """ Imports instances to the experiment. """
         if isinstance(instances, dict):
@@ -225,46 +265,6 @@ class Experiment(ABC):
         self.num_families = 0
         self.instances = {}
         self.num_instances = 0
-
-    @abstractmethod
-    def get_distance(self, instance_id_1, instance_id_2, distance_id: str = None, **kwargs):
-        pass
-
-    @abstractmethod
-    def prepare_instances(self):
-        pass
-
-    @abstractmethod
-    def add_instance(self):
-        pass
-
-    @abstractmethod
-    def add_family(self):
-        pass
-
-    @abstractmethod
-    def add_instances_to_experiment(self):
-        pass
-
-    @abstractmethod
-    def add_folders_to_experiment(self):
-        pass
-
-    @abstractmethod
-    def import_controllers(self):
-        pass
-
-    @abstractmethod
-    def add_culture(self, name, function):
-        pass
-
-    @abstractmethod
-    def add_distance(self, name, function):
-        pass
-
-    @abstractmethod
-    def add_feature(self, name, function):
-        pass
 
     def embed_2d(self, **kwargs) -> None:
         """ Embeds the instances in 2D. """
