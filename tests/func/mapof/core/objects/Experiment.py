@@ -4,6 +4,7 @@ import pytest
 
 from mapof.core.objects.Experiment import Experiment
 
+
 class MockExperiment(Experiment, ABC):
 
     def __init__(self, **kwargs):
@@ -47,23 +48,25 @@ list_of_embedding_algorithms = {
 }
 
 
-class TestExperiment():
+class TestExperiment:
+
+    def setup_method(self):
+        """Set up the experiment instance for each test."""
+        self.experiment = MockExperiment()
 
     def test_experiment_creation(self):
-       experiment = MockExperiment()
-       assert experiment is not None, "Experiment should be created successfully"
+        assert self.experiment is not None, "Experiment should be created successfully"
 
     @pytest.mark.parametrize("embedding_id", list_of_embedding_algorithms)
     def test_embedding(self, embedding_id):
-        experiment = MockExperiment()
 
-        experiment.distances = {'ID': {'UN': 1, 'a': 0.75, 'b': 0.5},
+        self.experiment.distances = {'ID': {'UN': 1, 'a': 0.75, 'b': 0.5},
                                 'UN': {'ID': 1, 'a': 0.25, 'b': 0.5},
                                 'a': {'ID': 0.75, 'UN': 0.25, 'b': 0.13},
                                 'b': {'ID': 0.5, 'UN': 0.5, 'a': 0.13}}
 
-        experiment.is_exported = False
+        self.experiment.is_exported = False
 
-        experiment.embed_2d(embedding_id=embedding_id)
+        self.experiment.embed_2d(embedding_id=embedding_id)
 
-        assert len(experiment.coordinates) == len(experiment.distances)
+        assert len(self.experiment.coordinates) == len(self.experiment.distances)
