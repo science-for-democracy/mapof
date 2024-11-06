@@ -15,9 +15,9 @@ appealing way. Mapof is a direct successor of
 We successively substitute mapel packages present when we decided to start mapof
 and abandon active development of mapel. Here is the current status:
 1. [~~mapel-core~~](https://pypi.org/project/mapel-core/) ==> [mapof](https://pypi.org/project/mapof) 
-1. [~~mapel-elections~~](https://pypi.org/project/mapel-elections/) ==> [mapof-elections](https://pypi.org/project/mapof-elections) 
-1. [mapel-roommates](https://pypi.org/project/mapel-rommmates/) ==> development ongoing
-1. [mapel-marriages](https://pypi.org/project/mapel-marriages/) ==> developmnet ongoing
+2. [~~mapel-elections~~](https://pypi.org/project/mapel-elections/) ==> [mapof-elections](https://pypi.org/project/mapof-elections) 
+3. [~~mapel-roommates~~](https://pypi.org/project/mapel-rommmates/) ==> [mapof-roommates](https://pypi.org/project/mapof-roommates) 
+4. [~~mapel-marriagess~~](https://pypi.org/project/mapel-marriages/) ==> [mapof-marriages](https://pypi.org/project/mapof-marriages) 
 
 Hence, this package, mapof, is a direct successor of mapel-core.
 
