@@ -74,6 +74,10 @@ limitations but in most cases it should just work well. In case you experience
 troubles, you should see what the `pip` documentation has to say about the
 editable mode.
 
+# Documentation
+
+The complete documentation is available [here](https://science-for-democracy.github.io/mapof/).
+
 # Acknowledgments
 
 This project is part of the [PRAGMA project](https://home.agh.edu.pl/~pragma/)
