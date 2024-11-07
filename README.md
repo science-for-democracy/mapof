@@ -11,9 +11,10 @@ appealing way. Mapof is a direct successor of
 [mapel](https://mapel.simple.ink/), which will be deprecated in the
 (unforeseen) future.
 
-## Current status of mapof vs mapel
-We successively substitute mapel packages present when we decided to start mapof
-and abandon active development of mapel. Here is the current status:
+## Mapel is abandoned, long live Mapof!!!
+We've successively substituted mapel packages present when we decided
+to start mapof and have abandoned active development of mapel.
+Here is a map of the old and new projects:
 1. [~~mapel-core~~](https://pypi.org/project/mapel-core/) ==> [mapof](https://pypi.org/project/mapof) 
 2. [~~mapel-elections~~](https://pypi.org/project/mapel-elections/) ==> [mapof-elections](https://pypi.org/project/mapof-elections) 
 3. [~~mapel-roommates~~](https://pypi.org/project/mapel-rommmates/) ==> [mapof-roommates](https://pypi.org/project/mapof-roommates) 
