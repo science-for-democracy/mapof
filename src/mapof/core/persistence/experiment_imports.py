@@ -189,8 +189,8 @@ def get_values_from_csv_file(
         experiment_id: str,
         feature_id: str,
         feature_long_id: str = None,
-        upper_limit: float = np.infty,
-        lower_limit: float = -np.infty,
+        upper_limit: float = np.inf,
+        lower_limit: float = -np.inf,
         column_id: str = 'value'
 ) -> dict:
     """

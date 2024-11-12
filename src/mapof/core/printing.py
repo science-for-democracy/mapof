@@ -156,8 +156,8 @@ def print_map_2d_colored_by_feature(
         legend_pos=None,
         title_pos=None,
         rounding: int = 1,
-        upper_limit: float = np.infty,
-        lower_limit: float = -np.infty,
+        upper_limit: float = np.inf,
+        lower_limit: float = -np.inf,
         ticks=None,
         textual: list[str] = None,
         scale='default',
@@ -334,7 +334,7 @@ def print_map_2d_colored_by_features(
         legend_pos=None,
         title_pos=None,
         rounding=1,
-        upper_limit=np.infty,
+        upper_limit=np.inf,
         ticks=None,
         textual=None,
         title=None,
@@ -660,7 +660,7 @@ def _import_values_for_feature(experiment,
 
 def _import_values_for_features(experiment,
                                 feature_ids=None,
-                                upper_limit=np.infty,
+                                upper_limit=np.inf,
                                 normalizing_func=None,
                                 marker_func=None,
                                 dim=2,
@@ -788,8 +788,8 @@ def _color_map_by_feature(experiment=None,
                           fig=None,
                           ax=None,
                           feature_id=None,
-                          upper_limit=np.infty,
-                          lower_limit=-np.infty,
+                          upper_limit=np.inf,
+                          lower_limit=-np.inf,
                           normalizing_func=None,
                           marker_func=None,
                           xticklabels=None,
@@ -903,10 +903,10 @@ def _color_map_by_feature(experiment=None,
             # if scale_to_interval:
             #     xticklabels = [str(float(x)/_max) for x in xticklabels]
 
-    if upper_limit < np.infty:
+    if upper_limit < np.inf:
         xticklabels[-1] += '+'
 
-    if lower_limit > -np.infty:
+    if lower_limit > -np.inf:
         xticklabels[0] = '-' + xticklabels[0]
 
     cb = fig.colorbar(images[0], orientation="horizontal", pad=0.1, shrink=0.55,
@@ -936,7 +936,7 @@ def _color_map_by_features(
         fig=None,
         ax=None,
         feature_ids=None,
-        upper_limit=np.infty,
+        upper_limit=np.inf,
         normalizing_func=None,
         marker_func=None,
         xticklabels=None,

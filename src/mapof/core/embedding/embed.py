@@ -28,7 +28,7 @@ except ImportError as error:
 def embed(experiment,
           embedding_id: str = None,
           num_iterations: int = 1000,
-          radius: float = np.infty,
+          radius: float = np.inf,
           dim: int = 2,
           num_neighbors: int = None,
           method: str = None,
