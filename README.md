@@ -1,3 +1,4 @@
+[![PyPI Status](https://img.shields.io/pypi/v/mapof.svg)](https://pypi.python.org/pypi/mapof)
 [![MainTests](https://github.com/science-for-democracy/mapof/actions/workflows/python-tests.yml/badge.svg?branch=main)](https://github.com/science-for-democracy/mapof/actions/workflows/python-tests.yml)
 [![codecov](https://codecov.io/github/science-for-democracy/mapof/branch/main/graph/badge.svg?token=XQ2W6SBI0V)](https://codecov.io/github/science-for-democracy/mapof)
 
@@ -10,13 +11,14 @@ appealing way. Mapof is a direct successor of
 [mapel](https://mapel.simple.ink/), which will be deprecated in the
 (unforeseen) future.
 
-## Current status of mapof vs mapel
-We successively substitute mapel packages present when we decided to start mapof
-and abandon active development of mapel. Here is the current status:
+## Mapel is abandoned, long live Mapof!!!
+We've successively substituted mapel packages present when we decided
+to start mapof and have abandoned active development of mapel.
+Here is a map of the old and new projects:
 1. [~~mapel-core~~](https://pypi.org/project/mapel-core/) ==> [mapof](https://pypi.org/project/mapof) 
-1. [~~mapel-elections~~](https://pypi.org/project/mapel-elections/) ==> [mapof-elections](https://pypi.org/project/mapof-elections) 
-1. [mapel-roommates](https://pypi.org/project/mapel-rommmates/) ==> development ongoing
-1. [mapel-marriages](https://pypi.org/project/mapel-marriages/) ==> developmnet ongoing
+2. [~~mapel-elections~~](https://pypi.org/project/mapel-elections/) ==> [mapof-elections](https://pypi.org/project/mapof-elections) 
+3. [~~mapel-roommates~~](https://pypi.org/project/mapel-rommmates/) ==> [mapof-roommates](https://pypi.org/project/mapof-roommates) 
+4. [~~mapel-marriagess~~](https://pypi.org/project/mapel-marriages/) ==> [mapof-marriages](https://pypi.org/project/mapof-marriages) 
 
 Hence, this package, mapof, is a direct successor of mapel-core.
 
@@ -72,6 +74,10 @@ reflected immediately in the code that uses mapof. This approach also have its
 limitations but in most cases it should just work well. In case you experience
 troubles, you should see what the `pip` documentation has to say about the
 editable mode.
+
+# Documentation
+
+The complete documentation is available [here](https://science-for-democracy.github.io/mapof/).
 
 # Acknowledgments
 
