@@ -1,0 +1,13 @@
+name: YAPF Check
+on: [push]
+jobs:
+  formatting-check:
+    name: Formatting Check
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4.2.2      
+    - name: Run YAPF to check formatting
+      uses: AlexanderMelde/yapf-action@master
+      with:
+        args: --verbose
