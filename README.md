@@ -1,6 +1,7 @@
 [![PyPI Status](https://img.shields.io/pypi/v/mapof.svg)](https://pypi.python.org/pypi/mapof)
 [![MainTests](https://github.com/science-for-democracy/mapof/actions/workflows/python-tests.yml/badge.svg?branch=main)](https://github.com/science-for-democracy/mapof/actions/workflows/python-tests.yml)
 [![codecov](https://codecov.io/github/science-for-democracy/mapof/branch/main/graph/badge.svg?token=XQ2W6SBI0V)](https://codecov.io/github/science-for-democracy/mapof)
+[![YAPF Check](https://github.com/science-for-democracy/mapof/actions/workflows/yapf-check.yml/badge.svg)](https://github.com/science-for-democracy/mapof/actions/workflows/yapf-check.yml)
 
 # Mapof
 
