@@ -10,7 +10,9 @@ class MockExperiment(Experiment, ABC):
     def __init__(self, **kwargs):
         super().__init__()
 
-    def get_distance(self, instance_id_1, instance_id_2, distance_id: str = None, **kwargs):
+    def get_distance(
+        self, instance_id_1, instance_id_2, distance_id: str = None, **kwargs
+    ):
         pass
 
     def prepare_instances(self):
@@ -42,9 +44,9 @@ class MockExperiment(Experiment, ABC):
 
 
 list_of_embedding_algorithms = {
-    'fr',
-    'kk',
-    'mds',
+    "fr",
+    "kk",
+    "mds",
 }
 
 
@@ -54,10 +56,12 @@ class TestExperiment:
         """Set up the experiment instance for each test."""
         self.experiment = MockExperiment()
 
-        self.experiment.distances = {'ID': {'UN': 1, 'a': 0.75, 'b': 0.5},
-                                'UN': {'ID': 1, 'a': 0.25, 'b': 0.5},
-                                'a': {'ID': 0.75, 'UN': 0.25, 'b': 0.13},
-                                'b': {'ID': 0.5, 'UN': 0.5, 'a': 0.13}}
+        self.experiment.distances = {
+            "ID": {"UN": 1, "a": 0.75, "b": 0.5},
+            "UN": {"ID": 1, "a": 0.25, "b": 0.5},
+            "a": {"ID": 0.75, "UN": 0.25, "b": 0.13},
+            "b": {"ID": 0.5, "UN": 0.5, "a": 0.13},
+        }
 
         self.experiment.is_exported = False
 
@@ -73,6 +77,6 @@ class TestExperiment:
 
     def test_print_map_2d(self):
 
-        self.experiment.embed_2d(embedding_id='fr')
+        self.experiment.embed_2d(embedding_id="fr")
 
         self.experiment.print_map_2d(show=False)

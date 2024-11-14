@@ -7,10 +7,10 @@ from mapof.core.distances import *
 class TestDistanceFunctions(unittest.TestCase):
 
     def test_map_str_to_func(self):
-        self.assertEqual(map_str_to_func('l1'), l1)
-        self.assertEqual(map_str_to_func('l2'), l2)
-        self.assertEqual(map_str_to_func('chebyshev'), chebyshev)
-        self.assertEqual(map_str_to_func('unknown'), None)
+        self.assertEqual(map_str_to_func("l1"), l1)
+        self.assertEqual(map_str_to_func("l2"), l2)
+        self.assertEqual(map_str_to_func("chebyshev"), chebyshev)
+        self.assertEqual(map_str_to_func("unknown"), None)
 
     def test_discrete(self):
         self.assertEqual(discrete([1, 2, 3], [1, 2, 3]), 0)
@@ -25,7 +25,9 @@ class TestDistanceFunctions(unittest.TestCase):
         self.assertAlmostEqual(l1(np.array([1, 2, 3]), np.array([1, 2, 3])), 0)
 
     def test_l2(self):
-        self.assertAlmostEqual(l2(np.array([1, 2, 3]), np.array([4, 5, 6])), 5.196152422706632)
+        self.assertAlmostEqual(
+            l2(np.array([1, 2, 3]), np.array([4, 5, 6])), 5.196152422706632
+        )
         self.assertAlmostEqual(l2(np.array([1, 2, 3]), np.array([1, 2, 3])), 0)
 
     def test_chebyshev(self):
@@ -66,5 +68,5 @@ class TestDistanceFunctions(unittest.TestCase):
         self.assertEqual(spearman_distance_between_potes([0, 1, 2], [2, 1, 0]), 4)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
