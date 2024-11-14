@@ -2,27 +2,46 @@ import time
 
 import numpy as np
 
-from mapof.core.embedding.initial_positions import initial_place_on_circumference, initial_place_inside_square, \
-    initial_place_points
-from mapof.core.embedding.kamada_kawai.energy_functions import _close_zero, get_total_energy, get_total_energy_dxy
-from mapof.core.embedding.kamada_kawai.optimization_algorithms import optimize_bb, _get_delta_energy, _optimize_newton, \
-    adam, _get_pos_k_l_x_y_for_i
+from mapof.core.embedding.initial_positions import (
+    initial_place_on_circumference,
+    initial_place_inside_square,
+    initial_place_points,
+)
+from mapof.core.embedding.kamada_kawai.energy_functions import (
+    _close_zero,
+    get_total_energy,
+    get_total_energy_dxy,
+)
+from mapof.core.embedding.kamada_kawai.optimization_algorithms import (
+    optimize_bb,
+    _get_delta_energy,
+    _optimize_newton,
+    adam,
+    _get_pos_k_l_x_y_for_i,
+)
 
 
 class KamadaKawai:
-    def __init__(self,
-                 special_k=10000,
-                 max_neighbour_distance_percentage=None,
-                 optim_method='bb',
-                 initial_positions_algorithm='circumference',
-                 epsilon=0.00001):
+    def __init__(
+        self,
+        special_k=10000,
+        max_neighbour_distance_percentage=None,
+        optim_method="bb",
+        initial_positions_algorithm="circumference",
+        epsilon=0.00001,
+    ):
         self.special_k = special_k
         self.epsilon = epsilon
         self.max_neighbour_distance_percentage = max_neighbour_distance_percentage
         self.optim_method = optim_method
         self.initial_positions_algorithm = initial_positions_algorithm
 
-    def embed(self, distances: np.array, initial_positions: dict = None, fix_initial_positions: bool = True):
+    def embed(
+        self,
+        distances: np.array,
+        initial_positions: dict = None,
+        fix_initial_positions: bool = True,
+    ):
         """
 
         :param distances: matrix nxn
@@ -35,29 +54,41 @@ class KamadaKawai:
         else:
             fixed_positions_indexes = []
 
-        k = _calc_k_with_special_value(distances, self.special_k, fixed_positions_indexes)
+        k = _calc_k_with_special_value(
+            distances, self.special_k, fixed_positions_indexes
+        )
         optim_method_to_fun = {
-            'kk': _get_positions_kk,
-            'bb': _get_positions_bb,
-            'adam': _get_positions_adam
+            "kk": _get_positions_kk,
+            "bb": _get_positions_bb,
+            "adam": _get_positions_adam,
         }
 
-        positions = initial_place_points(distances, initial_positions, self.initial_positions_algorithm)
+        positions = initial_place_points(
+            distances, initial_positions, self.initial_positions_algorithm
+        )
 
         start_time = time.time()
-        positions = optim_method_to_fun[self.optim_method](distances, k, positions, fixed_positions_indexes)
+        positions = optim_method_to_fun[self.optim_method](
+            distances, k, positions, fixed_positions_indexes
+        )
 
         k = _calc_k_with_special_value(distances, 1, fixed_positions_indexes)
         # print("MIDDLE ENERGY:", get_total_energy(positions, k, distances), "TIME:", time.time() - start_time)
 
-        positions = optim_method_to_fun[self.optim_method](distances, k, positions, fixed_positions_indexes)
+        positions = optim_method_to_fun[self.optim_method](
+            distances, k, positions, fixed_positions_indexes
+        )
 
         # print("FINAL ENERGY:", get_total_energy(positions, k, distances), "TIME:", time.time() - start_time)
 
         if self.max_neighbour_distance_percentage is not None:
-            k = _respect_only_close_neighbours_k(k, distances, self.max_neighbour_distance_percentage)
+            k = _respect_only_close_neighbours_k(
+                k, distances, self.max_neighbour_distance_percentage
+            )
 
-            positions = optim_method_to_fun[self.optim_method](distances, k, positions, fixed_positions_indexes)
+            positions = optim_method_to_fun[self.optim_method](
+                distances, k, positions, fixed_positions_indexes
+            )
             # print("Last adjustments:", get_total_energy(positions, k, distances), "TIME:", time.time() - start_time)
 
         return positions
@@ -78,8 +109,12 @@ def _get_max_derivative(k, distances, positions, fixed_positions_indexes=None):
     return max_derivative
 
 
-def _get_positions_kk(distances, k, l, positions, fixed_positions_indexes, epsilon=0.00001):
-    max_derivative = _get_max_derivative(k, distances, positions, fixed_positions_indexes)
+def _get_positions_kk(
+    distances, k, l, positions, fixed_positions_indexes, epsilon=0.00001
+):
+    max_derivative = _get_max_derivative(
+        k, distances, positions, fixed_positions_indexes
+    )
     # print(max_derivative)
     while max_derivative[0] > epsilon:
         max_der, i = max_derivative
@@ -88,7 +123,9 @@ def _get_positions_kk(distances, k, l, positions, fixed_positions_indexes, epsil
         positions[i], succ = _optimize_newton(positions, k, l, i, epsilon)
         if not succ:
             positions[i] += np.random.uniform(-10, 10, size=(2,))
-        max_derivative = _get_max_derivative(k, distances, positions, fixed_positions_indexes)
+        max_derivative = _get_max_derivative(
+            k, distances, positions, fixed_positions_indexes
+        )
 
     return positions
 
@@ -118,13 +155,13 @@ def _get_positions_adam(distances, k, positions, fixed_positions_indexes):
         x0=pos_copy,
         args=(k, distances, fixed_positions_indexes),
         learning_rate=1.0,
-        maxiter=4000
+        maxiter=4000,
     )
     return new_positions
 
 
 def _calc_k_with_special_value(distances, special_value, indexes=None):
-    square_dist = distances ** 2
+    square_dist = distances**2
     np.fill_diagonal(square_dist, 1)
     _close_zero(square_dist)
     k = np.ones_like(square_dist)

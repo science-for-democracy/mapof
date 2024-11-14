@@ -2,23 +2,25 @@ from abc import ABC
 
 
 class Family(ABC):
-    """ Abstract family of instances: a set of instances from the same culture """
+    """Abstract family of instances: a set of instances from the same culture"""
 
-    def __init__(self,
-                 culture_id: str = None,
-                 family_id: str = 'none',
-                 params: dict = None,
-                 size: int = 1,
-                 label: str = None,
-                 color: str = "black",
-                 alpha: float = 1.,
-                 ms: int = 20,
-                 show: bool = True,
-                 marker: str = 'o',
-                 single: bool = False,
-                 instance_ids: list = None,
-                 path: dict = None,
-                 **_kwargs):
+    def __init__(
+        self,
+        culture_id: str = None,
+        family_id: str = "none",
+        params: dict = None,
+        size: int = 1,
+        label: str = None,
+        color: str = "black",
+        alpha: float = 1.0,
+        ms: int = 20,
+        show: bool = True,
+        marker: str = "o",
+        single: bool = False,
+        instance_ids: list = None,
+        path: dict = None,
+        **_kwargs,
+    ):
 
         if path is None:
             path = {}

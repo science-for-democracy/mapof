@@ -5,17 +5,22 @@ from random import random
 import numpy as np
 
 from mapof.core.embedding.initial_positions import initial_place_points
-from mapof.core.embedding.simulated_annealing.simulated_annealing_energy import get_total_energy
+from mapof.core.embedding.simulated_annealing.simulated_annealing_energy import (
+    get_total_energy,
+)
 
 
 class SimulatedAnnealing:
-    def __init__(self, initial_temperature=100000,
-                 cooling_temp_factor=0.75,
-                 num_stages=10,
-                 number_of_trials_for_temp=30,
-                 cooling_radius_factor=None,
-                 initial_radius=None,
-                 initial_positions_algorithm='circumference'):
+    def __init__(
+        self,
+        initial_temperature=100000,
+        cooling_temp_factor=0.75,
+        num_stages=10,
+        number_of_trials_for_temp=30,
+        cooling_radius_factor=None,
+        initial_radius=None,
+        initial_positions_algorithm="circumference",
+    ):
         self.initial_temperature = initial_temperature
         self.cooling_temp_factor = cooling_temp_factor
         self.num_stages = num_stages
@@ -24,7 +29,12 @@ class SimulatedAnnealing:
         self.initial_radius = initial_radius
         self.initial_positions_algorithm = initial_positions_algorithm
 
-    def embed(self, distances: np.array, initial_positions: dict = None, fix_initial_positions: bool = True):
+    def embed(
+        self,
+        distances: np.array,
+        initial_positions: dict = None,
+        fix_initial_positions: bool = True,
+    ):
         """
 
         :param distances: matrix nxn
@@ -38,26 +48,39 @@ class SimulatedAnnealing:
         else:
             fixed_positions_indexes = []
 
-        positions = initial_place_points(distances, initial_positions, self.initial_positions_algorithm)
+        positions = initial_place_points(
+            distances, initial_positions, self.initial_positions_algorithm
+        )
 
         start_time = time.time()
 
         ann = SimRunner(
-            positions, distances,
+            positions,
+            distances,
             self.initial_temperature,
             num_stages=self.num_stages,
             number_of_trials_for_temp=self.number_of_trials_for_temp,
             frozen_node_indexes=fixed_positions_indexes,
             cooling_temp_factor=self.cooling_temp_factor,
-            cooling_radius_factor=self.cooling_radius_factor
+            cooling_radius_factor=self.cooling_radius_factor,
         )
 
         return ann.run()
 
 
 class SimRunner:
-    def __init__(self, initial_positions, distances, temperature, frozen_node_indexes=None, cooling_temp_factor=0.75,
-                 num_stages=10, number_of_trials_for_temp=30, cooling_radius_factor=0.75, radius=None):
+    def __init__(
+        self,
+        initial_positions,
+        distances,
+        temperature,
+        frozen_node_indexes=None,
+        cooling_temp_factor=0.75,
+        num_stages=10,
+        number_of_trials_for_temp=30,
+        cooling_radius_factor=0.75,
+        radius=None,
+    ):
         if cooling_radius_factor is None:
             cooling_radius_factor = cooling_temp_factor
 
@@ -101,10 +124,13 @@ class SimRunner:
 
         for i in range(self.num_stages):
             for j in range(self.number_of_trials_for_temp):
-                accept = (new_energy < energy or random() < np.exp((energy - new_energy) / self.temperature))
+                accept = new_energy < energy or random() < np.exp(
+                    (energy - new_energy) / self.temperature
+                )
                 if accept:
                     print(
-                        f"Accepting new energy: {new_energy} temp: {self.temperature}. Temerature Iteration: {j}/{self.number_of_trials_for_temp}. Global Iteration: {i}/{self.num_stages}")
+                        f"Accepting new energy: {new_energy} temp: {self.temperature}. Temerature Iteration: {j}/{self.number_of_trials_for_temp}. Global Iteration: {i}/{self.num_stages}"
+                    )
                     self.positions = new_positions
                     energy = new_energy
 

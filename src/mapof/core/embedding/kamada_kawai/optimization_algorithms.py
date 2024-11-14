@@ -2,12 +2,28 @@ import collections
 
 import numpy as np
 
-from mapof.core.embedding.kamada_kawai.energy_functions import get_energy_dx, get_energy_dy, get_energy_dx_dx, \
-    get_energy_dx_dy, get_energy_dy_dx, get_energy_dy_dy
+from mapof.core.embedding.kamada_kawai.energy_functions import (
+    get_energy_dx,
+    get_energy_dy,
+    get_energy_dx_dx,
+    get_energy_dx_dy,
+    get_energy_dy_dx,
+    get_energy_dy_dy,
+)
 
 
-def optimize_bb(func, grad_func, args, x0, max_iter, init_step_size, stop_energy_val=None,
-                max_iter_without_improvement=8000, min_improvement_percentage=1.0, percentage_lookup_history=100):
+def optimize_bb(
+    func,
+    grad_func,
+    args,
+    x0,
+    max_iter,
+    init_step_size,
+    stop_energy_val=None,
+    max_iter_without_improvement=8000,
+    min_improvement_percentage=1.0,
+    percentage_lookup_history=100,
+):
     if isinstance(init_step_size, float):
         init_step_size = [init_step_size, init_step_size]
 
@@ -66,7 +82,10 @@ def optimize_bb(func, grad_func, args, x0, max_iter, init_step_size, stop_energy
 
 
 def _get_delta_energy(positions, k, l, x, y):
-    return np.sqrt(get_energy_dx(x, y, k, l, positions) ** 2 + get_energy_dy(x, y, k, l, positions) ** 2)
+    return np.sqrt(
+        get_energy_dx(x, y, k, l, positions) ** 2
+        + get_energy_dy(x, y, k, l, positions) ** 2
+    )
 
 
 def _get_pos_k_l_x_y_for_i(positions, k, l, i):
@@ -108,18 +127,18 @@ def _optimize_newton(positions, k, l, i, eps=1e-10):
 
 
 def adam(
-        fun,
-        jac,
-        x0,
-        args=(),
-        learning_rate=0.001,
-        beta1=0.9,
-        beta2=0.999,
-        eps=1e-8,
-        startiter=0,
-        maxiter=1000,
-        callback=None,
-        **kwargs
+    fun,
+    jac,
+    x0,
+    args=(),
+    learning_rate=0.001,
+    beta1=0.9,
+    beta2=0.999,
+    eps=1e-8,
+    startiter=0,
+    maxiter=1000,
+    callback=None,
+    **kwargs,
 ):
     """``scipy.optimize.minimize`` compatible implementation of ADAM -
     [http://arxiv.org/pdf/1412.6980.pdf].
@@ -140,7 +159,7 @@ def adam(
             break
 
         m = (1 - beta1) * g + beta1 * m  # first  moment estimate.
-        v = (1 - beta2) * (g ** 2) + beta2 * v  # second moment estimate.
+        v = (1 - beta2) * (g**2) + beta2 * v  # second moment estimate.
         mhat = m / (1 - beta1 ** (i + 1))  # bias correction.
         vhat = v / (1 - beta2 ** (i + 1))
         x = x - learning_rate * mhat / (np.sqrt(vhat) + eps)

@@ -24,10 +24,7 @@ def solve_matching_vectors(cost_table: list[list]) -> (float, list):
 
 
 def solve_matching_matrices(
-        matrix_1: list[list],
-        matrix_2: list[list],
-        length: int,
-        inner_distance: callable
+    matrix_1: list[list], matrix_2: list[list], length: int, inner_distance: callable
 ) -> float:
     """
     Computes the minimal distance between two matrices.
@@ -68,14 +65,16 @@ def solve_matching_matrices(
                 for j in range(length):
                     if j == l:
                         continue
-                    weight = inner_distance(np.array([matrix_1[k][i]]), np.array([matrix_2[l][j]]))
-                    name = f'Pk{k}l{l}i{i}j{j}'
+                    weight = inner_distance(
+                        np.array([matrix_1[k][i]]), np.array([matrix_2[l][j]])
+                    )
+                    name = f"Pk{k}l{l}i{i}j{j}"
                     variables[name] = m.addVar(vtype=GRB.BINARY, name=name, obj=weight)
 
     # ADD MISSING VARIABLES
     for i in range(length):
         for j in range(length):
-            name = f'Mi{i}j{j}'
+            name = f"Mi{i}j{j}"
             variables[name] = m.addVar(vtype=GRB.BINARY, name=name)
 
     m.update()
@@ -90,33 +89,49 @@ def solve_matching_matrices(
                     if j == l:
                         continue
 
-                    m.addConstr(variables[f'Pk{k}l{l}i{i}j{j}'] - variables[f'Mi{i}j{j}'] <= 0)
-                    m.addConstr(variables[f'Pk{k}l{l}i{i}j{j}'] - variables[f'Mi{k}j{l}'] <= 0)
+                    m.addConstr(
+                        variables[f"Pk{k}l{l}i{i}j{j}"] - variables[f"Mi{i}j{j}"] <= 0
+                    )
+                    m.addConstr(
+                        variables[f"Pk{k}l{l}i{i}j{j}"] - variables[f"Mi{k}j{l}"] <= 0
+                    )
 
     for i in range(length):
-        m.addConstr(gp.quicksum(variables[f'Mi{i}j{j}'] for j in range(length)) == 1)
+        m.addConstr(gp.quicksum(variables[f"Mi{i}j{j}"] for j in range(length)) == 1)
 
     for j in range(length):
-        m.addConstr(gp.quicksum(variables[f'Mi{i}j{j}'] for i in range(length)) == 1)
+        m.addConstr(gp.quicksum(variables[f"Mi{i}j{j}"] for i in range(length)) == 1)
 
     for k in range(length):
         for i in range(length):
             if k == i:
                 continue
-            m.addConstr(gp.quicksum(variables[f'Pk{k}l{l}i{i}j{j}']
-                                    for l in range(length)
-                                    for j in range(length) if l != j) == 1)
+            m.addConstr(
+                gp.quicksum(
+                    variables[f"Pk{k}l{l}i{i}j{j}"]
+                    for l in range(length)
+                    for j in range(length)
+                    if l != j
+                )
+                == 1
+            )
 
     for l in range(length):
         for j in range(length):
             if l == j:
                 continue
-            m.addConstr(gp.quicksum(variables[f'Pk{k}l{l}i{i}j{j}']
-                                    for k in range(length)
-                                    for i in range(length) if k != i) == 1)
+            m.addConstr(
+                gp.quicksum(
+                    variables[f"Pk{k}l{l}i{i}j{j}"]
+                    for k in range(length)
+                    for i in range(length)
+                    if k != i
+                )
+                == 1
+            )
 
     # SOLVE THE ILP
-    m.setParam('OutputFlag', 0)
+    m.setParam("OutputFlag", 0)
     m.optimize()
 
     for var_name, var in variables.items():

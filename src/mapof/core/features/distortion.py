@@ -1,32 +1,36 @@
 import numpy as np
 from collections import defaultdict
 
-from mapof.core.features.common import \
-    extract_selected_coordinates_from_experiment, \
-    extract_selected_distances, \
-    extract_calculated_distances
+from mapof.core.features.common import (
+    extract_selected_coordinates_from_experiment,
+    extract_selected_distances,
+    extract_calculated_distances,
+)
 from mapof.core.objects.Experiment import Experiment
 
 from mapof.core.features.register import register_experiment_feature
 
 
-@register_experiment_feature('distortion', is_embedding_related=True)
+@register_experiment_feature("distortion", is_embedding_related=True)
 def calculate_distortion(
-        experiment: Experiment,
-        election_ids: list[str] = None,
-        max_distance_percentage: float = 1.0,
-        normalize: bool = True,
-        diameter: tuple = ('ID', 'UN')
+    experiment: Experiment,
+    election_ids: list[str] = None,
+    max_distance_percentage: float = 1.0,
+    normalize: bool = True,
+    diameter: tuple = ("ID", "UN"),
 ) -> dict:
-    """ Calculates the distortion of the distances between the points in the experiment. """
+    """Calculates the distortion of the distances between the points in the experiment."""
     coordinates = extract_selected_coordinates_from_experiment(experiment, election_ids)
 
     desired_distances = extract_selected_distances(experiment, election_ids)
     calculated_distances = extract_calculated_distances(coordinates)
 
     original_diameter = experiment.distances[diameter[0]][diameter[1]]
-    embedded_diameter = np.linalg.norm(np.array(experiment.coordinates[diameter[0]])
-                                       - np.array(experiment.coordinates[diameter[1]]), ord=2)
+    embedded_diameter = np.linalg.norm(
+        np.array(experiment.coordinates[diameter[0]])
+        - np.array(experiment.coordinates[diameter[1]]),
+        ord=2,
+    )
 
     if normalize:
         calculated_distances /= embedded_diameter
@@ -61,32 +65,34 @@ def calculate_distortion(
         distortion_lists[j].append(distortion)
 
     # Calculate mean distortion for each election
-    mean_distortions = [np.mean(distortion_lists[i]) if distortion_lists[i] else 0 for i in
-                        range(n)]
+    mean_distortions = [
+        np.mean(distortion_lists[i]) if distortion_lists[i] else 0 for i in range(n)
+    ]
 
-    return {
-        election: mean_distortions[i] for i, election in enumerate(election_ids)
-    }
+    return {election: mean_distortions[i] for i, election in enumerate(election_ids)}
 
 
-@register_experiment_feature('distortion_naive', is_embedding_related=True)
+@register_experiment_feature("distortion_naive", is_embedding_related=True)
 def calculate_distortion_naive(
-        experiment: Experiment,
-        election_ids: list[str] = None,
-        max_distance_percentage: float = 1.0,
-        normalize: bool = True,
-        diameter: tuple = ('ID', 'UN')
+    experiment: Experiment,
+    election_ids: list[str] = None,
+    max_distance_percentage: float = 1.0,
+    normalize: bool = True,
+    diameter: tuple = ("ID", "UN"),
 ) -> dict:
-    """ Calculates the distortion of the distances between the points in the experiment
-     using a naive approach. """
+    """Calculates the distortion of the distances between the points in the experiment
+    using a naive approach."""
     coordinates = extract_selected_coordinates_from_experiment(experiment, election_ids)
 
     desired_distances = extract_selected_distances(experiment, election_ids)
     calculated_distances = extract_calculated_distances(coordinates)
 
     original_diameter = experiment.distances[diameter[0]][diameter[1]]
-    embedded_diameter = np.linalg.norm(np.array(experiment.coordinates[diameter[0]])
-                                       - np.array(experiment.coordinates[diameter[1]]), ord=2)
+    embedded_diameter = np.linalg.norm(
+        np.array(experiment.coordinates[diameter[0]])
+        - np.array(experiment.coordinates[diameter[1]]),
+        ord=2,
+    )
 
     if normalize:
         calculated_distances /= embedded_diameter

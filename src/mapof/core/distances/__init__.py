@@ -16,7 +16,6 @@ from mapof.core.distances.inner_distances import (
     discrete,
     single_l1,
     hamming,
-
     vote_to_pote,
     swap_distance,
     swap_distance_between_potes,
@@ -24,24 +23,23 @@ from mapof.core.distances.inner_distances import (
 )
 
 __all__ = [
-    'run_single_process',
-    'run_multiple_processes',
-    'extract_distance_id',
-    'map_str_to_func',
-    'l1',
-    'l2',
-    'chebyshev',
-    'hellinger',
-    'emd',
-    'emdinf',
-    'discrete',
-    'single_l1',
-    'hamming',
-
-    'vote_to_pote',
-    'swap_distance',
-    'swap_distance_between_potes',
-    'spearman_distance_between_potes',
+    "run_single_process",
+    "run_multiple_processes",
+    "extract_distance_id",
+    "map_str_to_func",
+    "l1",
+    "l2",
+    "chebyshev",
+    "hellinger",
+    "emd",
+    "emdinf",
+    "discrete",
+    "single_l1",
+    "hamming",
+    "vote_to_pote",
+    "swap_distance",
+    "swap_distance_between_potes",
+    "spearman_distance_between_potes",
 ]
 
 
@@ -61,8 +59,8 @@ def extract_distance_id(distance_id: str) -> (callable, str):
         str
             Main distance.
     """
-    if '-' in distance_id:
-        inner_distance, main_distance = distance_id.split('-')
+    if "-" in distance_id:
+        inner_distance, main_distance = distance_id.split("-")
         inner_distance = map_str_to_func(inner_distance)
     else:
         main_distance = distance_id
@@ -71,11 +69,7 @@ def extract_distance_id(distance_id: str) -> (callable, str):
 
 
 def run_single_process(
-        experiment,
-        instances_ids: list,
-        distances: dict,
-        times: dict,
-        matchings: dict
+    experiment, instances_ids: list, distances: dict, times: dict, matchings: dict
 ) -> None:
     """
     Calculates distances between each pair of instances (using single process).
@@ -104,7 +98,7 @@ def run_single_process(
         distance = experiment.get_distance(
             copy.deepcopy(experiment.instances[instance_id_1]),
             copy.deepcopy(experiment.instances[instance_id_2]),
-            distance_id=copy.deepcopy(experiment.distance_id)
+            distance_id=copy.deepcopy(experiment.distance_id),
         )
 
         if type(distance) is tuple:
@@ -114,18 +108,20 @@ def run_single_process(
             matchings[instance_id_2][instance_id_1] = np.argsort(matching)
 
         distances[instance_id_1][instance_id_2] = distance
-        distances[instance_id_2][instance_id_1] = distances[instance_id_1][instance_id_2]
+        distances[instance_id_2][instance_id_1] = distances[instance_id_1][
+            instance_id_2
+        ]
         times[instance_id_1][instance_id_2] = time() - start_time
         times[instance_id_2][instance_id_1] = times[instance_id_1][instance_id_2]
 
 
 def run_multiple_processes(
-        experiment,
-        instances_ids: list,
-        distances: dict,
-        times: dict,
-        matchings: dict,
-        process_id: int
+    experiment,
+    instances_ids: list,
+    distances: dict,
+    times: dict,
+    matchings: dict,
+    process_id: int,
 ) -> None:
     """
     Calculates distances between each pair of instances (using multiple processes).
@@ -156,7 +152,7 @@ def run_multiple_processes(
         distance = experiment.get_distance(
             copy.deepcopy(experiment.instances[instance_id_1]),
             copy.deepcopy(experiment.instances[instance_id_2]),
-            distance_id=copy.deepcopy(experiment.distance_id)
+            distance_id=copy.deepcopy(experiment.distance_id),
         )
 
         if type(distance) is tuple:
@@ -166,13 +162,13 @@ def run_multiple_processes(
             matchings[instance_id_2][instance_id_1] = np.argsort(matching)
 
         distances[instance_id_1][instance_id_2] = distance
-        distances[instance_id_2][instance_id_1] = distances[instance_id_1][instance_id_2]
+        distances[instance_id_2][instance_id_1] = distances[instance_id_1][
+            instance_id_2
+        ]
         times[instance_id_1][instance_id_2] = time() - start_time
         times[instance_id_2][instance_id_1] = times[instance_id_1][instance_id_2]
 
     if experiment.is_exported:
-        exports.export_distances_multiple_processes(experiment,
-                                                    instances_ids,
-                                                    distances,
-                                                    times,
-                                                    process_id)
+        exports.export_distances_multiple_processes(
+            experiment, instances_ids, distances, times, process_id
+        )

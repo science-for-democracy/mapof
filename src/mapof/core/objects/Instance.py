@@ -2,14 +2,16 @@ from abc import ABC
 
 
 class Instance(ABC):
-    """ Abstract instance object """
+    """Abstract instance object"""
 
-    def __init__(self,
-                 experiment_id: str,
-                 instance_id: str,
-                 culture_id: str = None,
-                 params: dict = None,
-                 **_kwargs):
+    def __init__(
+        self,
+        experiment_id: str,
+        instance_id: str,
+        culture_id: str = None,
+        params: dict = None,
+        **_kwargs,
+    ):
 
         if params is None:
             params = {}
@@ -21,5 +23,5 @@ class Instance(ABC):
         self.printing_params = {}
         self.params = params
 
-        for key in ['color', 'alpha', 'marker', 'ms']:
+        for key in ["color", "alpha", "marker", "ms"]:
             self.printing_params[key] = None

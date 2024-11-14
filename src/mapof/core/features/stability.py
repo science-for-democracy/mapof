@@ -1,4 +1,3 @@
-
 import numpy as np
 
 from mapof.core.features.common import extract_selected_coordinates
@@ -9,9 +8,7 @@ from mapof.core.features.register import register_experiment_feature
 
 @register_experiment_feature("stability", is_embedding_related=True)
 def calculate_stability(
-        experiment: Experiment,
-        election_ids: list[str] = None,
-        rotate_to_match: bool = True
+    experiment: Experiment, election_ids: list[str] = None, rotate_to_match: bool = True
 ) -> dict:
 
     if election_ids is None:
@@ -30,14 +27,14 @@ def calculate_stability(
 
     for i in range(len(coordinates)):
         for j in range(i + 1, len(coordinates)):
-            coordinates_differences.append(np.linalg.norm(coordinates[i] - coordinates[j], axis=1))
+            coordinates_differences.append(
+                np.linalg.norm(coordinates[i] - coordinates[j], axis=1)
+            )
 
     coordinates_differences = np.array(coordinates_differences)
     differences_mean = np.mean(coordinates_differences, axis=0)
 
-    return {
-        election: differences_mean[i] for i, election in enumerate(election_ids)
-    }
+    return {election: differences_mean[i] for i, election in enumerate(election_ids)}
 
 
 def rotate_via_numpy(coordinates, radians):
