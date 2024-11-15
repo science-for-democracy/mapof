@@ -19,16 +19,17 @@ def map_str_to_func(name: str) -> callable:
         callable
 
     """
-    return {'l1': l1,
-            'l2': l2,
-            'chebyshev': chebyshev,
-            'hellinger': hellinger,
-            'emd': emd,
-            'emdinf': emdinf,
-            'discrete': discrete,
-            'single_l1': single_l1,
-            'hamming': hamming,
-            }.get(name)
+    return {
+        "l1": l1,
+        "l2": l2,
+        "chebyshev": chebyshev,
+        "hellinger": hellinger,
+        "emd": emd,
+        "emdinf": emdinf,
+        "discrete": discrete,
+        "single_l1": single_l1,
+        "hamming": hamming,
+    }.get(name)
 
 
 def l1(vector_1: np.ndarray, vector_2: np.ndarray) -> float:
@@ -102,10 +103,10 @@ def hellinger(vector_1: list, vector_2: list) -> float:
     """
     h1 = np.average(vector_1)
     h2 = np.average(vector_2)
-    product = sum([math.sqrt(vector_1[i] * vector_2[i])
-                   for i in range(len(vector_1))])
-    return math.sqrt(1 - (1 / math.sqrt(h1 * h2 * len(vector_1) * len(vector_1)))
-                     * product)
+    product = sum([math.sqrt(vector_1[i] * vector_2[i]) for i in range(len(vector_1))])
+    return math.sqrt(
+        1 - (1 / math.sqrt(h1 * h2 * len(vector_1) * len(vector_1))) * product
+    )
 
 
 def discrete(vector_1, vector_2) -> int:
@@ -145,7 +146,7 @@ def emd(vector_1: list, vector_2: list) -> float:
             EMD distance.
     """
     vector_1 = deepcopy(vector_1)
-    dirt = 0.
+    dirt = 0.0
     for i in range(len(vector_1) - 1):
         surplus = vector_1[i] - vector_2[i]
         dirt += abs(surplus)
@@ -235,7 +236,7 @@ def hamming(set_1: set, set_2: set) -> int:
 
 
 def vote_to_pote(vote: list) -> list:
-    """ Converts vote to pote (i.e. positional vote)
+    """Converts vote to pote (i.e. positional vote)
 
     Parameters
     ----------
@@ -246,11 +247,11 @@ def vote_to_pote(vote: list) -> list:
         list
             Potes (i.e. positional votes).
     """
-    return [vote.index(i) for i in range(len(vote)+1) if i in vote]
+    return [vote.index(i) for i in range(len(vote) + 1) if i in vote]
 
 
 def swap_distance(vote_1: list, vote_2: list, matching=None) -> int:
-    """ Return: Swap distance between two votes """
+    """Return: Swap distance between two votes"""
 
     new_vote_2 = deepcopy(vote_2)
     if matching is not None:
@@ -262,8 +263,9 @@ def swap_distance(vote_1: list, vote_2: list, matching=None) -> int:
 
     swap_distance = 0
     for i, j in itertools.combinations(pote_1, 2):
-        if (pote_1[i] > pote_1[j] and pote_2[i] < pote_2[j]) or \
-                (pote_1[i] < pote_1[j] and pote_2[i] > pote_2[j]):
+        if (pote_1[i] > pote_1[j] and pote_2[i] < pote_2[j]) or (
+            pote_1[i] < pote_1[j] and pote_2[i] > pote_2[j]
+        ):
             swap_distance += 1
     return swap_distance
 
@@ -285,10 +287,9 @@ def swap_distance_between_potes(pote_1: list, pote_2: list) -> int:
     """
     swap_distance = 0
     for i, j in itertools.combinations(pote_1, 2):
-        if (pote_1[i] > pote_1[j] and
-            pote_2[i] < pote_2[j]) or \
-                (pote_1[i] < pote_1[j] and
-                 pote_2[i] > pote_2[j]):
+        if (pote_1[i] > pote_1[j] and pote_2[i] < pote_2[j]) or (
+            pote_1[i] < pote_1[j] and pote_2[i] > pote_2[j]
+        ):
             swap_distance += 1
     return swap_distance
 

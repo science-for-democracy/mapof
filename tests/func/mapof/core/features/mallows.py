@@ -1,7 +1,7 @@
 from mapof.core.features.mallows import phi_from_normphi, generate_mallows_votes
 
 
-class TestFeatures():
+class TestFeatures:
 
     def test_phi_from_normphi(self):
 

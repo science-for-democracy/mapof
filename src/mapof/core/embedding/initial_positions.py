@@ -3,8 +3,8 @@ import numpy as np
 
 def initial_place_points(distances, initial_positions, initial_positions_algorithm):
     type_to_algorithm = {
-        'circumference': initial_place_on_circumference,
-        'inside-square': initial_place_inside_square
+        "circumference": initial_place_on_circumference,
+        "inside-square": initial_place_inside_square,
     }
 
     positions = type_to_algorithm[initial_positions_algorithm](distances)
@@ -27,13 +27,10 @@ def initial_place_on_circumference(distances):
     if should_split_in_two:
         positions = _place_on_circumference(
             [longest_distance / 2, longest_distance * 2],
-            [num_vertices // 2, num_vertices - num_vertices // 2]
+            [num_vertices // 2, num_vertices - num_vertices // 2],
         )
     else:
-        positions = _place_on_circumference(
-            [longest_distance],
-            [num_vertices]
-        )
+        positions = _place_on_circumference([longest_distance], [num_vertices])
 
     return positions
 

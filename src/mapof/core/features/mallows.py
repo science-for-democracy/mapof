@@ -3,7 +3,7 @@ import logging
 import numpy as np
 
 
-def phi_from_normphi(num_candidates:int =10, normphi: float=None) -> float:
+def phi_from_normphi(num_candidates: int = 10, normphi: float = None) -> float:
     """
     Given the number m of candidates and a absolute number of expected swaps exp_abs, this function
     returns a value of phi such that in a vote sampled from Mallows culture_id with this parameter
@@ -11,7 +11,7 @@ def phi_from_normphi(num_candidates:int =10, normphi: float=None) -> float:
 
     """
     if normphi is None:
-        logging.warning('normphi is not defined')
+        logging.warning("normphi is not defined")
         return -1
     if normphi == 1:
         return 1
@@ -45,7 +45,7 @@ def generate_mallows_votes(num_voters, num_candidates, phi=0.5, weight=0, **kwar
     with num_candidates candidates and dispersion parameter phi
     """
     if phi is None:
-        logging.warning('phi is not defined')
+        logging.warning("phi is not defined")
     insertion_probabilites_list = []
     for i in range(1, num_candidates):
         insertion_probabilites_list.append(_compute_insertion_probas(i, phi))
@@ -105,9 +105,5 @@ def _calculate_expected_number_swaps(num_candidates: int, phi: float):
     """
     res = phi * num_candidates / (1 - phi)
     for j in range(1, num_candidates + 1):
-        res = res + (j * (phi ** j)) / ((phi ** j) - 1)
+        res = res + (j * (phi**j)) / ((phi**j) - 1)
     return res
-
-
-
-
