@@ -146,7 +146,7 @@ def run_multiple_processes(
         None
     """
 
-    for instance_id_1, instance_id_2 in instances_ids:
+    for instance_id_1, instance_id_2 in tqdm(instances_ids, desc="Computing distances"):
 
         start_time = time()
         distance = experiment.get_distance(
