@@ -7,7 +7,8 @@ import numpy as np
 
 
 def import_distances_from_file(
-    experiment_id: str, distance_id: str, instance_ids: list
+    experiment_id: str,
+    distance_id: str, instance_ids: list
 ) -> dict:
     """
     Imports distances between each pair of instances from a file.
