@@ -38,6 +38,14 @@ dependency. A drawback is here that one cannot edit the Mapof code easily. If
 you use `pip` type `pip install mapof` to get the newest version and your are
 ready to go. If you use other package managers, do whatever it usually takes to
 install packages from PyPi.
+If pip drops executables into a user-local directory (for example
+`~/Library/Python/3.13/bin` on macOS), add it to your shell `PATH` so commands
+like `tqdm` are available:
+
+```bash
+export PATH="$HOME/Library/Python/3.13/bin:$PATH"
+```
+
 > [!TIP]
 > You can still patch Mapof using the fact that functions are First-Class
 > Citizens in Python. By separating changes from the actual Mapof code, the
@@ -93,6 +101,5 @@ which has received funding from the [European Research Council
 (ERC)](https://home.agh.edu.pl/~pragma/) under the European Union’s Horizon 2020
 research and innovation programme ([grant agreement No
 101002854](https://erc.easme-web.eu/?p=101002854)).
-
 
 
