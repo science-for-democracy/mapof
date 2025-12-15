@@ -116,7 +116,9 @@ def test_export_normalized_feature_to_file(tmp_path, monkeypatch):
         ),
     ],
 )
-def test_export_embedding_to_file(tmp_path, monkeypatch, dim, expected_header, expected_rows):
+def test_export_embedding_to_file(
+    tmp_path, monkeypatch, dim, expected_header, expected_rows
+):
     monkeypatch.chdir(tmp_path)
     experiment = DummyExperiment()
     my_pos = [
@@ -128,11 +130,7 @@ def test_export_embedding_to_file(tmp_path, monkeypatch, dim, expected_header, e
 
     file_name = f"emb_{experiment.distance_id}_{dim}d.csv"
     path = (
-        tmp_path
-        / "experiments"
-        / experiment.experiment_id
-        / "coordinates"
-        / file_name
+        tmp_path / "experiments" / experiment.experiment_id / "coordinates" / file_name
     )
     rows = read_csv(path)
     assert rows[0] == expected_header
@@ -152,13 +150,7 @@ def test_export_distances_to_file(tmp_path, monkeypatch):
         ids=[("inst_a", "inst_b")],
     )
 
-    path = (
-        tmp_path
-        / "experiments"
-        / experiment.experiment_id
-        / "distances"
-        / "l1.csv"
-    )
+    path = tmp_path / "experiments" / experiment.experiment_id / "distances" / "l1.csv"
     rows = read_csv(path)
     assert rows == [
         ["instance_id_1", "instance_id_2", "distance", "time"],
@@ -169,12 +161,7 @@ def test_export_distances_to_file(tmp_path, monkeypatch):
 def test_export_distances_multiple_processes(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     experiment = DummyExperiment()
-    dist_dir = (
-        tmp_path
-        / "experiments"
-        / experiment.experiment_id
-        / "distances"
-    )
+    dist_dir = tmp_path / "experiments" / experiment.experiment_id / "distances"
     dist_dir.mkdir(parents=True, exist_ok=True)
     distances = {"inst_a": {"inst_b": 1.5}}
     times = {"inst_a": {"inst_b": 0.5}}
