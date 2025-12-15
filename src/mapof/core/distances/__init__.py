@@ -4,6 +4,7 @@ from time import time
 import numpy as np
 from tqdm import tqdm
 
+
 import mapof.core.persistence.experiment_exports as exports
 from mapof.core.distances.inner_distances import (
     map_str_to_func,

@@ -90,42 +90,123 @@ class Experiment(ABC):
     def get_distance(
         self, instance_id_1, instance_id_2, distance_id: str = None, **kwargs
     ):
+        """Return the distance between two instances.
+
+        Subclasses must implement this to compute and return a numeric distance
+        between `instance_id_1` and `instance_id_2` for the (optional)
+        `distance_id`. Additional keyword arguments may be used by specific
+        distance implementations.
+
+        Parameters
+        ----------
+        instance_id_1: hashable
+            Identifier of the first instance.
+        instance_id_2: hashable
+            Identifier of the second instance.
+        distance_id: str, optional
+            Identifier of the distance metric to use.
+
+        Returns
+        -------
+        float
+            Numeric distance between the two instances.
+        """
         pass
 
     @abstractmethod
     def prepare_instances(self):
+        """Prepare or preprocess instances before they are added to the
+        experiment.
+
+        Implementations may load raw data, normalize formats or perform other
+        preparation steps required by the concrete experiment type.
+        """
         pass
 
     @abstractmethod
     def add_instance(self):
+        """Add a single instance to the experiment.
+
+        Concrete implementations should create and return the instance object
+        (or otherwise register it) following the project's instance model.
+        """
         pass
 
     @abstractmethod
     def add_family(self):
+        """Add a family (controller/culture) to the experiment.
+
+        Subclasses should create and register a family object (e.g. a
+        `Family`) and return or store it in the experiment state.
+        """
         pass
 
     @abstractmethod
     def add_instances_to_experiment(self):
+        """Load and return all instances for this experiment.
+
+        Expected to return a dict mapping instance IDs to instance objects.
+        Raise FileNotFoundError when persisted instance data is missing.
+        """
         pass
 
     @abstractmethod
     def add_folders_to_experiment(self):
+        """Create any filesystem folders required to store experiment data.
+
+        Implementations should create the 'experiments/<experiment_id>' tree
+        (and subfolders like 'distances', 'coordinates', 'instances', etc.)
+        when initializing a new experiment.
+        """
         pass
 
     @abstractmethod
     def import_controllers(self):
+        """Import and return controller/family metadata for the experiment.
+
+        Should return a mapping of family IDs to `Family` (or equivalent)
+        objects used by other experiment operations.
+        """
         pass
 
     @abstractmethod
     def add_culture(self, name, function):
+        """Register a culture/controller function under `name`.
+
+        Parameters
+        ----------
+        name: str
+            Identifier for the culture.
+        function: callable
+            Function implementing the culture behaviour.
+        """
         pass
 
     @abstractmethod
     def add_distance(self, name, function):
+        """Register a distance function under `name`.
+
+        Parameters
+        ----------
+        name: str
+            Identifier for the distance.
+        function: callable
+            Function that computes distance between two instances.
+        """
         pass
 
     @abstractmethod
     def add_feature(self, name, function):
+        """Register a feature extraction function under `name`.
+
+        Parameters
+        ----------
+        name: str
+            Identifier for the feature.
+        function: callable
+            Function that extracts or computes the feature values for
+            instances.
+        """
         pass
 
     def import_instances(self, instances):
@@ -147,22 +228,69 @@ class Experiment(ABC):
         distance_id: str = None,
         num_processes: int = 1,
         self_distances: bool = False,
+        recompute: bool = True,
     ) -> None:
-        """Compute distances between instances (using processes)"""
+        """Compute distances between instances (using processes).
+
+        Parameters
+        ----------
+        distance_id : str
+            Identifier for the distance to compute.
+        num_processes : int
+            Number of worker processes to use (if allowed).
+        self_distances : bool
+            Whether to compute self-distances (i==j).
+        recompute : bool
+            If True (default) compute all requested pairs. If False, only compute
+            pairs that don't already have a value in `self.distances`/`self.times`.
+        """
 
         self.distance_id = distance_id
 
-        matchings = {instance_id: {} for instance_id in self.instances}
-        distances = {instance_id: {} for instance_id in self.instances}
-        times = {instance_id: {} for instance_id in self.instances}
+        # If we don't want to recompute, start from existing stored values so
+        # we preserve already-computed distances/times/matchings and only add
+        # the missing ones. Otherwise initialize empty containers.
+        if not recompute and isinstance(self.distances, dict):
+            matchings = {
+                instance_id: dict(self.matchings.get(instance_id, {}))
+                for instance_id in self.instances
+            }
+            distances = {
+                instance_id: dict(self.distances.get(instance_id, {}))
+                for instance_id in self.instances
+            }
+            times = {
+                instance_id: dict(self.times.get(instance_id, {}))
+                for instance_id in self.instances
+            }
+        else:
+            matchings = {instance_id: {} for instance_id in self.instances}
+            distances = {instance_id: {} for instance_id in self.instances}
+            times = {instance_id: {} for instance_id in self.instances}
 
         ids = []
         for i, instance_1 in enumerate(self.instances):
             for j, instance_2 in enumerate(self.instances):
                 if i == j:
                     if self_distances:
+                        # include self-pair only if recomputing or missing
+                        if not recompute:
+                            if (
+                                instance_1 in distances
+                                and instance_2 in distances.get(instance_1, {})
+                            ):
+                                continue
                         ids.append((instance_1, instance_2))
                 elif i < j:
+                    # include pair only if recomputing or missing
+                    if not recompute:
+                        already = False
+                        if instance_1 in distances and instance_2 in distances.get(instance_1, {}):
+                            already = True
+                        if instance_2 in distances and instance_1 in distances.get(instance_2, {}):
+                            already = True
+                        if already:
+                            continue
                     ids.append((instance_1, instance_2))
 
         num_distances = len(ids)
@@ -189,8 +317,20 @@ class Experiment(ABC):
             for process in processes:
                 process.join()
 
-            distances = {instance_id: {} for instance_id in self.instances}
-            times = {instance_id: {} for instance_id in self.instances}
+            # If we're not recomputing, preserve previously stored values and
+            # merge with the per-process CSV outputs; otherwise start fresh.
+            if not recompute and isinstance(self.distances, dict):
+                distances = {
+                    instance_id: dict(self.distances.get(instance_id, {}))
+                    for instance_id in self.instances
+                }
+                times = {
+                    instance_id: dict(self.times.get(instance_id, {}))
+                    for instance_id in self.instances
+                }
+            else:
+                distances = {instance_id: {} for instance_id in self.instances}
+                times = {instance_id: {} for instance_id in self.instances}
             for t in range(num_processes):
 
                 file_name = f"{distance_id}_p{t}.csv"
@@ -269,6 +409,12 @@ class Experiment(ABC):
             self.coordinates = {}
 
     def reset_cultures(self):
+        """Reset (clear) family and instance state stored in the experiment.
+
+        This clears `self.families`, resets family/instance counts to zero and
+        empties the `self.instances` mapping. Use this when you want to remove
+        all loaded cultures and instances from the current experiment object.
+        """
 
         self.families = {}
         self.num_families = 0
@@ -312,6 +458,11 @@ class Experiment(ABC):
             pr.print_map_3d(self, **kwargs)
 
     def print_matrix(self, **kwargs):
+        """Render or save a matrix representation of pairwise distances.
+
+        This is a thin wrapper that delegates to the printing module. The
+        `kwargs` are forwarded to `pr.print_matrix`.
+        """
         pr.print_matrix(experiment=self, **kwargs)
 
     def compute_coordinates_by_families(self, dim=2) -> None:
@@ -330,7 +481,10 @@ class Experiment(ABC):
                 alpha = 1.0
 
                 self.families[instance_id] = Family(
-                    culture_id=model, family_id=family_id, label=label, alpha=alpha
+                    culture_id=model,
+                    family_id=family_id,
+                    label=label,
+                    alpha=alpha
                 )
 
             for family_id in self.families:
@@ -379,7 +533,13 @@ class Experiment(ABC):
         self.coordinates_by_families = coordinates_by_families
 
     def rotate(self, angle) -> None:
-        """Rotates all the points by a given angle"""
+        """Rotates all the points by a given angle
+
+        Parameters
+        ----------
+        angle: float
+            Rotation angle in radians.
+        """
 
         for instance_id in self.instances:
             self.coordinates[instance_id][0], self.coordinates[instance_id][1] = (
@@ -395,7 +555,13 @@ class Experiment(ABC):
         self.compute_coordinates_by_families()
 
     def reverse(self, axis=0) -> None:
-        """Reverses all the points"""
+        """Reverses coordinates along an axis.
+
+        Parameters
+        ----------
+        axis: int, optional
+            Axis to reverse (0 for y-axis, 1 for x-axis). Defaults to 0.
+        """
 
         if axis == 0:
             for instance_id in self.instances:
@@ -426,8 +592,23 @@ class Experiment(ABC):
                 writer.writerow([election_id, x, y])
 
     @staticmethod
-    def rotate_point(cx, cy, angle, px, py) -> (float, float):
-        """Rotate two-dimensional point by an angle"""
+    def rotate_point(cx, cy, angle, px, py) -> tuple[float, float]:
+        """Rotate two-dimensional point by an angle
+
+        Parameters
+        ----------
+        cx, cy: float
+            Center coordinates to rotate around.
+        angle: float
+            Rotation angle in radians.
+        px, py: float
+            Coordinates of the point to rotate.
+
+        Returns
+        -------
+        (float, float)
+            The rotated point coordinates.
+        """
 
         s, c = math.sin(angle), math.cos(angle)
         px -= cx
@@ -438,15 +619,50 @@ class Experiment(ABC):
         return px, py
 
     def clean_instances(self):
+        """Remove all files from the experiment's 'instances' folder.
+
+        This deletes every file contained in
+        'experiments/<experiment_id>/instances'.
+        """
         path = os.path.join(os.getcwd(), "experiments", self.experiment_id, "instances")
         for file_name in os.listdir(path):
             os.remove(os.path.join(path, file_name))
 
     def get_feature(self, feature_id, column_id="value"):
+        """Return cached feature values, importing them if necessary.
+
+        Parameters
+        ----------
+        feature_id: str
+            Identifier of the feature to retrieve.
+        column_id: str, optional
+            Column name to read from the underlying CSV. Defaults to 'value'.
+
+        Returns
+        -------
+        dict
+            Mapping from instance IDs to feature values.
+        """
         self.features[feature_id] = self.import_feature(feature_id, column_id=column_id)
         return self.features[feature_id]
 
     def import_feature(self, feature_id, column_id="value", rule=None):
+        """Import a feature column from persisted CSV storage.
+
+        Parameters
+        ----------
+        feature_id: str
+            Short identifier for the feature.
+        column_id: str, optional
+            Column name to import. Defaults to 'value'.
+        rule: str, optional
+            Optional rule/variant name appended to the feature identifier.
+
+        Returns
+        -------
+        dict
+            Mapping from instance IDs to imported values.
+        """
         if rule is None:
             feature_long_id = feature_id
         else:
@@ -461,6 +677,22 @@ class Experiment(ABC):
     def normalize_feature_by_feature(
         self, nom=None, denom=None, saveas=None, column_id="value"
     ) -> None:
+        """Compute and export the element-wise ratio of two features.
+
+        The function reads numerator (`nom`) and denominator (`denom`) feature
+        maps, computes the ratio for each instance and exports the result.
+
+        Parameters
+        ----------
+        nom: str
+            Feature id to use as numerator.
+        denom: str
+            Feature id to use as denominator.
+        saveas: str, optional
+            Filename to save the normalized feature under.
+        column_id: str, optional
+            Column name to read from the underlying CSVs. Defaults to 'value'.
+        """
         f1 = self.get_feature(nom, column_id=column_id)
         f2 = self.get_feature(denom, column_id=column_id)
         f3 = {}
@@ -553,9 +785,8 @@ class Experiment(ABC):
                     values_x.append(all_distances[name_1][e1][e2])
                     values_y.append(all_distances[name_2][e1][e2])
 
-            fig = plt.figure(figsize=[6.4, 4.8])
-            plt.gcf().subplots_adjust(left=0.2)
-            plt.gcf().subplots_adjust(bottom=0.2)
+            fig = plt.figure(figsize=(6.4, 4.8))
+            plt.gcf().subplots_adjust(left=0.2, bottom=0.2)
             ax = fig.add_subplot()
 
             ax.scatter(values_x, values_y, s=s, alpha=alpha, color=color)
@@ -593,6 +824,21 @@ class Experiment(ABC):
         nrow: int = 1,
         object_type: str = None,
     ) -> None:
+        """Create a tiled image composed of per-instance images.
+
+        Parameters
+        ----------
+        size: int
+            Background color/value for the new image (0-255 used for RGB).
+        name: str
+            Directory name under `images/` where per-instance files are stored.
+        show: bool
+            Whether to display the final image after saving.
+        ncol, nrow: int
+            Number of columns and rows in the output tile.
+        object_type: str
+            Suffix identifying which image type to use for each instance.
+        """
         if object_type is None:
             logging.warning("Object type not defined!")
 
@@ -628,6 +874,10 @@ class Experiment(ABC):
         ncol: int = 1,
         nrow: int = 1,
     ) -> None:
+        """Create a tiled image using two per-instance images concatenated in
+        sequence for each instance. The two image types are provided via
+        `distance_ids`.
+        """
         images = []
         for i, election in enumerate(self.instances.values()):
             images.append(
