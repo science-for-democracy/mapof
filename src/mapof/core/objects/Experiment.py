@@ -275,9 +275,8 @@ class Experiment(ABC):
                     if self_distances:
                         # include self-pair only if recomputing or missing
                         if not recompute:
-                            if (
-                                instance_1 in distances
-                                and instance_2 in distances.get(instance_1, {})
+                            if instance_1 in distances and instance_2 in distances.get(
+                                instance_1, {}
                             ):
                                 continue
                         ids.append((instance_1, instance_2))
@@ -285,9 +284,13 @@ class Experiment(ABC):
                     # include pair only if recomputing or missing
                     if not recompute:
                         already = False
-                        if instance_1 in distances and instance_2 in distances.get(instance_1, {}):
+                        if instance_1 in distances and instance_2 in distances.get(
+                            instance_1, {}
+                        ):
                             already = True
-                        if instance_2 in distances and instance_1 in distances.get(instance_2, {}):
+                        if instance_2 in distances and instance_1 in distances.get(
+                            instance_2, {}
+                        ):
                             already = True
                         if already:
                             continue
@@ -481,10 +484,7 @@ class Experiment(ABC):
                 alpha = 1.0
 
                 self.families[instance_id] = Family(
-                    culture_id=model,
-                    family_id=family_id,
-                    label=label,
-                    alpha=alpha
+                    culture_id=model, family_id=family_id, label=label, alpha=alpha
                 )
 
             for family_id in self.families:
