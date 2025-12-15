@@ -26,7 +26,6 @@ class TestSolveMatching(unittest.TestCase):
         self.assertEqual(obj_val, 4)  # Optimal assignment: (0,2), (1,1), (2,0)
         self.assertEqual(matching, [2, 1, 0])
 
-    #@pytest.mark.gurobi
     def test_solve_matching_matrices(self):
         # Test case 1: Simple 2x2 matrices with L1 distance
         matrix_1 = [[0, 1], [2, 0]]
@@ -60,7 +59,6 @@ def test_solve_matching_vectors_rectangular():
     assert matching == [1, 0]
 
 
-@pytest.mark.gurobi
 def test_solve_matching_matrices_handles_non_optimal(monkeypatch, capsys):
     matrix_1 = [[0, 1], [1, 0]]
     matrix_2 = [[0, 1], [1, 0]]
