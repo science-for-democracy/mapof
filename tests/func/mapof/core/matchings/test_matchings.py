@@ -2,6 +2,7 @@ import unittest
 import numpy as np
 from gurobipy import GRB
 import pytest
+import mapof.core.matchings as matchings_module
 from mapof.core.matchings import *
 from mapof.core.distances import single_l1
 
@@ -25,7 +26,6 @@ class TestSolveMatching(unittest.TestCase):
         self.assertEqual(obj_val, 4)  # Optimal assignment: (0,2), (1,1), (2,0)
         self.assertEqual(matching, [2, 1, 0])
 
-    @pytest.mark.gurobi
     def test_solve_matching_matrices(self):
         # Test case 1: Simple 2x2 matrices with L1 distance
         matrix_1 = [[0, 1], [2, 0]]
@@ -50,3 +50,22 @@ class TestSolveMatching(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def test_solve_matching_vectors_rectangular():
+    cost_table = [[4, 1, 3], [2, 0, 5]]
+    obj_val, matching = solve_matching_vectors(cost_table)
+    assert obj_val == 3
+    assert matching == [1, 0]
+
+
+def test_solve_matching_matrices_handles_non_optimal(monkeypatch, capsys):
+    matrix_1 = [[0, 1], [1, 0]]
+    matrix_2 = [[0, 1], [1, 0]]
+
+    monkeypatch.setattr(matchings_module.GRB, "OPTIMAL", -1)
+
+    result = solve_matching_matrices(matrix_1, matrix_2, 2, single_l1)
+    captured = capsys.readouterr()
+    assert result is None
+    assert "Exception raised while solving" in captured.out
