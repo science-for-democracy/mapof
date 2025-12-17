@@ -359,21 +359,14 @@ class Experiment(ABC):
                             row["time"]
                         )
 
-
-
         self.distances = distances
         self.times = times
         self.matchings = matchings
 
         if self.is_exported:
             exports.export_distances_to_file(
-                self,
-                distance_id,
-                self.distances,
-                self.times,
-                all_ids
+                self, distance_id, self.distances, self.times, all_ids
             )
-
 
     def import_distances(self, distances):
         """Imports distances to the experiment."""
