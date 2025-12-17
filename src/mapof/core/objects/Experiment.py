@@ -269,10 +269,12 @@ class Experiment(ABC):
             times = {instance_id: {} for instance_id in self.instances}
 
         ids = []
+        all_ids = []
         for i, instance_1 in enumerate(self.instances):
             for j, instance_2 in enumerate(self.instances):
                 if i == j:
                     if self_distances:
+                        all_ids.append((instance_1, instance_2))
                         # include self-pair only if recomputing or missing
                         if not recompute:
                             if instance_1 in distances and instance_2 in distances.get(
@@ -281,6 +283,7 @@ class Experiment(ABC):
                                 continue
                         ids.append((instance_1, instance_2))
                 elif i < j:
+                    all_ids.append((instance_1, instance_2))
                     # include pair only if recomputing or missing
                     if not recompute:
                         already = False
@@ -356,12 +359,21 @@ class Experiment(ABC):
                             row["time"]
                         )
 
-        if self.is_exported:
-            exports.export_distances_to_file(self, distance_id, distances, times, ids)
+
 
         self.distances = distances
         self.times = times
         self.matchings = matchings
+
+        if self.is_exported:
+            exports.export_distances_to_file(
+                self,
+                distance_id,
+                self.distances,
+                self.times,
+                all_ids
+            )
+
 
     def import_distances(self, distances):
         """Imports distances to the experiment."""
