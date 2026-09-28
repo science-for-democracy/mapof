@@ -16,7 +16,9 @@ def experiment_with_feature_csv(tmp_path, monkeypatch):
     return SimpleNamespace(experiment_id="exp")
 
 
-def test_import_feature_reads_values_from_experiment_folder(experiment_with_feature_csv):
+def test_import_feature_reads_values_from_experiment_folder(
+    experiment_with_feature_csv,
+):
     values = Experiment.import_feature(experiment_with_feature_csv, "my_feature")
 
     assert values == {"a": 0.25, "b": None}
