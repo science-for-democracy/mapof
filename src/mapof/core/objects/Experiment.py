@@ -673,7 +673,7 @@ class Experiment(ABC):
         else:
             feature_long_id = f"{feature_id}_{rule}"
         return imports.get_values_from_csv_file(
-            self,
+            self.experiment_id,
             feature_id=feature_id,
             column_id=column_id,
             feature_long_id=feature_long_id,
